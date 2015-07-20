@@ -1,0 +1,294 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0D72EC371B5CA230001B6659 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC2B1B5CA230001B6659 /* Address.swift */; };
+		0D72EC381B5CA230001B6659 /* CUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC2C1B5CA230001B6659 /* CUtil.c */; };
+		0D72EC391B5CA230001B6659 /* HttpConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC2E1B5CA230001B6659 /* HttpConnection.swift */; };
+		0D72EC3A1B5CA230001B6659 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC2F1B5CA230001B6659 /* HttpRequest.swift */; };
+		0D72EC3B1B5CA230001B6659 /* HttpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC301B5CA230001B6659 /* HttpResponse.swift */; };
+		0D72EC3C1B5CA230001B6659 /* HttpServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC311B5CA230001B6659 /* HttpServer.swift */; };
+		0D72EC3D1B5CA230001B6659 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC321B5CA230001B6659 /* main.swift */; };
+		0D72EC3E1B5CA230001B6659 /* Poller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC331B5CA230001B6659 /* Poller.swift */; };
+		0D72EC3F1B5CA230001B6659 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC341B5CA230001B6659 /* Settings.swift */; };
+		0D72EC401B5CA230001B6659 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC351B5CA230001B6659 /* StringExtension.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0D72EC1F1B5CA201001B6659 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0D72EC211B5CA201001B6659 /* SwiftHTTPServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftHTTPServer; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D72EC2B1B5CA230001B6659 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		0D72EC2C1B5CA230001B6659 /* CUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CUtil.c; sourceTree = "<group>"; };
+		0D72EC2D1B5CA230001B6659 /* CUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUtil.h; sourceTree = "<group>"; };
+		0D72EC2E1B5CA230001B6659 /* HttpConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpConnection.swift; sourceTree = "<group>"; };
+		0D72EC2F1B5CA230001B6659 /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
+		0D72EC301B5CA230001B6659 /* HttpResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpResponse.swift; sourceTree = "<group>"; };
+		0D72EC311B5CA230001B6659 /* HttpServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpServer.swift; sourceTree = "<group>"; };
+		0D72EC321B5CA230001B6659 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		0D72EC331B5CA230001B6659 /* Poller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Poller.swift; sourceTree = "<group>"; };
+		0D72EC341B5CA230001B6659 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		0D72EC351B5CA230001B6659 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		0D72EC361B5CA230001B6659 /* SwiftHTTPServer-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SwiftHTTPServer-Bridging-Header.h"; sourceTree = "<group>"; };
+		0D72EC411B5CA29B001B6659 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0D72EC1E1B5CA201001B6659 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0D72EC181B5CA200001B6659 = {
+			isa = PBXGroup;
+			children = (
+				0D72EC231B5CA201001B6659 /* SwiftHTTPServer */,
+				0D72EC221B5CA201001B6659 /* Products */,
+				0D72EC411B5CA29B001B6659 /* www */,
+			);
+			sourceTree = "<group>";
+		};
+		0D72EC221B5CA201001B6659 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0D72EC211B5CA201001B6659 /* SwiftHTTPServer */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0D72EC231B5CA201001B6659 /* SwiftHTTPServer */ = {
+			isa = PBXGroup;
+			children = (
+				0D72EC2B1B5CA230001B6659 /* Address.swift */,
+				0D72EC2C1B5CA230001B6659 /* CUtil.c */,
+				0D72EC2D1B5CA230001B6659 /* CUtil.h */,
+				0D72EC2E1B5CA230001B6659 /* HttpConnection.swift */,
+				0D72EC2F1B5CA230001B6659 /* HttpRequest.swift */,
+				0D72EC301B5CA230001B6659 /* HttpResponse.swift */,
+				0D72EC311B5CA230001B6659 /* HttpServer.swift */,
+				0D72EC321B5CA230001B6659 /* main.swift */,
+				0D72EC331B5CA230001B6659 /* Poller.swift */,
+				0D72EC341B5CA230001B6659 /* Settings.swift */,
+				0D72EC351B5CA230001B6659 /* StringExtension.swift */,
+				0D72EC361B5CA230001B6659 /* SwiftHTTPServer-Bridging-Header.h */,
+			);
+			path = SwiftHTTPServer;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0D72EC201B5CA201001B6659 /* SwiftHTTPServer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0D72EC281B5CA201001B6659 /* Build configuration list for PBXNativeTarget "SwiftHTTPServer" */;
+			buildPhases = (
+				0D72EC1D1B5CA201001B6659 /* Sources */,
+				0D72EC1E1B5CA201001B6659 /* Frameworks */,
+				0D72EC1F1B5CA201001B6659 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftHTTPServer;
+			productName = SwiftHTTPServer;
+			productReference = 0D72EC211B5CA201001B6659 /* SwiftHTTPServer */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0D72EC191B5CA200001B6659 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Josh Beam";
+				TargetAttributes = {
+					0D72EC201B5CA201001B6659 = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+				};
+			};
+			buildConfigurationList = 0D72EC1C1B5CA200001B6659 /* Build configuration list for PBXProject "SwiftHTTPServer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0D72EC181B5CA200001B6659;
+			productRefGroup = 0D72EC221B5CA201001B6659 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0D72EC201B5CA201001B6659 /* SwiftHTTPServer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0D72EC1D1B5CA201001B6659 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D72EC3B1B5CA230001B6659 /* HttpResponse.swift in Sources */,
+				0D72EC3D1B5CA230001B6659 /* main.swift in Sources */,
+				0D72EC401B5CA230001B6659 /* StringExtension.swift in Sources */,
+				0D72EC391B5CA230001B6659 /* HttpConnection.swift in Sources */,
+				0D72EC3C1B5CA230001B6659 /* HttpServer.swift in Sources */,
+				0D72EC3A1B5CA230001B6659 /* HttpRequest.swift in Sources */,
+				0D72EC3E1B5CA230001B6659 /* Poller.swift in Sources */,
+				0D72EC3F1B5CA230001B6659 /* Settings.swift in Sources */,
+				0D72EC371B5CA230001B6659 /* Address.swift in Sources */,
+				0D72EC381B5CA230001B6659 /* CUtil.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0D72EC261B5CA201001B6659 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		0D72EC271B5CA201001B6659 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		0D72EC291B5CA201001B6659 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftHTTPServer/SwiftHTTPServer-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				WWW_PATH = "$(PROJECT_DIR)/www";
+			};
+			name = Debug;
+		};
+		0D72EC2A1B5CA201001B6659 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftHTTPServer/SwiftHTTPServer-Bridging-Header.h";
+				WWW_PATH = "$(PROJECT_DIR)/www";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0D72EC1C1B5CA200001B6659 /* Build configuration list for PBXProject "SwiftHTTPServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D72EC261B5CA201001B6659 /* Debug */,
+				0D72EC271B5CA201001B6659 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0D72EC281B5CA201001B6659 /* Build configuration list for PBXNativeTarget "SwiftHTTPServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D72EC291B5CA201001B6659 /* Debug */,
+				0D72EC2A1B5CA201001B6659 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0D72EC191B5CA200001B6659 /* Project object */;
+}
