@@ -23,8 +23,6 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
-
 class Settings {
     static var wwwPath: String? {
         return Process.arguments.count >= 2 ? Process.arguments[1] : nil

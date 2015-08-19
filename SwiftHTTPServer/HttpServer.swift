@@ -23,8 +23,6 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
-
 /// Represents an HTTP server bound to a particular address and port.
 /// Handles accepting and managing connections from clients.
 class HttpServer: Printable {

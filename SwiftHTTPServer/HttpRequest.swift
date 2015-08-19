@@ -23,8 +23,6 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
-
 /// Represents an HTTP request from a client.
 class HttpRequest: Printable {
     var method: String

@@ -23,8 +23,6 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
-
 println("wwwPath: \(Settings.wwwPath)")
 
 if let address = Address.fromHostname("localhost") {

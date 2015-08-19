@@ -32,6 +32,10 @@
 
 #include "CUtil.h"
 
+int myClose(int fd) {
+    return close(fd);
+}
+
 int myBind(int ipv4, const uint8_t *address, uint16_t port) {
     int fd;
 

@@ -23,8 +23,6 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
-
 enum AddressType {
     case IPv4, IPv6
 }
@@ -42,7 +40,7 @@ struct Address: Printable {
      * :returns: Address, or nil if the hostname could not be resolved.
      */
     static func fromHostname(hostname: String) -> Address? {
-        let hostnameCStr = hostname.cStringUsingEncoding(NSASCIIStringEncoding)
+        let hostnameCStr = hostname.cStringUsingEncoding(1) // ASCII
         if hostnameCStr == nil {
             return nil
         }

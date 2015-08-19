@@ -28,6 +28,7 @@
 
 #include <sys/types.h>
 
+int myClose(int fd);
 int myBind(int ipv4, const uint8_t *address, uint16_t port);
 int myAccept(int fd, int ipv4, uint8_t *address, uint16_t *port);
 ssize_t mySend(int fd, const char *s, size_t length);

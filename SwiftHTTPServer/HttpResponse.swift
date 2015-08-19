@@ -40,7 +40,7 @@ class HttpResponse: Printable {
         }
 
         set {
-            content = newValue?.cStringUsingEncoding(NSUTF8StringEncoding)
+            content = newValue?.cStringUsingEncoding(4) // UTF-8
             contentLength = (content?.count ?? 1) - 1
         }
     }

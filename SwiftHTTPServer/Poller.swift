@@ -23,8 +23,6 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
-
 /// Polls a list of sockets for activity, and calls a closure
 /// associated with a particular socket when it has data available.
 class Poller {

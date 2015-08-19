@@ -23,8 +23,6 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
-
 private let newlineChar: CChar = 10
 
 /// Represents an HTTP connection from a client. Instances of this class
@@ -56,14 +54,14 @@ class HttpConnection: Printable {
 
     /// Closes the connection.
     func close() {
-        Foundation.close(fd)
+        myClose(fd)
         println("\(self): Connection closed")
         connectionClosedClosure(self)
     }
 
     /// Sends the given string to the client.
     func send(string: String) {
-        let cString = string.cStringUsingEncoding(NSUTF8StringEncoding)!
+        let cString = string.cStringUsingEncoding(4)! // UTF-8
         mySend(fd, cString, cString.count - 1)
     }
 

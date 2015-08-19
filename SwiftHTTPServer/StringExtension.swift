@@ -23,8 +23,6 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
-
 private var fileContentTypes: [String: String] = [
     "css": "text/css",
     "html": "text/html",
