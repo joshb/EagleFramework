@@ -26,7 +26,7 @@
 import Foundation
 
 /// Represents a response to an HTTP request.
-class HttpResponse: Printable {
+class HttpResponse: CustomStringConvertible {
     var version = "HTTP/1.1"
     var statusCode = 200
     var statusMessage = "OK"
@@ -70,7 +70,7 @@ class HttpResponse: Printable {
     // The length (in bytes) of the HTTP response's content.
     var contentLength: Int {
         get {
-            return headers["Content-Length"]?.toInt() ?? 0
+            return Int(headers["Content-Length"] ?? "0") ?? 0
         }
 
         set {

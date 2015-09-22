@@ -32,8 +32,8 @@ class Poller {
     /**
      * Adds a socket to be polled.
      *
-     * :param: socket Integer representing the socket to be polled.
-     * :param: closure Closure to execute when the socket has data available.
+     * - parameter socket: Integer representing the socket to be polled.
+     * - parameter closure: Closure to execute when the socket has data available.
      */
     func addSocket(socket: Int32, closure: (Int32) -> ()) {
         pollfds.append(pollfd(fd: socket, events: Int16(POLLIN), revents: 0))
@@ -43,7 +43,7 @@ class Poller {
     /**
      * Remove a socket so that it is no longer polled.
      *
-     * :param: socket Integer representing the socket to stop polling.
+     * - parameter socket: Integer representing the socket to stop polling.
      */
     func removeSocket(socket: Int32) {
         var index = -1

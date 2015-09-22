@@ -27,7 +27,7 @@ private let newlineChar: CChar = 10
 
 /// Represents an HTTP connection from a client. Instances of this class
 /// can be used to handle the processing of requests and sending responses.
-class HttpConnection: Printable {
+class HttpConnection: CustomStringConvertible {
     private(set) var fd: Int32
     private(set) var address: Address
     private(set) var port: UInt16
@@ -49,13 +49,13 @@ class HttpConnection: Printable {
         self.port = port
         self.connectionClosedClosure = connectionClosedClosure
 
-        println("\(self): Connection opened")
+        print("\(self): Connection opened")
     }
 
     /// Closes the connection.
     func close() {
         myClose(fd)
-        println("\(self): Connection closed")
+        print("\(self): Connection closed")
         connectionClosedClosure(self)
     }
 
@@ -81,7 +81,7 @@ class HttpConnection: Printable {
     }
 
     private func processRequest(request: HttpRequest) {
-        println("\(self): Received request: \(request)")
+        print("\(self): Received request: \(request)")
 
         var response: HttpResponse?
         if let path = request.safeFilePath {
@@ -132,7 +132,7 @@ class HttpConnection: Printable {
                 }
             }
 
-            lineBuffer.extend(buf[bufStart..<length])
+            lineBuffer.appendContentsOf(buf[bufStart..<length])
         }
 
         readMilliseconds = getMilliseconds()

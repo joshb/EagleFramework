@@ -28,7 +28,7 @@ enum AddressType {
 }
 
 /// Represents an IPv4 or IPv6 address.
-struct Address: Printable {
+struct Address: CustomStringConvertible {
     var type: AddressType
     var address: [UInt8]
     var hostname: String?
@@ -36,8 +36,8 @@ struct Address: Printable {
     /**
      * Resolves an address from the given hostname.
      *
-     * :param: hostname Hostname to resolve.
-     * :returns: Address, or nil if the hostname could not be resolved.
+     * - parameter hostname: Hostname to resolve.
+     * - returns: Address, or nil if the hostname could not be resolved.
      */
     static func fromHostname(hostname: String) -> Address? {
         let hostnameCStr = hostname.cStringUsingEncoding(1) // ASCII
@@ -80,7 +80,7 @@ struct Address: Printable {
 
         if type == .IPv4 {
             for i in 0..<4 {
-                if count(s) > 0 {
+                if s.characters.count > 0 {
                     s += "."
                 }
 
@@ -88,7 +88,7 @@ struct Address: Printable {
             }
         } else {
             for i in 0..<16 {
-                if count(s) > 0 {
+                if s.characters.count > 0 {
                     s += ":"
                 }
 

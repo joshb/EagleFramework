@@ -24,7 +24,7 @@
  */
 
 /// Represents an HTTP request from a client.
-class HttpRequest: Printable {
+class HttpRequest: CustomStringConvertible {
     var method: String
     var path: String
     var version: String
@@ -51,7 +51,7 @@ class HttpRequest: Printable {
             return nil
         }
 
-        var request = HttpRequest(method: parts[0].trimmed,
+        let request = HttpRequest(method: parts[0].trimmed,
                                   path: parts[1].trimmed,
                                   version: parts[2].trimmed)
 

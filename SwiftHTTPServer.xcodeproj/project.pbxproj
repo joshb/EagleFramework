@@ -121,6 +121,7 @@
 		0D72EC191B5CA200001B6659 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Josh Beam";
 				TargetAttributes = {
@@ -287,6 +288,7 @@
 				0D72EC2A1B5CA201001B6659 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -23,15 +23,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-println("wwwPath: \(Settings.wwwPath)")
+print("wwwPath: \(Settings.wwwPath)")
 
 if let address = Address.fromHostname("localhost") {
     if let server = HttpServer.start(address: address, port: 5000) {
-        println("HTTP server started at \(server)")
+        print("HTTP server started at \(server)")
         server.run()
     } else {
-        println("Unable to start HTTP server")
+        print("Unable to start HTTP server")
     }
 } else {
-    println("Unable to resolve localhost")
+    print("Unable to resolve localhost")
 }

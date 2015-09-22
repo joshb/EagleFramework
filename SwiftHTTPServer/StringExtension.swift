@@ -36,7 +36,7 @@ extension String {
     }
 
     var fileContentType: String {
-        var parts = self.split(".")
+        let parts = self.split(".")
         if let fileExtension = parts.last {
             if let contentType = fileContentTypes[fileExtension.lowercaseString] {
                 return contentType
@@ -47,7 +47,7 @@ extension String {
     }
 
     var length: Int {
-        return count(self)
+        return self.characters.count
     }
 
     func split(delimiter: String) -> [String] {
@@ -55,12 +55,12 @@ extension String {
     }
 
     func substring(startIndex: Int, length: Int) -> String {
-        return self.substringWithRange(Range<String.Index>(start: advance(self.startIndex, startIndex),
-                                                           end: advance(self.startIndex, startIndex + length)))
+        return self.substringWithRange(Range<String.Index>(start: self.startIndex.advancedBy(startIndex),
+                                                           end: self.startIndex.advancedBy(startIndex + length)))
     }
 
     func substring(startIndex: Int) -> String {
-        return self.substringWithRange(Range<String.Index>(start: advance(self.startIndex, startIndex),
+        return self.substringWithRange(Range<String.Index>(start: self.startIndex.advancedBy(startIndex),
                                                            end: self.endIndex))
     }
 

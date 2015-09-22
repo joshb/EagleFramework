@@ -25,7 +25,7 @@
 
 /// Represents an HTTP server bound to a particular address and port.
 /// Handles accepting and managing connections from clients.
-class HttpServer: Printable {
+class HttpServer: CustomStringConvertible {
     private(set) var address: Address
     private(set) var port: UInt16
 
@@ -72,7 +72,7 @@ class HttpServer: Printable {
     /**
      * Called when a connection has been closed.
      *
-     * :param: connection The connection that was closed.
+     * - parameter connection: The connection that was closed.
      */
     private func connectionClosed(connection: HttpConnection) {
         poller.removeSocket(connection.fd)
@@ -81,7 +81,7 @@ class HttpServer: Printable {
     /**
      * Called when data is available to be read from the given socket.
      *
-     * :param: socket Integer representing the socket that has data available.
+     * - parameter socket: Integer representing the socket that has data available.
      */
     private func readFromConnectionSocket(socket: Int32) {
         if let connection = connections[socket] {
@@ -103,10 +103,10 @@ class HttpServer: Printable {
     /**
      * Creates a new HTTP server that listens for connections to the given address/port.
      *
-     * :param: address The address to listen for connections to.
-     * :param: port The port to listen for connections to.
+     * - parameter address: The address to listen for connections to.
+     * - parameter port: The port to listen for connections to.
      */
-    static func start(#address: Address, port: UInt16) -> HttpServer? {
+    static func start(address address: Address, port: UInt16) -> HttpServer? {
         let socket = myBind(address.type == .IPv4 ? 1 : 0, address.address, port)
         return socket >= 0 ? HttpServer(boundSocket: socket, address: address, port: port) : nil
     }
