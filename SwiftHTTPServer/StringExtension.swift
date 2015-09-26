@@ -64,18 +64,18 @@ extension String {
                                                            end: self.endIndex))
     }
 
-    static private func isWhitespace(c: String) -> Bool {
+    static private func isWhitespace(c: Character) -> Bool {
         return c == " " || c == "\r" || c == "\n" || c == "\t"
     }
 
     var trimmed: String {
         var s = self
 
-        while !s.isEmpty && String.isWhitespace(s.substring(0, length: 1)) {
+        while !s.isEmpty && String.isWhitespace(s.characters[s.startIndex]) {
             s = s.substring(1)
         }
 
-        while !s.isEmpty && String.isWhitespace(s.substring(s.length - 1, length: 1)) {
+        while !s.isEmpty && String.isWhitespace(s.characters[s.endIndex.predecessor()]) {
             s = s.substring(0, length: s.length - 1)
         }
 
