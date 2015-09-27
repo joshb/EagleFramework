@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D04A4EE1BB8557A00818D64 /* FileResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D04A4ED1BB8557A00818D64 /* FileResponder.swift */; settings = {ASSET_TAGS = (); }; };
+		0D0666311BB74D4C00F9C362 /* Responder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0666301BB74D4C00F9C362 /* Responder.swift */; settings = {ASSET_TAGS = (); }; };
+		0D0666331BB74DEF00F9C362 /* ResponderRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0666321BB74DEF00F9C362 /* ResponderRegistry.swift */; settings = {ASSET_TAGS = (); }; };
 		0D72EC371B5CA230001B6659 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC2B1B5CA230001B6659 /* Address.swift */; };
 		0D72EC381B5CA230001B6659 /* CUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC2C1B5CA230001B6659 /* CUtil.c */; };
 		0D72EC391B5CA230001B6659 /* HttpConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC2E1B5CA230001B6659 /* HttpConnection.swift */; };
@@ -32,6 +35,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0D04A4ED1BB8557A00818D64 /* FileResponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileResponder.swift; sourceTree = "<group>"; };
+		0D0666301BB74D4C00F9C362 /* Responder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Responder.swift; sourceTree = "<group>"; };
+		0D0666321BB74DEF00F9C362 /* ResponderRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponderRegistry.swift; sourceTree = "<group>"; };
 		0D72EC211B5CA201001B6659 /* SwiftHTTPServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftHTTPServer; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D72EC2B1B5CA230001B6659 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		0D72EC2C1B5CA230001B6659 /* CUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CUtil.c; sourceTree = "<group>"; };
@@ -59,6 +65,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D04A4EC1BB8556D00818D64 /* Responders */ = {
+			isa = PBXGroup;
+			children = (
+				0D04A4ED1BB8557A00818D64 /* FileResponder.swift */,
+				0D0666301BB74D4C00F9C362 /* Responder.swift */,
+				0D0666321BB74DEF00F9C362 /* ResponderRegistry.swift */,
+			);
+			name = Responders;
+			sourceTree = "<group>";
+		};
 		0D72EC181B5CA200001B6659 = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +95,7 @@
 		0D72EC231B5CA201001B6659 /* SwiftHTTPServer */ = {
 			isa = PBXGroup;
 			children = (
+				0D04A4EC1BB8556D00818D64 /* Responders */,
 				0D72EC2B1B5CA230001B6659 /* Address.swift */,
 				0D72EC2C1B5CA230001B6659 /* CUtil.c */,
 				0D72EC2D1B5CA230001B6659 /* CUtil.h */,
@@ -157,12 +174,15 @@
 				0D72EC3D1B5CA230001B6659 /* main.swift in Sources */,
 				0D72EC401B5CA230001B6659 /* StringExtension.swift in Sources */,
 				0D72EC391B5CA230001B6659 /* HttpConnection.swift in Sources */,
+				0D04A4EE1BB8557A00818D64 /* FileResponder.swift in Sources */,
 				0D72EC3C1B5CA230001B6659 /* HttpServer.swift in Sources */,
 				0D72EC3A1B5CA230001B6659 /* HttpRequest.swift in Sources */,
 				0D72EC3E1B5CA230001B6659 /* Poller.swift in Sources */,
 				0D72EC3F1B5CA230001B6659 /* Settings.swift in Sources */,
+				0D0666311BB74D4C00F9C362 /* Responder.swift in Sources */,
 				0D72EC371B5CA230001B6659 /* Address.swift in Sources */,
 				0D72EC381B5CA230001B6659 /* CUtil.c in Sources */,
+				0D0666331BB74DEF00F9C362 /* ResponderRegistry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

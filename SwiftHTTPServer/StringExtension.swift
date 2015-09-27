@@ -50,6 +50,10 @@ extension String {
         return self.characters.count
     }
 
+    func replace(target: String, withString replacement: String) -> String {
+        return self.stringByReplacingOccurrencesOfString(target, withString: replacement)
+    }
+
     func split(delimiter: String) -> [String] {
         return self.componentsSeparatedByString(delimiter)
     }
@@ -77,6 +81,22 @@ extension String {
 
         while !s.isEmpty && String.isWhitespace(s.characters[s.endIndex.predecessor()]) {
             s = s.substring(0, length: s.length - 1)
+        }
+
+        return s
+    }
+
+    var html: String {
+        let replacements = [
+            "<": "&lt;",
+            ">": "&gt;",
+            "\"": "&quot;"
+        ]
+
+        var s = self
+
+        for (key, value) in replacements {
+            s = s.replace(key, withString: value)
         }
 
         return s

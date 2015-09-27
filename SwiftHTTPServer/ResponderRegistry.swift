@@ -23,17 +23,29 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-print("wwwPath: \(Settings.wwwPath)")
+import Foundation
 
-ResponderRegistry.register(FileResponder())
+class ResponderRegistry {
+    private static var responders: [Responder] = []
 
-if let address = Address.fromHostname("localhost") {
-    if let server = HttpServer.start(address: address, port: 5000) {
-        print("HTTP server started at \(server)")
-        server.run()
-    } else {
-        print("Unable to start HTTP server")
+    static func register(responder: Responder) {
+        responders = [responder] + responders
     }
-} else {
-    print("Unable to resolve localhost")
+
+    static func respond(request: HttpRequest) -> HttpResponse {
+        var response: HttpResponse?
+
+        for responder in responders {
+            if responder.matchesRequest(request) {
+                response = responder.respond(request)
+                break
+            }
+        }
+
+        if response == nil {
+            response = HttpResponse.fileNotFound(request.path)
+        }
+
+        return response!
+    }
 }

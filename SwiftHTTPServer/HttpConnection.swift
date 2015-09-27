@@ -82,14 +82,7 @@ class HttpConnection: CustomStringConvertible {
 
     private func processRequest(request: HttpRequest) {
         print("\(self): Received request: \(request)")
-
-        var response: HttpResponse?
-        if let path = request.safeFilePath {
-            let filePath = Settings.wwwPath! + "/" + path
-            response = HttpResponse.file(filePath)
-        }
-
-        sendResponse(response ?? HttpResponse.fileNotFound(request.path))
+        sendResponse(ResponderRegistry.respond(request))
         close()
     }
 
