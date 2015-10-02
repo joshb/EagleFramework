@@ -64,7 +64,7 @@ extension String {
     }
 
     static private func isWhitespace(c: Character) -> Bool {
-        return c == " " || c == "\r" || c == "\n" || c == "\t"
+        return c == " " || c == "\r" || c == "\n" || c == "\r\n" || c == "\t"
     }
 
     var trimmed: String {
@@ -81,15 +81,14 @@ extension String {
         return s
     }
 
-    var html: String {
+    var htmlSafe: String {
         let replacements = [
             "<": "&lt;",
             ">": "&gt;",
             "\"": "&quot;"
         ]
 
-        var s = self
-
+        var s = self.replace("&", withString: "&amp;")
         for (key, value) in replacements {
             s = s.replace(key, withString: value)
         }

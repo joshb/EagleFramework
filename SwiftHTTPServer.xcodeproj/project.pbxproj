@@ -10,6 +10,8 @@
 		0D04A4EE1BB8557A00818D64 /* FileResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D04A4ED1BB8557A00818D64 /* FileResponder.swift */; settings = {ASSET_TAGS = (); }; };
 		0D0666311BB74D4C00F9C362 /* Responder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0666301BB74D4C00F9C362 /* Responder.swift */; settings = {ASSET_TAGS = (); }; };
 		0D0666331BB74DEF00F9C362 /* ResponderRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0666321BB74DEF00F9C362 /* ResponderRegistry.swift */; settings = {ASSET_TAGS = (); }; };
+		0D1028901BBF39E600F6AFA7 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D10288F1BBF39E600F6AFA7 /* StringExtensionTests.swift */; };
+		0D1028971BBF3F9700F6AFA7 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC351B5CA230001B6659 /* StringExtension.swift */; };
 		0D72EC371B5CA230001B6659 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC2B1B5CA230001B6659 /* Address.swift */; };
 		0D72EC381B5CA230001B6659 /* CUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC2C1B5CA230001B6659 /* CUtil.c */; };
 		0D72EC391B5CA230001B6659 /* HttpConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC2E1B5CA230001B6659 /* HttpConnection.swift */; };
@@ -38,6 +40,9 @@
 		0D04A4ED1BB8557A00818D64 /* FileResponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileResponder.swift; sourceTree = "<group>"; };
 		0D0666301BB74D4C00F9C362 /* Responder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Responder.swift; sourceTree = "<group>"; };
 		0D0666321BB74DEF00F9C362 /* ResponderRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponderRegistry.swift; sourceTree = "<group>"; };
+		0D10288D1BBF39E600F6AFA7 /* SwiftHTTPServerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftHTTPServerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D10288F1BBF39E600F6AFA7 /* StringExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
+		0D1028911BBF39E600F6AFA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D72EC211B5CA201001B6659 /* SwiftHTTPServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftHTTPServer; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D72EC2B1B5CA230001B6659 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		0D72EC2C1B5CA230001B6659 /* CUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CUtil.c; sourceTree = "<group>"; };
@@ -55,6 +60,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0D10288A1BBF39E600F6AFA7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0D72EC1E1B5CA201001B6659 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -75,10 +87,20 @@
 			name = Responders;
 			sourceTree = "<group>";
 		};
+		0D10288E1BBF39E600F6AFA7 /* SwiftHTTPServerTests */ = {
+			isa = PBXGroup;
+			children = (
+				0D10288F1BBF39E600F6AFA7 /* StringExtensionTests.swift */,
+				0D1028911BBF39E600F6AFA7 /* Info.plist */,
+			);
+			path = SwiftHTTPServerTests;
+			sourceTree = "<group>";
+		};
 		0D72EC181B5CA200001B6659 = {
 			isa = PBXGroup;
 			children = (
 				0D72EC231B5CA201001B6659 /* SwiftHTTPServer */,
+				0D10288E1BBF39E600F6AFA7 /* SwiftHTTPServerTests */,
 				0D72EC221B5CA201001B6659 /* Products */,
 				0D72EC411B5CA29B001B6659 /* www */,
 			);
@@ -88,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				0D72EC211B5CA201001B6659 /* SwiftHTTPServer */,
+				0D10288D1BBF39E600F6AFA7 /* SwiftHTTPServerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -115,6 +138,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0D10288C1BBF39E600F6AFA7 /* SwiftHTTPServerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0D1028921BBF39E600F6AFA7 /* Build configuration list for PBXNativeTarget "SwiftHTTPServerTests" */;
+			buildPhases = (
+				0D1028891BBF39E600F6AFA7 /* Sources */,
+				0D10288A1BBF39E600F6AFA7 /* Frameworks */,
+				0D10288B1BBF39E600F6AFA7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftHTTPServerTests;
+			productName = SwiftHTTPServerTests;
+			productReference = 0D10288D1BBF39E600F6AFA7 /* SwiftHTTPServerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		0D72EC201B5CA201001B6659 /* SwiftHTTPServer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0D72EC281B5CA201001B6659 /* Build configuration list for PBXNativeTarget "SwiftHTTPServer" */;
@@ -143,6 +183,9 @@
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Josh Beam";
 				TargetAttributes = {
+					0D10288C1BBF39E600F6AFA7 = {
+						CreatedOnToolsVersion = 7.0.1;
+					};
 					0D72EC201B5CA201001B6659 = {
 						CreatedOnToolsVersion = 6.3.2;
 					};
@@ -161,11 +204,31 @@
 			projectRoot = "";
 			targets = (
 				0D72EC201B5CA201001B6659 /* SwiftHTTPServer */,
+				0D10288C1BBF39E600F6AFA7 /* SwiftHTTPServerTests */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		0D10288B1BBF39E600F6AFA7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		0D1028891BBF39E600F6AFA7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D1028971BBF3F9700F6AFA7 /* StringExtension.swift in Sources */,
+				0D1028901BBF39E600F6AFA7 /* StringExtensionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0D72EC1D1B5CA201001B6659 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -189,6 +252,31 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		0D1028931BBF39E600F6AFA7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_TESTABILITY = YES;
+				INFOPLIST_FILE = SwiftHTTPServerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.joshbeam.SwiftHTTPServerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		0D1028941BBF39E600F6AFA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = SwiftHTTPServerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.joshbeam.SwiftHTTPServerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		0D72EC261B5CA201001B6659 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -293,6 +381,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0D1028921BBF39E600F6AFA7 /* Build configuration list for PBXNativeTarget "SwiftHTTPServerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D1028931BBF39E600F6AFA7 /* Debug */,
+				0D1028941BBF39E600F6AFA7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		0D72EC1C1B5CA200001B6659 /* Build configuration list for PBXProject "SwiftHTTPServer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
