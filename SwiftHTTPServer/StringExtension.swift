@@ -30,11 +30,6 @@ private var fileContentTypes: [String: String] = [
 ]
 
 extension String {
-    func contains(substring: String) -> Bool {
-        let range = self.rangeOfString(substring, options: .LiteralSearch, range: nil, locale: nil)
-        return range != nil
-    }
-
     var fileContentType: String {
         let parts = self.split(".")
         if let fileExtension = parts.last {

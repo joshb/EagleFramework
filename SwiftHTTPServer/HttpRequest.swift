@@ -32,7 +32,7 @@ class HttpRequest: CustomStringConvertible {
     var headers: [String: String] = [:]
 
     var safeFilePath: String? {
-        if path[path.startIndex] != "/" || path.contains("..") {
+        if path[path.startIndex] != "/" || path.containsString("..") {
             return nil
         }
 
