@@ -22,6 +22,9 @@
 		0D72EC3E1B5CA230001B6659 /* Poller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC331B5CA230001B6659 /* Poller.swift */; };
 		0D72EC3F1B5CA230001B6659 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC341B5CA230001B6659 /* Settings.swift */; };
 		0D72EC401B5CA230001B6659 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC351B5CA230001B6659 /* StringExtension.swift */; };
+		0DAEFC481BBF755A001ABDDE /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEFC471BBF755A001ABDDE /* Tokenizer.swift */; settings = {ASSET_TAGS = (); }; };
+		0DAEFC4A1BBF863B001ABDDE /* TokenizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEFC491BBF863B001ABDDE /* TokenizerTests.swift */; settings = {ASSET_TAGS = (); }; };
+		0DAEFC4B1BBF8674001ABDDE /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEFC471BBF755A001ABDDE /* Tokenizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -57,6 +60,8 @@
 		0D72EC351B5CA230001B6659 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		0D72EC361B5CA230001B6659 /* SwiftHTTPServer-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SwiftHTTPServer-Bridging-Header.h"; sourceTree = "<group>"; };
 		0D72EC411B5CA29B001B6659 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
+		0DAEFC471BBF755A001ABDDE /* Tokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokenizer.swift; sourceTree = "<group>"; };
+		0DAEFC491BBF863B001ABDDE /* TokenizerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				0D10288F1BBF39E600F6AFA7 /* StringExtensionTests.swift */,
+				0DAEFC491BBF863B001ABDDE /* TokenizerTests.swift */,
 				0D1028911BBF39E600F6AFA7 /* Info.plist */,
 			);
 			path = SwiftHTTPServerTests;
@@ -119,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				0D04A4EC1BB8556D00818D64 /* Responders */,
+				0DAEFC461BBF74B8001ABDDE /* Templates */,
 				0D72EC2B1B5CA230001B6659 /* Address.swift */,
 				0D72EC2C1B5CA230001B6659 /* CUtil.c */,
 				0D72EC2D1B5CA230001B6659 /* CUtil.h */,
@@ -133,6 +140,14 @@
 				0D72EC361B5CA230001B6659 /* SwiftHTTPServer-Bridging-Header.h */,
 			);
 			path = SwiftHTTPServer;
+			sourceTree = "<group>";
+		};
+		0DAEFC461BBF74B8001ABDDE /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				0DAEFC471BBF755A001ABDDE /* Tokenizer.swift */,
+			);
+			name = Templates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,6 +239,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DAEFC4B1BBF8674001ABDDE /* Tokenizer.swift in Sources */,
+				0DAEFC4A1BBF863B001ABDDE /* TokenizerTests.swift in Sources */,
 				0D1028971BBF3F9700F6AFA7 /* StringExtension.swift in Sources */,
 				0D1028901BBF39E600F6AFA7 /* StringExtensionTests.swift in Sources */,
 			);
@@ -236,6 +253,7 @@
 				0D72EC3B1B5CA230001B6659 /* HttpResponse.swift in Sources */,
 				0D72EC3D1B5CA230001B6659 /* main.swift in Sources */,
 				0D72EC401B5CA230001B6659 /* StringExtension.swift in Sources */,
+				0DAEFC481BBF755A001ABDDE /* Tokenizer.swift in Sources */,
 				0D72EC391B5CA230001B6659 /* HttpConnection.swift in Sources */,
 				0D04A4EE1BB8557A00818D64 /* FileResponder.swift in Sources */,
 				0D72EC3C1B5CA230001B6659 /* HttpServer.swift in Sources */,
@@ -388,6 +406,7 @@
 				0D1028941BBF39E600F6AFA7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0D72EC1C1B5CA200001B6659 /* Build configuration list for PBXProject "SwiftHTTPServer" */ = {
 			isa = XCConfigurationList;

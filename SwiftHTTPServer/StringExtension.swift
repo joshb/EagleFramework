@@ -53,6 +53,14 @@ extension String {
         return self.componentsSeparatedByString(delimiter)
     }
 
+    func startsWith(s: String) -> Bool {
+        return self.length >= s.length && self.substringToIndex(self.startIndex.advancedBy(s.length)) == s
+    }
+
+    func endsWith(s: String) -> Bool {
+        return self.length >= s.length && self.substringFromIndex(self.endIndex.advancedBy(-s.length)) == s
+    }
+
     func substring(startIndex: Int, length: Int) -> String {
         return self.substringWithRange(Range<String.Index>(start: self.startIndex.advancedBy(startIndex),
                                                            end: self.startIndex.advancedBy(startIndex + length)))
@@ -63,7 +71,7 @@ extension String {
                                                            end: self.endIndex))
     }
 
-    static private func isWhitespace(c: Character) -> Bool {
+    static func isWhitespace(c: Character) -> Bool {
         return c == " " || c == "\r" || c == "\n" || c == "\r\n" || c == "\t"
     }
 

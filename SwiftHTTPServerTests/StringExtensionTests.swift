@@ -44,6 +44,16 @@ class SwiftHTTPServerTests: XCTestCase {
         XCTAssertEqual("a,b,c".split(","), ["a", "b", "c"])
     }
 
+    func testStartsWith() {
+        XCTAssertTrue("Hello, world!".startsWith("Hello"))
+        XCTAssertFalse("Hey".startsWith("Hello"))
+    }
+
+    func testEndsWith() {
+        XCTAssertTrue("Hello, world!".endsWith("world!"))
+        XCTAssertFalse("Hey".endsWith("world!"))
+    }
+
     func testSubstring() {
         XCTAssertEqual("Hello, world!".substring(7, length: 5), "world")
         XCTAssertEqual("0123".substring(1), "123")
