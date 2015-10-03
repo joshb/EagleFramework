@@ -23,17 +23,18 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-private var fileContentTypes: [String: String] = [
-    "css": "text/css",
-    "html": "text/html",
-    "txt": "text/plain"
-]
-
 extension String {
+    private static var fileContentTypes: [String: String] = [
+        "css": "text/css",
+        "html": "text/html",
+        "txt": "text/plain"
+    ]
+
+    /// The content type based on the file extension in the string.
     var fileContentType: String {
         let parts = self.split(".")
         if let fileExtension = parts.last {
-            if let contentType = fileContentTypes[fileExtension.lowercaseString] {
+            if let contentType = String.fileContentTypes[fileExtension.lowercaseString] {
                 return contentType
             }
         }
