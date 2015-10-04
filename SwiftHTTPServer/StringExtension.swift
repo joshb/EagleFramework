@@ -23,17 +23,18 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-private var fileContentTypes: [String: String] = [
-    "css": "text/css",
-    "html": "text/html",
-    "txt": "text/plain"
-]
-
 extension String {
+    private static var fileContentTypes: [String: String] = [
+        "css": "text/css",
+        "html": "text/html",
+        "txt": "text/plain"
+    ]
+
+    /// The content type based on the file extension in the string.
     var fileContentType: String {
         let parts = self.split(".")
         if let fileExtension = parts.last {
-            if let contentType = fileContentTypes[fileExtension.lowercaseString] {
+            if let contentType = String.fileContentTypes[fileExtension.lowercaseString] {
                 return contentType
             }
         }
@@ -41,14 +42,27 @@ extension String {
         return "binary/octet-stream"
     }
 
+    /// The string's character count.
     var length: Int {
         return self.characters.count
     }
 
+    /// Creates a string by replacing all occurrences
+    /// of a substring with a replacement string.
+    ///
+    /// - parameter target: The substring to replace.
+    /// - parameter withString: The replacement string.
+    /// - returns: A new string with all occurrences
+    ///   of the given substring replaced.
     func replace(target: String, withString replacement: String) -> String {
         return self.stringByReplacingOccurrencesOfString(target, withString: replacement)
     }
 
+    /// Splits a string using a given delimiter.
+    ///
+    /// - parameter delimiter: The delimiter to use to split the string.
+    /// - returns: An array containing the components of the string
+    ///   separated by the given delimiter.
     func split(delimiter: String) -> [String] {
         return self.componentsSeparatedByString(delimiter)
     }
@@ -61,20 +75,34 @@ extension String {
         return self.length >= s.length && self.substringFromIndex(self.endIndex.advancedBy(-s.length)) == s
     }
 
+    /// Gets a substring of the string.
+    ///
+    /// - parameter startIndex: The starting index to create the substring from.
+    /// - parameter length: The length of the substring.
+    /// - returns: A substring from the starting index and with the given length.
     func substring(startIndex: Int, length: Int) -> String {
         return self.substringWithRange(Range<String.Index>(start: self.startIndex.advancedBy(startIndex),
                                                            end: self.startIndex.advancedBy(startIndex + length)))
     }
 
+    /// Gets a substring of the string.
+    ///
+    /// - parameter startIndex: The starting index to create the substring from.
+    /// - returns: A substring from the starting index up to the end of the string.
     func substring(startIndex: Int) -> String {
         return self.substringWithRange(Range<String.Index>(start: self.startIndex.advancedBy(startIndex),
                                                            end: self.endIndex))
     }
 
+    /// Checks whether or not the given character is a whitespace character.
+    ///
+    /// - parameter c: The character to check.
+    /// - returns: true if the character is a whitespace character, false otherwise.
     static func isWhitespace(c: Character) -> Bool {
         return c == " " || c == "\r" || c == "\n" || c == "\r\n" || c == "\t"
     }
 
+    /// A copy of the string with all beginning and trailing whitespace characters removed.
     var trimmed: String {
         var s = self
 
@@ -89,6 +117,7 @@ extension String {
         return s
     }
 
+    /// A copy of the string safe for inclusion in HTML content.
     var htmlSafe: String {
         let replacements = [
             "<": "&lt;",

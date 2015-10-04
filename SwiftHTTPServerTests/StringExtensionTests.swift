@@ -36,11 +36,22 @@ class SwiftHTTPServerTests: XCTestCase {
         super.tearDown()
     }
 
+    func testFileContentType() {
+        XCTAssertEqual("index.html".fileContentType, "text/html")
+        XCTAssertEqual("INDEX.HTML".fileContentType, "text/html")
+    }
+
+    func testLength() {
+        XCTAssertEqual("".length, 0)
+        XCTAssertEqual("Hello, world!".length, 13)
+    }
+
     func testReplace() {
         XCTAssertEqual("hi".replace("hi", withString: "hello"), "hello")
     }
 
     func testSplit() {
+        XCTAssertEqual("abc".split(","), ["abc"])
         XCTAssertEqual("a,b,c".split(","), ["a", "b", "c"])
     }
 
@@ -57,6 +68,15 @@ class SwiftHTTPServerTests: XCTestCase {
     func testSubstring() {
         XCTAssertEqual("Hello, world!".substring(7, length: 5), "world")
         XCTAssertEqual("0123".substring(1), "123")
+    }
+
+    func testIsWhitespace() {
+        XCTAssertEqual(String.isWhitespace("\t"), true)
+        XCTAssertEqual(String.isWhitespace("\r"), true)
+        XCTAssertEqual(String.isWhitespace("\n"), true)
+        XCTAssertEqual(String.isWhitespace("\r\n"), true)
+        XCTAssertEqual(String.isWhitespace(" "), true)
+        XCTAssertEqual(String.isWhitespace("a"), false)
     }
 
     func testTrimmed() {
