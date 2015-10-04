@@ -73,28 +73,20 @@ class TemplateTokenizer {
         return specialTokens.contains(token)
     }
 
-    private func emitCodeStart() {
-        if let delegate = self.delegate {
-            delegate.codeStartFound()
-        }
-    }
-
     private func emitToken(quoted: Bool = false) {
         if token.isEmpty {
             return
         }
 
-        if let delegate = self.delegate {
-            if inCode {
-                if token == TemplateTokenizer.codeStopSymbol && !quoted {
-                    inCode = false
-                    delegate.codeStopFound()
-                } else {
-                    delegate.tokenFound(token, quoted: quoted)
-                }
+        if inCode {
+            if token == TemplateTokenizer.codeStopSymbol && !quoted {
+                inCode = false
+                delegate?.codeStopFound()
             } else {
-                delegate.textFound(token)
+                delegate?.tokenFound(token, quoted: quoted)
             }
+        } else {
+            delegate?.textFound(token)
         }
 
         token = ""
@@ -113,7 +105,7 @@ class TemplateTokenizer {
             if token.endsWith(TemplateTokenizer.codeStartSymbol) {
                 token = token.substringToIndex(token.endIndex.advancedBy(-TemplateTokenizer.codeStartSymbol.length))
                 emitToken()
-                emitCodeStart()
+                delegate?.codeStartFound()
                 inCode = true
             }
 
