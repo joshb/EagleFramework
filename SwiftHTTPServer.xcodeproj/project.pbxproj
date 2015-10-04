@@ -45,7 +45,6 @@
 		0D0666321BB74DEF00F9C362 /* ResponderRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponderRegistry.swift; sourceTree = "<group>"; };
 		0D10288D1BBF39E600F6AFA7 /* SwiftHTTPServerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftHTTPServerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D10288F1BBF39E600F6AFA7 /* StringExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
-		0D1028911BBF39E600F6AFA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D72EC211B5CA201001B6659 /* SwiftHTTPServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftHTTPServer; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D72EC2B1B5CA230001B6659 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		0D72EC2C1B5CA230001B6659 /* CUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CUtil.c; sourceTree = "<group>"; };
@@ -97,7 +96,6 @@
 			children = (
 				0D10288F1BBF39E600F6AFA7 /* StringExtensionTests.swift */,
 				0DAEFC491BBF863B001ABDDE /* TemplateTokenizerTests.swift */,
-				0D1028911BBF39E600F6AFA7 /* Info.plist */,
 			);
 			path = SwiftHTTPServerTests;
 			sourceTree = "<group>";
@@ -275,7 +273,6 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_TESTABILITY = YES;
-				INFOPLIST_FILE = SwiftHTTPServerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.joshbeam.SwiftHTTPServerTests;
@@ -287,7 +284,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = SwiftHTTPServerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.joshbeam.SwiftHTTPServerTests;
