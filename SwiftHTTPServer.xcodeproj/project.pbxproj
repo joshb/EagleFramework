@@ -25,6 +25,17 @@
 		0DAEFC481BBF755A001ABDDE /* TemplateTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEFC471BBF755A001ABDDE /* TemplateTokenizer.swift */; settings = {ASSET_TAGS = (); }; };
 		0DAEFC4A1BBF863B001ABDDE /* TemplateTokenizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEFC491BBF863B001ABDDE /* TemplateTokenizerTests.swift */; settings = {ASSET_TAGS = (); }; };
 		0DAEFC4B1BBF8674001ABDDE /* TemplateTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEFC471BBF755A001ABDDE /* TemplateTokenizer.swift */; };
+		0DB8C8731BC1983F00C02E36 /* TemplateParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB8C8721BC1983F00C02E36 /* TemplateParser.swift */; settings = {ASSET_TAGS = (); }; };
+		0DB8C8751BC19A9E00C02E36 /* TemplateNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB8C8741BC19A9E00C02E36 /* TemplateNode.swift */; settings = {ASSET_TAGS = (); }; };
+		0DB8C8771BC19B3B00C02E36 /* TemplateTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB8C8761BC19B3B00C02E36 /* TemplateTextNode.swift */; settings = {ASSET_TAGS = (); }; };
+		0DB8C8791BC1A01700C02E36 /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB8C8781BC1A01700C02E36 /* Template.swift */; settings = {ASSET_TAGS = (); }; };
+		0DB8C87B1BC1A0A900C02E36 /* TemplateExpressionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB8C87A1BC1A0A900C02E36 /* TemplateExpressionNode.swift */; settings = {ASSET_TAGS = (); }; };
+		0DB8C87D1BC1AC0300C02E36 /* TemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB8C87C1BC1AC0300C02E36 /* TemplateTests.swift */; settings = {ASSET_TAGS = (); }; };
+		0DB8C87E1BC1AC6200C02E36 /* TemplateNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB8C8741BC19A9E00C02E36 /* TemplateNode.swift */; };
+		0DB8C87F1BC1AC6200C02E36 /* TemplateTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB8C8761BC19B3B00C02E36 /* TemplateTextNode.swift */; };
+		0DB8C8801BC1AC6200C02E36 /* TemplateExpressionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB8C87A1BC1A0A900C02E36 /* TemplateExpressionNode.swift */; };
+		0DB8C8811BC1AC6200C02E36 /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB8C8781BC1A01700C02E36 /* Template.swift */; };
+		0DB8C8821BC1ACAC00C02E36 /* TemplateParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB8C8721BC1983F00C02E36 /* TemplateParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -61,6 +72,12 @@
 		0D72EC411B5CA29B001B6659 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		0DAEFC471BBF755A001ABDDE /* TemplateTokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateTokenizer.swift; sourceTree = "<group>"; };
 		0DAEFC491BBF863B001ABDDE /* TemplateTokenizerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateTokenizerTests.swift; sourceTree = "<group>"; };
+		0DB8C8721BC1983F00C02E36 /* TemplateParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateParser.swift; sourceTree = "<group>"; };
+		0DB8C8741BC19A9E00C02E36 /* TemplateNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateNode.swift; sourceTree = "<group>"; };
+		0DB8C8761BC19B3B00C02E36 /* TemplateTextNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateTextNode.swift; sourceTree = "<group>"; };
+		0DB8C8781BC1A01700C02E36 /* Template.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
+		0DB8C87A1BC1A0A900C02E36 /* TemplateExpressionNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateExpressionNode.swift; sourceTree = "<group>"; };
+		0DB8C87C1BC1AC0300C02E36 /* TemplateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +113,7 @@
 			children = (
 				0D10288F1BBF39E600F6AFA7 /* StringExtensionTests.swift */,
 				0DAEFC491BBF863B001ABDDE /* TemplateTokenizerTests.swift */,
+				0DB8C87C1BC1AC0300C02E36 /* TemplateTests.swift */,
 			);
 			path = SwiftHTTPServerTests;
 			sourceTree = "<group>";
@@ -144,6 +162,11 @@
 			isa = PBXGroup;
 			children = (
 				0DAEFC471BBF755A001ABDDE /* TemplateTokenizer.swift */,
+				0DB8C8721BC1983F00C02E36 /* TemplateParser.swift */,
+				0DB8C8741BC19A9E00C02E36 /* TemplateNode.swift */,
+				0DB8C8761BC19B3B00C02E36 /* TemplateTextNode.swift */,
+				0DB8C87A1BC1A0A900C02E36 /* TemplateExpressionNode.swift */,
+				0DB8C8781BC1A01700C02E36 /* Template.swift */,
 			);
 			name = Templates;
 			sourceTree = "<group>";
@@ -237,8 +260,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DB8C8821BC1ACAC00C02E36 /* TemplateParser.swift in Sources */,
+				0DB8C87E1BC1AC6200C02E36 /* TemplateNode.swift in Sources */,
+				0DB8C87F1BC1AC6200C02E36 /* TemplateTextNode.swift in Sources */,
+				0DB8C8801BC1AC6200C02E36 /* TemplateExpressionNode.swift in Sources */,
+				0DB8C8811BC1AC6200C02E36 /* Template.swift in Sources */,
 				0DAEFC4B1BBF8674001ABDDE /* TemplateTokenizer.swift in Sources */,
 				0DAEFC4A1BBF863B001ABDDE /* TemplateTokenizerTests.swift in Sources */,
+				0DB8C87D1BC1AC0300C02E36 /* TemplateTests.swift in Sources */,
 				0D1028971BBF3F9700F6AFA7 /* StringExtension.swift in Sources */,
 				0D1028901BBF39E600F6AFA7 /* StringExtensionTests.swift in Sources */,
 			);
@@ -251,17 +280,22 @@
 				0D72EC3B1B5CA230001B6659 /* HttpResponse.swift in Sources */,
 				0D72EC3D1B5CA230001B6659 /* main.swift in Sources */,
 				0D72EC401B5CA230001B6659 /* StringExtension.swift in Sources */,
+				0DB8C87B1BC1A0A900C02E36 /* TemplateExpressionNode.swift in Sources */,
+				0DB8C8791BC1A01700C02E36 /* Template.swift in Sources */,
 				0DAEFC481BBF755A001ABDDE /* TemplateTokenizer.swift in Sources */,
 				0D72EC391B5CA230001B6659 /* HttpConnection.swift in Sources */,
 				0D04A4EE1BB8557A00818D64 /* FileResponder.swift in Sources */,
 				0D72EC3C1B5CA230001B6659 /* HttpServer.swift in Sources */,
 				0D72EC3A1B5CA230001B6659 /* HttpRequest.swift in Sources */,
+				0DB8C8771BC19B3B00C02E36 /* TemplateTextNode.swift in Sources */,
 				0D72EC3E1B5CA230001B6659 /* Poller.swift in Sources */,
 				0D72EC3F1B5CA230001B6659 /* Settings.swift in Sources */,
+				0DB8C8731BC1983F00C02E36 /* TemplateParser.swift in Sources */,
 				0D0666311BB74D4C00F9C362 /* Responder.swift in Sources */,
 				0D72EC371B5CA230001B6659 /* Address.swift in Sources */,
 				0D72EC381B5CA230001B6659 /* CUtil.c in Sources */,
 				0D0666331BB74DEF00F9C362 /* ResponderRegistry.swift in Sources */,
+				0DB8C8751BC19A9E00C02E36 /* TemplateNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
