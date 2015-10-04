@@ -67,10 +67,18 @@ extension String {
         return self.componentsSeparatedByString(delimiter)
     }
 
+    /// Determine whether or not the string starts with another string.
+    ///
+    /// - parameter s: The string to search for.
+    /// - returns: true if the string starts with the other string given, false otherwise.
     func startsWith(s: String) -> Bool {
         return self.length >= s.length && self.substringToIndex(self.startIndex.advancedBy(s.length)) == s
     }
 
+    /// Determine whether or not the string ends with another string.
+    ///
+    /// - parameter s: The string to search for.
+    /// - returns: true if the string ends with the other string given, false otherwise.
     func endsWith(s: String) -> Bool {
         return self.length >= s.length && self.substringFromIndex(self.endIndex.advancedBy(-s.length)) == s
     }
