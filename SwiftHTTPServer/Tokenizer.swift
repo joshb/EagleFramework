@@ -27,29 +27,21 @@ import Foundation
 
 /// Represents an object to be notified of tokenization events.
 protocol TokenizerDelegate {
-    /**
-     * Called when non-code text has been found.
-     *
-     * - parameter text: The text that was found.
-     */
+    /// Called when non-code text has been found.
+    ///
+    /// - parameter text: The text that was found.
     func textFound(text: String)
 
-    /**
-     * Called when the beginning of a code segment has been found.
-     */
+    /// Called when the beginning of a code segment has been found.
     func codeStartFound()
 
-    /**
-     * Called when the end of a code segment has been found.
-     */
+    /// Called when the end of a code segment has been found.
     func codeStopFound()
 
-    /**
-     * Called when a token has been found in a code segment.
-     *
-     * - parameter token: The token that was found.
-     * - parameter quoted: true if the token was surrounded by quotes, false otherwise.
-     */
+    /// Called when a token has been found in a code segment.
+    ///
+    /// - parameter token: The token that was found.
+    /// - parameter quoted: true if the token was surrounded by quotes, false otherwise.
     func tokenFound(token: String, quoted: Bool)
 }
 
@@ -65,12 +57,10 @@ class Tokenizer {
     static let codeStartSymbol = "<%"
     static let codeStopSymbol = "%>"
 
-    /**
-     * Check if a token is a special token, such as a mathematical symbol.
-     *
-     * - parameter token: The token to check.
-     * - returns: true if the token is a special token, false otherwise.
-     */
+    /// Check if a token is a special token, such as a mathematical symbol.
+    ///
+    /// - parameter token: The token to check.
+    /// - returns: true if the token is a special token, false otherwise.
     static func isSpecialToken(token: String) -> Bool {
         let specialTokens = [
             "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "+", "=",
@@ -168,11 +158,9 @@ class Tokenizer {
         token += cs
     }
 
-    /**
-     * Tokenize a string, sending tokens and events to the delegate.
-     *
-     * - parameter s: The string to tokenize.
-     */
+    /// Tokenize a string, sending tokens and events to the delegate.
+    ///
+    /// - parameter s: The string to tokenize.
     func processString(s: String) {
         for c in s.characters {
             processCharacter(c)
