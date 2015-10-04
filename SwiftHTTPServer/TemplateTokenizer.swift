@@ -26,7 +26,7 @@
 import Foundation
 
 /// Represents an object to be notified of tokenization events.
-protocol TokenizerDelegate {
+protocol TemplateTokenizerDelegate {
     /// Called when non-code text has been found.
     ///
     /// - parameter text: The text that was found.
@@ -46,8 +46,8 @@ protocol TokenizerDelegate {
 }
 
 /// Tokenizes strings for the template engine.
-class Tokenizer {
-    var delegate: TokenizerDelegate?
+class TemplateTokenizer {
+    var delegate: TemplateTokenizerDelegate?
 
     private var inCode: Bool = false
     private var previousChar: Character = " "
@@ -86,7 +86,7 @@ class Tokenizer {
 
         if let delegate = self.delegate {
             if inCode {
-                if token == Tokenizer.codeStopSymbol && !quoted {
+                if token == TemplateTokenizer.codeStopSymbol && !quoted {
                     inCode = false
                     delegate.codeStopFound()
                 } else {
@@ -110,8 +110,8 @@ class Tokenizer {
 
             // If the token now has the code start symbol, we emit
             // the token as text and switch to in-code processing.
-            if token.endsWith(Tokenizer.codeStartSymbol) {
-                token = token.substringToIndex(token.endIndex.advancedBy(-Tokenizer.codeStartSymbol.length))
+            if token.endsWith(TemplateTokenizer.codeStartSymbol) {
+                token = token.substringToIndex(token.endIndex.advancedBy(-TemplateTokenizer.codeStartSymbol.length))
                 emitToken()
                 emitCodeStart()
                 inCode = true
@@ -145,12 +145,12 @@ class Tokenizer {
         }
 
         // Now check for special tokens, such as mathematical symbols.
-        if Tokenizer.isSpecialToken(token) {
-            if !Tokenizer.isSpecialToken(token + cs) {
+        if TemplateTokenizer.isSpecialToken(token) {
+            if !TemplateTokenizer.isSpecialToken(token + cs) {
                 emitToken()
             }
         } else {
-            if Tokenizer.isSpecialToken(cs) {
+            if TemplateTokenizer.isSpecialToken(cs) {
                 emitToken()
             }
         }

@@ -25,8 +25,8 @@
 
 import XCTest
 
-class TokenizerTests: XCTestCase {
-    class TestTokenizerDelegate: TokenizerDelegate {
+class TemplateTokenizerTests: XCTestCase {
+    class TestTemplateTokenizerDelegate: TemplateTokenizerDelegate {
         var events: [String] = []
 
         func codeStartFound() {
@@ -50,14 +50,14 @@ class TokenizerTests: XCTestCase {
         }
     }
 
-    var delegate: TestTokenizerDelegate!
-    var tokenizer: Tokenizer!
+    var delegate: TestTemplateTokenizerDelegate!
+    var tokenizer: TemplateTokenizer!
 
     override func setUp() {
         super.setUp()
 
-        delegate = TestTokenizerDelegate()
-        tokenizer =  Tokenizer()
+        delegate = TestTemplateTokenizerDelegate()
+        tokenizer =  TemplateTokenizer()
         tokenizer.delegate = delegate
     }
     

@@ -22,9 +22,9 @@
 		0D72EC3E1B5CA230001B6659 /* Poller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC331B5CA230001B6659 /* Poller.swift */; };
 		0D72EC3F1B5CA230001B6659 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC341B5CA230001B6659 /* Settings.swift */; };
 		0D72EC401B5CA230001B6659 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC351B5CA230001B6659 /* StringExtension.swift */; };
-		0DAEFC481BBF755A001ABDDE /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEFC471BBF755A001ABDDE /* Tokenizer.swift */; settings = {ASSET_TAGS = (); }; };
-		0DAEFC4A1BBF863B001ABDDE /* TokenizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEFC491BBF863B001ABDDE /* TokenizerTests.swift */; settings = {ASSET_TAGS = (); }; };
-		0DAEFC4B1BBF8674001ABDDE /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEFC471BBF755A001ABDDE /* Tokenizer.swift */; };
+		0DAEFC481BBF755A001ABDDE /* TemplateTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEFC471BBF755A001ABDDE /* TemplateTokenizer.swift */; settings = {ASSET_TAGS = (); }; };
+		0DAEFC4A1BBF863B001ABDDE /* TemplateTokenizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEFC491BBF863B001ABDDE /* TemplateTokenizerTests.swift */; settings = {ASSET_TAGS = (); }; };
+		0DAEFC4B1BBF8674001ABDDE /* TemplateTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEFC471BBF755A001ABDDE /* TemplateTokenizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -60,8 +60,8 @@
 		0D72EC351B5CA230001B6659 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		0D72EC361B5CA230001B6659 /* SwiftHTTPServer-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SwiftHTTPServer-Bridging-Header.h"; sourceTree = "<group>"; };
 		0D72EC411B5CA29B001B6659 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
-		0DAEFC471BBF755A001ABDDE /* Tokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokenizer.swift; sourceTree = "<group>"; };
-		0DAEFC491BBF863B001ABDDE /* TokenizerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizerTests.swift; sourceTree = "<group>"; };
+		0DAEFC471BBF755A001ABDDE /* TemplateTokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateTokenizer.swift; sourceTree = "<group>"; };
+		0DAEFC491BBF863B001ABDDE /* TemplateTokenizerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateTokenizerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				0D10288F1BBF39E600F6AFA7 /* StringExtensionTests.swift */,
-				0DAEFC491BBF863B001ABDDE /* TokenizerTests.swift */,
+				0DAEFC491BBF863B001ABDDE /* TemplateTokenizerTests.swift */,
 				0D1028911BBF39E600F6AFA7 /* Info.plist */,
 			);
 			path = SwiftHTTPServerTests;
@@ -145,7 +145,7 @@
 		0DAEFC461BBF74B8001ABDDE /* Templates */ = {
 			isa = PBXGroup;
 			children = (
-				0DAEFC471BBF755A001ABDDE /* Tokenizer.swift */,
+				0DAEFC471BBF755A001ABDDE /* TemplateTokenizer.swift */,
 			);
 			name = Templates;
 			sourceTree = "<group>";
@@ -239,8 +239,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0DAEFC4B1BBF8674001ABDDE /* Tokenizer.swift in Sources */,
-				0DAEFC4A1BBF863B001ABDDE /* TokenizerTests.swift in Sources */,
+				0DAEFC4B1BBF8674001ABDDE /* TemplateTokenizer.swift in Sources */,
+				0DAEFC4A1BBF863B001ABDDE /* TemplateTokenizerTests.swift in Sources */,
 				0D1028971BBF3F9700F6AFA7 /* StringExtension.swift in Sources */,
 				0D1028901BBF39E600F6AFA7 /* StringExtensionTests.swift in Sources */,
 			);
@@ -253,7 +253,7 @@
 				0D72EC3B1B5CA230001B6659 /* HttpResponse.swift in Sources */,
 				0D72EC3D1B5CA230001B6659 /* main.swift in Sources */,
 				0D72EC401B5CA230001B6659 /* StringExtension.swift in Sources */,
-				0DAEFC481BBF755A001ABDDE /* Tokenizer.swift in Sources */,
+				0DAEFC481BBF755A001ABDDE /* TemplateTokenizer.swift in Sources */,
 				0D72EC391B5CA230001B6659 /* HttpConnection.swift in Sources */,
 				0D04A4EE1BB8557A00818D64 /* FileResponder.swift in Sources */,
 				0D72EC3C1B5CA230001B6659 /* HttpServer.swift in Sources */,
