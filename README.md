@@ -1,5 +1,5 @@
-SwiftHTTPServer
-==============
+Swift HTTP Server
+=================
 
 This is a small and simple HTTP server that's written in Swift. Rather than being a full-featured, general purpose web server, it is intended to be easily extensible and usable as part of web applications written in Swift; as such, it implements only a subset of standard HTTP server features that are necessary to that end.
 
@@ -7,12 +7,21 @@ It's still in very early stages of development. Currently implemented features i
 
  - Handling multiple connections simultaneously
  - Serving static content (such as HTML and CSS files)
+ - A simple template engine that can be used to embed values from a dictionary in rendered output
 
-This software was developed by [Josh Beam](http://joshbeam.com/) and is distributed under the BSD-style license shown below.
+This software was developed by [Josh Beam](http://joshbeam.com/) and is distributed under the BSD-style license shown at the bottom of this file.
+
+Supported Platforms
+-------------------
+This software currently only runs on Mac OS X. The plan is to port it to Linux after the [open source Swift release](https://developer.apple.com/swift/blog/?id=29) has happened, at which point it will be able to run on a wide range of Linux server offerings. Until then, though, it can be useful for people with Mac-based servers, whether they be self-hosted or hosted through a service such as [macminicolo](http://www.macminicolo.net/) or [MacStadium](http://www.macstadium.com/).
+
+Usage
+-----
+Open SwiftHTTPServer.xcodeproj in Xcode 7.0 or greater. Press ⌘R to build and run the server. By default, it binds to localhost (preferring IPv6 to IPv4) on port 5000, and serves the files stored in the [www](https://github.com/joshb/SwiftHTTPServer/tree/master/www) directory. If you have the server running, go to [http://localhost:5000/index.html](http://localhost:5000/index.html) to see the welcome page. When you're done, just hit ⌘. in Xcode to stop the server.
 
 License
 -------
-Copyright (C) 2015 Josh A. Beam  
+Copyright © 2015 Josh A. Beam  
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
