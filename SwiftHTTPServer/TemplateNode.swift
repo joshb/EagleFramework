@@ -23,8 +23,6 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
-
 protocol TemplateNode: CustomStringConvertible {
     func render(data: [String: Any]) -> String
 }

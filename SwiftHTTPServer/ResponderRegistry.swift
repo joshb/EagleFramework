@@ -23,8 +23,6 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
-
 class ResponderRegistry {
     private static var responders: [Responder] = []
 

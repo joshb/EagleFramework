@@ -23,8 +23,6 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
-
 /// Represents an object to be notified of tokenization events.
 protocol TemplateTokenizerDelegate {
     /// Called when non-code text has been found.

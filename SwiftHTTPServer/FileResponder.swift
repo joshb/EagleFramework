@@ -23,8 +23,6 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
-
 class FileResponder: Responder {
     func matchesRequest(request: HttpRequest) -> Bool {
         return true

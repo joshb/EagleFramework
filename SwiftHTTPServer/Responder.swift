@@ -23,8 +23,6 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
-
 protocol Responder {
     func matchesRequest(request: HttpRequest) -> Bool
     func respond(request: HttpRequest) -> HttpResponse?
