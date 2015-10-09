@@ -23,15 +23,25 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-protocol ModelPropertyType {}
-extension Bool: ModelPropertyType {}
-extension Double: ModelPropertyType {}
-extension Int: ModelPropertyType {}
-extension String: ModelPropertyType {}
+protocol AbstractModelProperty {
+    var nonTypedValue: Any { get set }
+}
 
 /// Represents a property of a data model.
-class ModelProperty<T: ModelPropertyType> {
+class ModelProperty<T>: AbstractModelProperty {
     var value: T
+
+    var nonTypedValue: Any {
+        get {
+            return value as Any
+        }
+
+        set {
+            if let typedValue = newValue as? T {
+                self.value = typedValue
+            }
+        }
+    }
 
     init(defaultValue: T) {
         self.value = defaultValue
@@ -40,12 +50,12 @@ class ModelProperty<T: ModelPropertyType> {
 
 /// Represents a data model.
 class Model {
-    private var _properties: [String: Any]?
+    private var _properties: [String: AbstractModelProperty]?
 
     let id = ModelProperty<Int>(defaultValue: 0)
 
     /// Dictionary of property names to ModelProperty instances.
-    var properties: [String: Any] {
+    var properties: [String: AbstractModelProperty] {
         if _properties != nil {
             return _properties!
         }
@@ -55,12 +65,8 @@ class Model {
         let mirror = Mirror(reflecting: self)
         for child in mirror.children {
             if let label = child.label {
-                let value = child.value
-                if value is ModelProperty<Bool> ||
-                    value is ModelProperty<Double> ||
-                    value is ModelProperty<Int> ||
-                    value is ModelProperty<String> {
-                        _properties![label] = value
+                if let property = child.value as? AbstractModelProperty {
+                    _properties![label] = property
                 }
             }
         }
@@ -72,16 +78,8 @@ class Model {
     var propertyValues: [String: Any] {
         var result: [String: Any] = [:]
 
-        for (key, rawProperty) in properties {
-            if let property = rawProperty as? ModelProperty<Bool> {
-                result[key] = property.value
-            } else if let property = rawProperty as? ModelProperty<Double> {
-                result[key] = property.value
-            } else if let property = rawProperty as? ModelProperty<Int> {
-                result[key] = property.value
-            } else if let property = rawProperty as? ModelProperty<String> {
-                result[key] = property.value
-            }
+        for (key, property) in properties {
+            result[key] = property.nonTypedValue
         }
 
         return result
@@ -92,24 +90,7 @@ class Model {
     /// - parameter value: The value to assign to the property.
     /// - parameter propertyName: The name of the property to assign the value to.
     func setValue(value: Any, forPropertyWithName propertyName: String) {
-        if let rawProperty = properties[propertyName] {
-            if let property = rawProperty as? ModelProperty<Bool> {
-                if let newValue = value as? Bool {
-                    property.value = newValue
-                }
-            } else if let property = rawProperty as? ModelProperty<Double> {
-                if let newValue = value as? Double {
-                    property.value = newValue
-                }
-            } else if let property = rawProperty as? ModelProperty<Int> {
-                if let newValue = value as? Int {
-                    property.value = newValue
-                }
-            } else if let property = rawProperty as? ModelProperty<String> {
-                if let newValue = value as? String {
-                    property.value = newValue
-                }
-            }
-        }
+        var property = properties[propertyName]
+        property?.nonTypedValue = value
     }
 }
