@@ -23,4 +23,5 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#import <sqlite3.h>
 #import "CUtil.h"

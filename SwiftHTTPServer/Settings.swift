@@ -27,4 +27,12 @@ class Settings {
     static var wwwPath: String? {
         return Process.arguments.count >= 2 ? Process.arguments[1] : nil
     }
+
+    static var resourcesPath: String? {
+        return Process.arguments.count >= 3 ? Process.arguments[2] : nil
+    }
+
+    static func getAbsoluteResourcePath(relativePath: String) -> String? {
+        return (resourcesPath != nil) ? resourcesPath! + "/" + relativePath : nil
+    }
 }

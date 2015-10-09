@@ -23,18 +23,16 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-print("WWW Path: \(Settings.wwwPath)")
-print("Resources path: \(Settings.resourcesPath)")
+class SQLiteDatabase: Database {
+    private var db: COpaquePointer = nil
 
-ResponderRegistry.register(FileResponder())
-
-if let address = Address.fromHostname("localhost") {
-    if let server = HttpServer.start(address: address, port: 5000) {
-        print("HTTP server started at \(server)")
-        server.run()
-    } else {
-        print("Unable to start HTTP server")
+    init?(filePath: String) {
+        if sqlite3_open(filePath.ascii, &db) != 0 {
+            return nil
+        }
     }
-} else {
-    print("Unable to resolve localhost")
+
+    deinit {
+        sqlite3_close(db)
+    }
 }

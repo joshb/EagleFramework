@@ -30,6 +30,11 @@ extension String {
         "txt": "text/plain"
     ]
 
+    /// An ASCII representation of the string.
+    var ascii: [CChar] {
+        return self.cStringUsingEncoding(1) ?? []
+    }
+
     /// The content type based on the file extension in the string.
     var fileContentType: String {
         let parts = self.split(".")

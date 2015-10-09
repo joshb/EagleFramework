@@ -12,6 +12,11 @@
 		0D0666331BB74DEF00F9C362 /* ResponderRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0666321BB74DEF00F9C362 /* ResponderRegistry.swift */; settings = {ASSET_TAGS = (); }; };
 		0D1028901BBF39E600F6AFA7 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D10288F1BBF39E600F6AFA7 /* StringExtensionTests.swift */; };
 		0D1028971BBF3F9700F6AFA7 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC351B5CA230001B6659 /* StringExtension.swift */; };
+		0D1645941BC770210003FACC /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1645931BC770210003FACC /* Database.swift */; settings = {ASSET_TAGS = (); }; };
+		0D1645961BC775430003FACC /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1645951BC775430003FACC /* ModelTests.swift */; settings = {ASSET_TAGS = (); }; };
+		0D1645971BC7757E0003FACC /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9B081B1BC61C9D00D4C87C /* Model.swift */; };
+		0D1645991BC77B0E0003FACC /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1645981BC77B0E0003FACC /* SQLiteDatabase.swift */; settings = {ASSET_TAGS = (); }; };
+		0D16459A1BC7818C0003FACC /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D16458F1BC76F9E0003FACC /* libsqlite3.tbd */; };
 		0D72EC371B5CA230001B6659 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC2B1B5CA230001B6659 /* Address.swift */; };
 		0D72EC381B5CA230001B6659 /* CUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC2C1B5CA230001B6659 /* CUtil.c */; };
 		0D72EC391B5CA230001B6659 /* HttpConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC2E1B5CA230001B6659 /* HttpConnection.swift */; };
@@ -22,6 +27,7 @@
 		0D72EC3E1B5CA230001B6659 /* Poller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC331B5CA230001B6659 /* Poller.swift */; };
 		0D72EC3F1B5CA230001B6659 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC341B5CA230001B6659 /* Settings.swift */; };
 		0D72EC401B5CA230001B6659 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC351B5CA230001B6659 /* StringExtension.swift */; };
+		0D9B081C1BC61C9D00D4C87C /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9B081B1BC61C9D00D4C87C /* Model.swift */; settings = {ASSET_TAGS = (); }; };
 		0DAEFC481BBF755A001ABDDE /* TemplateTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEFC471BBF755A001ABDDE /* TemplateTokenizer.swift */; settings = {ASSET_TAGS = (); }; };
 		0DAEFC4A1BBF863B001ABDDE /* TemplateTokenizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEFC491BBF863B001ABDDE /* TemplateTokenizerTests.swift */; settings = {ASSET_TAGS = (); }; };
 		0DAEFC4B1BBF8674001ABDDE /* TemplateTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEFC471BBF755A001ABDDE /* TemplateTokenizer.swift */; };
@@ -56,6 +62,10 @@
 		0D0666321BB74DEF00F9C362 /* ResponderRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponderRegistry.swift; sourceTree = "<group>"; };
 		0D10288D1BBF39E600F6AFA7 /* SwiftHTTPServerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftHTTPServerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D10288F1BBF39E600F6AFA7 /* StringExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
+		0D16458F1BC76F9E0003FACC /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		0D1645931BC770210003FACC /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		0D1645951BC775430003FACC /* ModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
+		0D1645981BC77B0E0003FACC /* SQLiteDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteDatabase.swift; sourceTree = "<group>"; };
 		0D72EC211B5CA201001B6659 /* SwiftHTTPServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftHTTPServer; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D72EC2B1B5CA230001B6659 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		0D72EC2C1B5CA230001B6659 /* CUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CUtil.c; sourceTree = "<group>"; };
@@ -70,6 +80,7 @@
 		0D72EC351B5CA230001B6659 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		0D72EC361B5CA230001B6659 /* SwiftHTTPServer-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SwiftHTTPServer-Bridging-Header.h"; sourceTree = "<group>"; };
 		0D72EC411B5CA29B001B6659 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
+		0D9B081B1BC61C9D00D4C87C /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		0DAEFC471BBF755A001ABDDE /* TemplateTokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateTokenizer.swift; sourceTree = "<group>"; };
 		0DAEFC491BBF863B001ABDDE /* TemplateTokenizerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateTokenizerTests.swift; sourceTree = "<group>"; };
 		0DB8C8721BC1983F00C02E36 /* TemplateParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateParser.swift; sourceTree = "<group>"; };
@@ -92,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D16459A1BC7818C0003FACC /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,8 +126,26 @@
 				0D10288F1BBF39E600F6AFA7 /* StringExtensionTests.swift */,
 				0DAEFC491BBF863B001ABDDE /* TemplateTokenizerTests.swift */,
 				0DB8C87C1BC1AC0300C02E36 /* TemplateTests.swift */,
+				0D1645951BC775430003FACC /* ModelTests.swift */,
 			);
 			path = SwiftHTTPServerTests;
+			sourceTree = "<group>";
+		};
+		0D1645911BC76FB80003FACC /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				0D16458F1BC76F9E0003FACC /* libsqlite3.tbd */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		0D1645921BC7700D0003FACC /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				0D1645931BC770210003FACC /* Database.swift */,
+				0D1645981BC77B0E0003FACC /* SQLiteDatabase.swift */,
+			);
+			name = Database;
 			sourceTree = "<group>";
 		};
 		0D72EC181B5CA200001B6659 = {
@@ -123,6 +153,7 @@
 			children = (
 				0D72EC231B5CA201001B6659 /* SwiftHTTPServer */,
 				0D10288E1BBF39E600F6AFA7 /* SwiftHTTPServerTests */,
+				0D1645911BC76FB80003FACC /* Libraries */,
 				0D72EC221B5CA201001B6659 /* Products */,
 				0D72EC411B5CA29B001B6659 /* www */,
 			);
@@ -140,6 +171,8 @@
 		0D72EC231B5CA201001B6659 /* SwiftHTTPServer */ = {
 			isa = PBXGroup;
 			children = (
+				0D1645921BC7700D0003FACC /* Database */,
+				0D9B081A1BC61C8E00D4C87C /* Models */,
 				0D04A4EC1BB8556D00818D64 /* Responders */,
 				0DAEFC461BBF74B8001ABDDE /* Templates */,
 				0D72EC2B1B5CA230001B6659 /* Address.swift */,
@@ -156,6 +189,14 @@
 				0D72EC361B5CA230001B6659 /* SwiftHTTPServer-Bridging-Header.h */,
 			);
 			path = SwiftHTTPServer;
+			sourceTree = "<group>";
+		};
+		0D9B081A1BC61C8E00D4C87C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0D9B081B1BC61C9D00D4C87C /* Model.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		0DAEFC461BBF74B8001ABDDE /* Templates */ = {
@@ -260,6 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D1645971BC7757E0003FACC /* Model.swift in Sources */,
 				0DB8C8821BC1ACAC00C02E36 /* TemplateParser.swift in Sources */,
 				0DB8C87E1BC1AC6200C02E36 /* TemplateNode.swift in Sources */,
 				0DB8C87F1BC1AC6200C02E36 /* TemplateTextNode.swift in Sources */,
@@ -268,6 +310,7 @@
 				0DAEFC4B1BBF8674001ABDDE /* TemplateTokenizer.swift in Sources */,
 				0DAEFC4A1BBF863B001ABDDE /* TemplateTokenizerTests.swift in Sources */,
 				0DB8C87D1BC1AC0300C02E36 /* TemplateTests.swift in Sources */,
+				0D1645961BC775430003FACC /* ModelTests.swift in Sources */,
 				0D1028971BBF3F9700F6AFA7 /* StringExtension.swift in Sources */,
 				0D1028901BBF39E600F6AFA7 /* StringExtensionTests.swift in Sources */,
 			);
@@ -285,13 +328,16 @@
 				0DAEFC481BBF755A001ABDDE /* TemplateTokenizer.swift in Sources */,
 				0D72EC391B5CA230001B6659 /* HttpConnection.swift in Sources */,
 				0D04A4EE1BB8557A00818D64 /* FileResponder.swift in Sources */,
+				0D1645991BC77B0E0003FACC /* SQLiteDatabase.swift in Sources */,
 				0D72EC3C1B5CA230001B6659 /* HttpServer.swift in Sources */,
 				0D72EC3A1B5CA230001B6659 /* HttpRequest.swift in Sources */,
 				0DB8C8771BC19B3B00C02E36 /* TemplateTextNode.swift in Sources */,
 				0D72EC3E1B5CA230001B6659 /* Poller.swift in Sources */,
+				0D1645941BC770210003FACC /* Database.swift in Sources */,
 				0D72EC3F1B5CA230001B6659 /* Settings.swift in Sources */,
 				0DB8C8731BC1983F00C02E36 /* TemplateParser.swift in Sources */,
 				0D0666311BB74D4C00F9C362 /* Responder.swift in Sources */,
+				0D9B081C1BC61C9D00D4C87C /* Model.swift in Sources */,
 				0D72EC371B5CA230001B6659 /* Address.swift in Sources */,
 				0D72EC381B5CA230001B6659 /* CUtil.c in Sources */,
 				0D0666331BB74DEF00F9C362 /* ResponderRegistry.swift in Sources */,
@@ -409,6 +455,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RESOURCES_PATH = "$(PROJECT_DIR)/Resources";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftHTTPServer/SwiftHTTPServer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WWW_PATH = "$(PROJECT_DIR)/www";
@@ -421,6 +468,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RESOURCES_PATH = "$(PROJECT_DIR)/Resources";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftHTTPServer/SwiftHTTPServer-Bridging-Header.h";
 				WWW_PATH = "$(PROJECT_DIR)/www";
 			};

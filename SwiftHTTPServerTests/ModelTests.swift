@@ -23,18 +23,34 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-print("WWW Path: \(Settings.wwwPath)")
-print("Resources path: \(Settings.resourcesPath)")
+import XCTest
 
-ResponderRegistry.register(FileResponder())
+class ModelTests: XCTestCase {
 
-if let address = Address.fromHostname("localhost") {
-    if let server = HttpServer.start(address: address, port: 5000) {
-        print("HTTP server started at \(server)")
-        server.run()
-    } else {
-        print("Unable to start HTTP server")
+    override func setUp() {
+        super.setUp()
+        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
-} else {
-    print("Unable to resolve localhost")
+    
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+    }
+
+    func testPropertyValues() {
+        class TestModel: Model {
+            let boolProperty = ModelProperty<Bool>(defaultValue: false)
+            let doubleProperty = ModelProperty<Double>(defaultValue: 1.23)
+            let intProperty = ModelProperty<Int>(defaultValue: 42)
+            let stringProperty = ModelProperty<String>(defaultValue: "Hello")
+        }
+
+        let model = TestModel()
+        let propertyValues = model.propertyValues
+        XCTAssertEqual(propertyValues.count, 4)
+        XCTAssertEqual(propertyValues["boolProperty"] as? Bool, false as Bool?)
+        XCTAssertEqual(propertyValues["doubleProperty"] as? Double, 1.23 as Double?)
+        XCTAssertEqual(propertyValues["intProperty"] as? Int, 42 as Int?)
+        XCTAssertEqual(propertyValues["stringProperty"] as? String, "Hello" as String?)
+    }
 }
