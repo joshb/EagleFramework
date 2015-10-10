@@ -23,6 +23,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/// Protocol for data model properties to implement.
 protocol AbstractModelProperty {
     var nonTypedValue: Any { get set }
 }
@@ -48,49 +49,40 @@ class ModelProperty<T>: AbstractModelProperty {
     }
 }
 
-/// Represents a data model.
-class Model {
-    private var _properties: [String: AbstractModelProperty]?
+/// Protocol for data models to implement.
+protocol Model {
+    /// A name for the model's storage. This is used as a table name in a database.
+    var storageName: String { get }
+}
 
-    let id = ModelProperty<Int>(defaultValue: 0)
+extension Model {
+    typealias NameAndProperty = (name: String, property: AbstractModelProperty)
+    typealias NameAndPropertyValue = (name: String, value: Any)
 
-    /// Dictionary of property names to ModelProperty instances.
-    var properties: [String: AbstractModelProperty] {
-        if _properties != nil {
-            return _properties!
-        }
-
-        _properties = [:]
+    /// List of tuples containing property names and properties.
+    var properties: [NameAndProperty] {
+        var result: [NameAndProperty] = []
 
         let mirror = Mirror(reflecting: self)
         for child in mirror.children {
             if let label = child.label {
                 if let property = child.value as? AbstractModelProperty {
-                    _properties![label] = property
+                    result.append((label, property))
                 }
             }
-        }
-
-        return _properties!
-    }
-
-    /// Dictionary of property names to values.
-    var propertyValues: [String: Any] {
-        var result: [String: Any] = [:]
-
-        for (key, property) in properties {
-            result[key] = property.nonTypedValue
         }
 
         return result
     }
 
-    /// Sets the value for the property with the given name.
-    ///
-    /// - parameter value: The value to assign to the property.
-    /// - parameter propertyName: The name of the property to assign the value to.
-    func setValue(value: Any, forPropertyWithName propertyName: String) {
-        var property = properties[propertyName]
-        property?.nonTypedValue = value
+    /// List of tuples containing property names and values.
+    var propertyValues: [NameAndPropertyValue] {
+        var result: [NameAndPropertyValue] = []
+
+        for pair in properties {
+            result.append((pair.name, pair.property.nonTypedValue))
+        }
+
+        return result
     }
 }

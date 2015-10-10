@@ -39,6 +39,10 @@ class ModelTests: XCTestCase {
 
     func testPropertyValues() {
         class TestModel: Model {
+            var storageName: String {
+                return "TestModel"
+            }
+
             let boolProperty = ModelProperty<Bool>(defaultValue: false)
             let doubleProperty = ModelProperty<Double>(defaultValue: 1.23)
             let intProperty = ModelProperty<Int>(defaultValue: 42)
@@ -48,9 +52,13 @@ class ModelTests: XCTestCase {
         let model = TestModel()
         let propertyValues = model.propertyValues
         XCTAssertEqual(propertyValues.count, 4)
-        XCTAssertEqual(propertyValues["boolProperty"] as? Bool, false as Bool?)
-        XCTAssertEqual(propertyValues["doubleProperty"] as? Double, 1.23 as Double?)
-        XCTAssertEqual(propertyValues["intProperty"] as? Int, 42 as Int?)
-        XCTAssertEqual(propertyValues["stringProperty"] as? String, "Hello" as String?)
+        XCTAssertEqual(propertyValues[0].name, "boolProperty")
+        XCTAssertEqual(propertyValues[0].value as? Bool, false)
+        XCTAssertEqual(propertyValues[1].value as? Double, 1.23)
+        XCTAssertEqual(propertyValues[1].name, "doubleProperty")
+        XCTAssertEqual(propertyValues[2].value as? Int, 42)
+        XCTAssertEqual(propertyValues[2].name, "intProperty")
+        XCTAssertEqual(propertyValues[3].value as? String, "Hello")
+        XCTAssertEqual(propertyValues[3].name, "stringProperty")
     }
 }
