@@ -33,25 +33,20 @@ struct Address: CustomStringConvertible {
     var address: [UInt8]
     var hostname: String?
 
-    /**
-     * Resolves an address from the given hostname.
-     *
-     * - parameter hostname: Hostname to resolve.
-     * - returns: Address, or nil if the hostname could not be resolved.
-     */
+    /// Resolves an address from the given hostname.
+    ///
+    /// - parameter hostname: Hostname to resolve.
+    /// - returns: Address, or nil if the hostname could not be resolved.
     static func fromHostname(hostname: String) -> Address? {
-        let hostnameCStr = hostname.cStringUsingEncoding(1) // ASCII
-        if hostnameCStr == nil {
-            return nil
-        }
+        let hostnameCStr = hostname.asciiCString
 
         // Resolve the hostname. We try resolving an IPv6 address
         // first, and fall back to IPv4 if that fails.
         var type = AddressType.IPv6
-        var host = gethostbyname2(hostnameCStr!, AF_INET6)
+        var host = gethostbyname2(hostnameCStr, AF_INET6)
         if host == nil {
             type = AddressType.IPv4
-            host = gethostbyname(hostnameCStr!)
+            host = gethostbyname(hostnameCStr)
             if host == nil {
                 return nil
             }
