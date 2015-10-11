@@ -251,7 +251,7 @@ class SQLiteDatabase: Database {
                 let columnType = sqlite3_column_type(statement, i)
                 switch columnType {
                     case SQLITE_INTEGER:
-                        row.append(Int(sqlite3_column_int(statement, i)))
+                        row.append(sqlite3_column_int64(statement, i))
 
                     case SQLITE_FLOAT:
                         row.append(sqlite3_column_double(statement, i))

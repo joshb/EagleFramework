@@ -52,7 +52,7 @@ class ModelTests: XCTestCase {
         XCTAssertEqual(propertyValues[0].value as? Bool, false)
         XCTAssertEqual(propertyValues[1].value as? Double, 1.23)
         XCTAssertEqual(propertyValues[1].name, "doubleProperty")
-        XCTAssertEqual(propertyValues[2].value as? Int, 42)
+        XCTAssertEqual(propertyValues[2].value as? Int64, 42)
         XCTAssertEqual(propertyValues[2].name, "intProperty")
         XCTAssertEqual(propertyValues[3].value as? String, "Hello")
         XCTAssertEqual(propertyValues[3].name, "stringProperty")

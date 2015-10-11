@@ -74,10 +74,13 @@ class Model: CustomStringConvertible {
     typealias OptionalBoolProperty = OptionalModelProperty<Bool>
     typealias DoubleProperty = RequiredModelProperty<Double>
     typealias OptionalDoubleProperty = OptionalModelProperty<Double>
-    typealias IntProperty = RequiredModelProperty<Int>
-    typealias OptionalIntProperty = OptionalModelProperty<Int>
+    typealias IntProperty = RequiredModelProperty<Int64>
+    typealias OptionalIntProperty = OptionalModelProperty<Int64>
     typealias StringProperty = RequiredModelProperty<String>
     typealias OptionalStringProperty = OptionalModelProperty<String>
+
+    typealias ForeignKeyProperty = IntProperty
+    typealias OptionalForeignKeyProperty = OptionalIntProperty
 
     typealias NameAndProperty = (name: String, property: ModelProperty)
     typealias NameAndPropertyValue = (name: String, value: Any)
