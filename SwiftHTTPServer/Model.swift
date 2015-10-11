@@ -34,18 +34,18 @@ class RequiredModelProperty<T>: ModelProperty {
 
     var nonTypedValue: Any {
         get {
-            return value as Any
+            return self.value as Any
         }
 
         set {
             if let typedValue = newValue as? T {
-                value = typedValue
+                self.value = typedValue
             }
         }
     }
 
     init(defaultValue: T) {
-        value = defaultValue
+        self.value = defaultValue
     }
 }
 
@@ -55,21 +55,21 @@ class OptionalModelProperty<T>: ModelProperty {
 
     var nonTypedValue: Any {
         get {
-            return value as Any
+            return self.value as Any
         }
 
         set {
-            value = newValue as? T
+            self.value = newValue as? T
         }
     }
 
     init(defaultValue: T? = nil) {
-        value = defaultValue
+        self.value = defaultValue
     }
 }
 
 /// Represents a data model.
-class Model {
+class Model: CustomStringConvertible {
     typealias BoolProperty = RequiredModelProperty<Bool>
     typealias OptionalBoolProperty = OptionalModelProperty<Bool>
     typealias DoubleProperty = RequiredModelProperty<Double>
@@ -153,5 +153,21 @@ class Model {
         }
 
         return result
+    }
+
+    var description: String {
+        var propertyList = "id: " + id.description
+
+        for (name, value) in propertyValues {
+            propertyList += ", "
+            
+            if let stringValue = value as? String {
+                propertyList += name + ": \"" + stringValue + "\""
+            } else {
+                propertyList += name + ": " + String(value)
+            }
+        }
+
+        return String(self.dynamicType) + "(" + propertyList + ")"
     }
 }

@@ -43,36 +43,36 @@ class SQLiteDatabaseTests: XCTestCase {
         super.tearDown()
     }
 
-    func testCreateTableCommandForModel() {
-        let command = SQLiteDatabase.createTableCommandForModel(User())
+    func testCreateTableCommandForModel() throws {
+        let command = try SQLiteDatabase.createTableCommandForModel(User())
         let expectedCommand = "CREATE TABLE User (id INTEGER PRIMARY KEY NOT NULL, username TEXT NOT NULL, password TEXT NOT NULL, isAdmin INTEGER NOT NULL, fullName TEXT NULL)"
         XCTAssertEqual(command, expectedCommand)
     }
 
-    func testInsertCommandForModel() {
+    func testInsertCommandForModel() throws {
         let user = User()
         user.username.value = "josh"
         user.password.value = "test"
         user.isAdmin.value = true
 
-        let command = SQLiteDatabase.insertCommandForModel(user)
+        let command = try SQLiteDatabase.insertCommandForModel(user)
         let expectedCommand = "INSERT INTO User (username, password, isAdmin, fullName) VALUES ('josh', 'test', 1, NULL)"
         XCTAssertEqual(command, expectedCommand)
     }
 
-    func testUpdateCommandForModel() {
+    func testUpdateCommandForModel() throws {
         let user = User()
         user.id = 42
         user.username.value = "bob"
         user.password.value = "hello"
 
-        let command = SQLiteDatabase.updateCommandForModel(user)
+        let command = try SQLiteDatabase.updateCommandForModel(user)
         let expectedCommand = "UPDATE User SET username = 'bob', password = 'hello', isAdmin = 0, fullName = NULL WHERE id = 42"
         XCTAssertEqual(command, expectedCommand)
     }
 
-    func testSelectCommandForModel() {
-        let command = SQLiteDatabase.selectCommandForModel(User())
+    func testSelectCommandForModel() throws {
+        let command = try SQLiteDatabase.selectCommandForModel(User())
         let expectedCommand = "SELECT username, password, isAdmin, fullName FROM User"
         XCTAssertEqual(command, expectedCommand)
     }

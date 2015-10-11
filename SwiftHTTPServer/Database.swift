@@ -26,8 +26,10 @@
 enum DatabaseError: ErrorType {
     case ConnectionFailed(message: String?)
     case CommandFailed(message: String?)
+    case ModelNotSupported
     case TableDoesNotExist
     case RecordDoesNotExist
+    case UnexpectedNumberOfColumns
 }
 
 protocol Database {
@@ -35,4 +37,11 @@ protocol Database {
     ///
     /// - parameter model: The data model to save.
     func saveModel(model: Model) throws
+
+    /// Loads a data model from the database.
+    ///
+    /// - parameter model: The data model instance to load the data into.
+    /// - parameter id: The unique identifier of the data model to load.
+    /// - returns: The data model populated with the loaded data.
+    func loadModel(model: Model, id: Int64) throws -> Model
 }

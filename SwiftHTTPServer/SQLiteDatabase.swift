@@ -41,11 +41,22 @@ class SQLiteDatabase: Database {
         sqlite3_close(db)
     }
 
+    /// Determines whether or not the given property is supported for storage in a SQLite database.
+    ///
+    /// - parameter property: The property to check.
+    /// - returns: true if the property is supported, false otherwise.
+    static func isModelPropertySupported(property: ModelProperty) -> Bool {
+        return property is Model.BoolProperty || property is Model.OptionalBoolProperty ||
+               property is Model.DoubleProperty || property is Model.OptionalDoubleProperty ||
+               property is Model.IntProperty || property is Model.OptionalIntProperty ||
+               property is Model.StringProperty || property is Model.StringProperty
+    }
+
     /// Generates a 'CREATE TABLE' command for the given model.
     ///
     /// - parameter model: The model to generate the command for.
     /// - returns: String containing the command.
-    static func createTableCommandForModel(model: Model) -> String {
+    static func createTableCommandForModel(model: Model) throws -> String {
         var propertyList = "id INTEGER PRIMARY KEY NOT NULL"
 
         for (name, property) in model.properties {
@@ -64,6 +75,8 @@ class SQLiteDatabase: Database {
                 propertyType = "TEXT NOT NULL"
             } else if property is Model.OptionalStringProperty {
                 propertyType = "TEXT NULL"
+            } else {
+                throw DatabaseError.ModelNotSupported
             }
 
             if let type = propertyType {
@@ -86,7 +99,7 @@ class SQLiteDatabase: Database {
     ///
     /// - parameter model: The model to get field names and values for.
     /// - returns: Array of tuples, each containing a field name and a value.
-    static func getFieldNamesAndValuesForModel(model: Model) -> [(String, String)] {
+    static func getFieldNamesAndValuesForModel(model: Model) throws -> [(String, String)] {
         var result: [(String, String)] = []
 
         for (name, abstractProperty) in model.properties {
@@ -123,6 +136,8 @@ class SQLiteDatabase: Database {
                 } else {
                     propertyValue = "NULL"
                 }
+            } else {
+                throw DatabaseError.ModelNotSupported
             }
 
             if let value = propertyValue {
@@ -137,10 +152,10 @@ class SQLiteDatabase: Database {
     ///
     /// - parameter model: The model to generate the command for.
     /// - returns: String containing the command.
-    static func insertCommandForModel(model: Model) -> String {
+    static func insertCommandForModel(model: Model) throws -> String {
         var propertyList = ""
         var valueList = ""
-        for (name, value) in getFieldNamesAndValuesForModel(model) {
+        for (name, value) in try getFieldNamesAndValuesForModel(model) {
             if !propertyList.isEmpty {
                 propertyList += ", "
                 valueList += ", "
@@ -157,9 +172,9 @@ class SQLiteDatabase: Database {
     ///
     /// - parameter model: The model to generate the command for.
     /// - returns: String containing the command.
-    static func updateCommandForModel(model: Model) -> String {
+    static func updateCommandForModel(model: Model) throws -> String {
         var valueList = ""
-        for (name, value) in getFieldNamesAndValuesForModel(model) {
+        for (name, value) in try getFieldNamesAndValuesForModel(model) {
             if !valueList.isEmpty {
                 valueList += ", "
             }
@@ -174,9 +189,9 @@ class SQLiteDatabase: Database {
     ///
     /// - parameter model: The model to generate the command for.
     /// - returns: String containing the command.
-    static func selectCommandForModel(model: Model) -> String {
+    static func selectCommandForModel(model: Model) throws -> String {
         var propertyList = ""
-        for (name, _) in getFieldNamesAndValuesForModel(model) {
+        for (name, _) in try getFieldNamesAndValuesForModel(model) {
             if !propertyList.isEmpty {
                 propertyList += ", "
             }
@@ -196,7 +211,7 @@ class SQLiteDatabase: Database {
         if sqlite3_exec(db, command.utf8CString, nil, nil, &errorPointer) != SQLITE_OK {
             let error = String.fromCString(errorPointer)
             if let errorMessage = error {
-                if errorMessage.hasPrefix("no such table") {
+                if errorMessage.hasPrefix("no such table:") {
                     throw DatabaseError.TableDoesNotExist
                 }
             }
@@ -242,7 +257,7 @@ class SQLiteDatabase: Database {
                         row.append(sqlite3_column_double(statement, i))
 
                     case SQLITE_TEXT:
-                        row.append(String.fromCString(UnsafePointer<Int8>(sqlite3_column_text(statement, i))))
+                        row.append(String.fromCString(UnsafePointer<Int8>(sqlite3_column_text(statement, i))) ?? "")
 
                     case SQLITE_NULL:
                         row.append(SQLiteValue.Null)
@@ -264,9 +279,9 @@ class SQLiteDatabase: Database {
         // an existing model that must have its row updated.
         var command: String
         if model.id == 0 {
-            command = SQLiteDatabase.insertCommandForModel(model)
+            command = try SQLiteDatabase.insertCommandForModel(model)
         } else {
-            command = SQLiteDatabase.updateCommandForModel(model)
+            command = try SQLiteDatabase.updateCommandForModel(model)
         }
 
         do {
@@ -276,5 +291,27 @@ class SQLiteDatabase: Database {
             try executeCommand(SQLiteDatabase.createTableCommandForModel(model))
             try executeCommand(command)
         }
+    }
+
+    func loadModel(model: Model, id: Int64) throws -> Model {
+        let command = try SQLiteDatabase.selectCommandForModel(model) + " WHERE id = " + id.description
+        let results = try executeQuery(command)
+        guard results.count == 1 else {
+            throw DatabaseError.RecordDoesNotExist
+        }
+
+        let row = results[0]
+        let properties = model.properties
+        guard row.count == properties.count else {
+            throw DatabaseError.UnexpectedNumberOfColumns
+        }
+
+        for i in 0..<row.count {
+            var property = properties[i].property
+            property.nonTypedValue = row[i]
+            print(property.nonTypedValue)
+        }
+
+        return model
     }
 }
