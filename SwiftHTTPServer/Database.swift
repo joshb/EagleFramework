@@ -23,6 +23,16 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+enum DatabaseError: ErrorType {
+    case ConnectionFailed(message: String?)
+    case CommandFailed(message: String?)
+    case TableDoesNotExist
+    case RecordDoesNotExist
+}
+
 protocol Database {
-    
+    /// Saves a data model to the database.
+    ///
+    /// - parameter model: The data model to save.
+    func saveModel(model: Model) throws
 }

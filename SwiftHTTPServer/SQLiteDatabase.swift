@@ -23,16 +23,258 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/// Represents an SQLite database.
 class SQLiteDatabase: Database {
+    enum SQLiteValue {
+        case Null
+    }
+
     private var db: COpaquePointer = nil
 
-    init?(filePath: String) {
-        if sqlite3_open(filePath.ascii, &db) != 0 {
-            return nil
+    init(filePath: String) throws {
+        if sqlite3_open(filePath.utf8CString, &db) != SQLITE_OK {
+            throw DatabaseError.ConnectionFailed(message: "Could not open the file: " + filePath)
         }
     }
 
     deinit {
         sqlite3_close(db)
+    }
+
+    /// Generates a 'CREATE TABLE' command for the given model.
+    ///
+    /// - parameter model: The model to generate the command for.
+    /// - returns: String containing the command.
+    static func createTableCommandForModel(model: Model) -> String {
+        var propertyList = "id INTEGER PRIMARY KEY NOT NULL"
+
+        for (name, property) in model.properties {
+            propertyList += ", "
+            
+            var propertyType: String?
+            if property is ModelProperty<Bool> || property is ModelProperty<Int> {
+                propertyType = "INTEGER NOT NULL"
+            } else if property is ModelProperty<Bool?> || property is ModelProperty<Int?> {
+                propertyType = "INTEGER NULL"
+            } else if property is ModelProperty<Double> {
+                propertyType = "REAL NOT NULL"
+            } else if property is ModelProperty<Double?> {
+                propertyType = "REAL NULL"
+            } else if property is ModelProperty<String> {
+                propertyType = "TEXT NOT NULL"
+            } else if property is ModelProperty<String?> {
+                propertyType = "TEXT NULL"
+            }
+
+            if let type = propertyType {
+                propertyList += name + " " + type
+            }
+        }
+
+        return "CREATE TABLE " + model.storageName + " (" + propertyList + ")"
+    }
+
+    /// Generates an escaped version of a string suitable for use in an SQL command.
+    ///
+    /// - parameter s: The string to escape.
+    /// - returns: The escaped string.
+    static func escapeString(s: String) -> String {
+        return "'" + s.replace("'", withString: "''") + "'"
+    }
+
+    /// Generates an array of tuples containing the field names and SQL-formatted values for the given model's properties.
+    ///
+    /// - parameter model: The model to get field names and values for.
+    /// - returns: Array of tuples, each containing a field name and a value.
+    static func getFieldNamesAndValuesForModel(model: Model) -> [(String, String)] {
+        var result: [(String, String)] = []
+
+        for (name, abstractProperty) in model.properties {
+            var propertyValue: String?
+            if let property = abstractProperty as? ModelProperty<Bool> {
+                propertyValue = property.value ? "1" : "0"
+            } else if let property = abstractProperty as? ModelProperty<Bool?> {
+                if property.value != nil {
+                    propertyValue = property.value! ? "1" : "0"
+                } else {
+                    propertyValue = "NULL"
+                }
+            } else if let property = abstractProperty as? ModelProperty<Double> {
+                propertyValue = String(property.value)
+            } else if let property = abstractProperty as? ModelProperty<Double?> {
+                if let value = property.value {
+                    propertyValue = String(value)
+                } else {
+                    propertyValue = "NULL"
+                }
+            } else if let property = abstractProperty as? ModelProperty<Int> {
+                propertyValue = String(property.value)
+            } else if let property = abstractProperty as? ModelProperty<Int?> {
+                if let value = property.value {
+                    propertyValue = String(value)
+                } else {
+                    propertyValue = "NULL"
+                }
+            } else if let property = abstractProperty as? ModelProperty<String> {
+                propertyValue = escapeString(property.value)
+            } else if let property = abstractProperty as? ModelProperty<String?> {
+                if let value = property.value {
+                    propertyValue = escapeString(value)
+                } else {
+                    propertyValue = "NULL"
+                }
+            }
+
+            if let value = propertyValue {
+                result.append((name, value))
+            }
+        }
+
+        return result
+    }
+
+    /// Generates an 'INSERT' command for the given model.
+    ///
+    /// - parameter model: The model to generate the command for.
+    /// - returns: String containing the command.
+    static func insertCommandForModel(model: Model) -> String {
+        var propertyList = ""
+        var valueList = ""
+        for (name, value) in getFieldNamesAndValuesForModel(model) {
+            if !propertyList.isEmpty {
+                propertyList += ", "
+                valueList += ", "
+            }
+
+            propertyList += name
+            valueList += value
+        }
+
+        return "INSERT INTO " + model.storageName + " (" + propertyList + ") VALUES (" + valueList + ")"
+    }
+
+    /// Generates an 'UPDATE' command for the given model.
+    ///
+    /// - parameter model: The model to generate the command for.
+    /// - returns: String containing the command.
+    static func updateCommandForModel(model: Model) -> String {
+        var valueList = ""
+        for (name, value) in getFieldNamesAndValuesForModel(model) {
+            if !valueList.isEmpty {
+                valueList += ", "
+            }
+
+            valueList += name + " = " + value
+        }
+
+        return "UPDATE " + model.storageName + " SET " + valueList + " WHERE id = " + model.id.description
+    }
+
+    /// Generates a 'SELECT' command for the given model.
+    ///
+    /// - parameter model: The model to generate the command for.
+    /// - returns: String containing the command.
+    static func selectCommandForModel(model: Model) -> String {
+        var propertyList = ""
+        for (name, _) in getFieldNamesAndValuesForModel(model) {
+            if !propertyList.isEmpty {
+                propertyList += ", "
+            }
+
+            propertyList += name
+        }
+
+        return "SELECT " + propertyList + " FROM " + model.storageName
+    }
+
+    /// Executes an SQL command that does not return any data.
+    ///
+    /// - parameter command: String containing the command to execute.
+    func executeCommand(command: String) throws {
+        var errorPointer: UnsafeMutablePointer<CChar> = nil
+
+        if sqlite3_exec(db, command.utf8CString, nil, nil, &errorPointer) != SQLITE_OK {
+            let error = String.fromCString(errorPointer)
+            if let errorMessage = error {
+                if errorMessage.hasPrefix("no such table") {
+                    throw DatabaseError.TableDoesNotExist
+                }
+            }
+
+            throw DatabaseError.CommandFailed(message: error)
+        }
+    }
+
+    /// Executes an SQL query that returns data.
+    ///
+    /// - parameter query: String containing the query to execute.
+    /// - returns: A two-dimensional array of values in each row/column.
+    func executeQuery(query: String) throws -> [[Any]] {
+        var statement: COpaquePointer = nil
+
+        // Prepare the query.
+        let queryCString = query.utf8CString
+        if sqlite3_prepare_v2(db, queryCString, Int32(queryCString.count), &statement, nil) != SQLITE_OK {
+            throw DatabaseError.CommandFailed(message: nil)
+        }
+
+        defer {
+            sqlite3_finalize(statement)
+        }
+
+        var results: [[Any]] = []
+        let columnCount = sqlite3_column_count(statement)
+        if columnCount < 1 {
+            return results
+        }
+
+        // Read each row.
+        while sqlite3_step(statement) == SQLITE_ROW {
+            var row: [Any] = []
+
+            for i in 0..<columnCount {
+                let columnType = sqlite3_column_type(statement, i)
+                switch columnType {
+                    case SQLITE_INTEGER:
+                        row.append(Int(sqlite3_column_int(statement, i)))
+
+                    case SQLITE_FLOAT:
+                        row.append(sqlite3_column_double(statement, i))
+
+                    case SQLITE_TEXT:
+                        row.append(String.fromCString(UnsafePointer<Int8>(sqlite3_column_text(statement, i))))
+
+                    case SQLITE_NULL:
+                        row.append(SQLiteValue.Null)
+
+                    default:
+                        throw DatabaseError.CommandFailed(message: "Unknown column type returned: " + columnType.description)
+                }
+            }
+
+            results.append(row)
+        }
+
+        return results
+    }
+
+    func saveModel(model: Model) throws {
+        // If the model's ID is not set, it's a new model that must be
+        // inserted into the appropriate table. If the ID is set, it's
+        // an existing model that must have its row updated.
+        var command: String
+        if model.id == 0 {
+            command = SQLiteDatabase.insertCommandForModel(model)
+        } else {
+            command = SQLiteDatabase.updateCommandForModel(model)
+        }
+
+        do {
+            try executeCommand(command)
+        } catch DatabaseError.TableDoesNotExist {
+            // Create the table and try executing the command again.
+            try executeCommand(SQLiteDatabase.createTableCommandForModel(model))
+            try executeCommand(command)
+        }
     }
 }

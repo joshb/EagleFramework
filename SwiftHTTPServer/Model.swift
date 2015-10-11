@@ -53,6 +53,9 @@ class ModelProperty<T>: AbstractModelProperty {
 protocol Model {
     /// A name for the model's storage. This is used as a table name in a database.
     var storageName: String { get }
+
+    /// A number to uniquely identify the model.
+    var id: Int64 { get set }
 }
 
 extension Model {

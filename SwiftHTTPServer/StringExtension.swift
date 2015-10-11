@@ -30,9 +30,14 @@ extension String {
         "txt": "text/plain"
     ]
 
-    /// An ASCII representation of the string.
-    var ascii: [CChar] {
+    /// An ASCII C-string representation of the string.
+    var asciiCString: [CChar] {
         return self.cStringUsingEncoding(1) ?? []
+    }
+
+    /// A UTF-8 C-string representation of the string.
+    var utf8CString: [CChar] {
+        return self.cStringUsingEncoding(4) ?? []
     }
 
     /// The content type based on the file extension in the string.

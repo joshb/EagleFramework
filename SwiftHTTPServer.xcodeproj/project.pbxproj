@@ -42,6 +42,10 @@
 		0DB8C8801BC1AC6200C02E36 /* TemplateExpressionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB8C87A1BC1A0A900C02E36 /* TemplateExpressionNode.swift */; };
 		0DB8C8811BC1AC6200C02E36 /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB8C8781BC1A01700C02E36 /* Template.swift */; };
 		0DB8C8821BC1ACAC00C02E36 /* TemplateParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB8C8721BC1983F00C02E36 /* TemplateParser.swift */; };
+		0DD0C9EE1BC87EA4004F2632 /* SQLiteDatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD0C9ED1BC87EA4004F2632 /* SQLiteDatabaseTests.swift */; settings = {ASSET_TAGS = (); }; };
+		0DD0C9EF1BC87EE4004F2632 /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1645981BC77B0E0003FACC /* SQLiteDatabase.swift */; };
+		0DD0C9F01BC87FE8004F2632 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1645931BC770210003FACC /* Database.swift */; };
+		0DD0C9F11BC87FF1004F2632 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D16458F1BC76F9E0003FACC /* libsqlite3.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -89,6 +93,7 @@
 		0DB8C8781BC1A01700C02E36 /* Template.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		0DB8C87A1BC1A0A900C02E36 /* TemplateExpressionNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateExpressionNode.swift; sourceTree = "<group>"; };
 		0DB8C87C1BC1AC0300C02E36 /* TemplateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateTests.swift; sourceTree = "<group>"; };
+		0DD0C9ED1BC87EA4004F2632 /* SQLiteDatabaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteDatabaseTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DD0C9F11BC87FF1004F2632 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +133,7 @@
 				0DAEFC491BBF863B001ABDDE /* TemplateTokenizerTests.swift */,
 				0DB8C87C1BC1AC0300C02E36 /* TemplateTests.swift */,
 				0D1645951BC775430003FACC /* ModelTests.swift */,
+				0DD0C9ED1BC87EA4004F2632 /* SQLiteDatabaseTests.swift */,
 			);
 			path = SwiftHTTPServerTests;
 			sourceTree = "<group>";
@@ -301,11 +308,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DD0C9F01BC87FE8004F2632 /* Database.swift in Sources */,
+				0DD0C9EF1BC87EE4004F2632 /* SQLiteDatabase.swift in Sources */,
 				0D1645971BC7757E0003FACC /* Model.swift in Sources */,
 				0DB8C8821BC1ACAC00C02E36 /* TemplateParser.swift in Sources */,
 				0DB8C87E1BC1AC6200C02E36 /* TemplateNode.swift in Sources */,
 				0DB8C87F1BC1AC6200C02E36 /* TemplateTextNode.swift in Sources */,
 				0DB8C8801BC1AC6200C02E36 /* TemplateExpressionNode.swift in Sources */,
+				0DD0C9EE1BC87EA4004F2632 /* SQLiteDatabaseTests.swift in Sources */,
 				0DB8C8811BC1AC6200C02E36 /* Template.swift in Sources */,
 				0DAEFC4B1BBF8674001ABDDE /* TemplateTokenizer.swift in Sources */,
 				0DAEFC4A1BBF863B001ABDDE /* TemplateTokenizerTests.swift in Sources */,
@@ -357,6 +367,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.joshbeam.SwiftHTTPServerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftHTTPServer/SwiftHTTPServer-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -368,6 +379,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.joshbeam.SwiftHTTPServerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftHTTPServer/SwiftHTTPServer-Bridging-Header.h";
 			};
 			name = Release;
 		};
