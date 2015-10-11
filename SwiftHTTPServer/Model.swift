@@ -24,12 +24,12 @@
  */
 
 /// Protocol for data model properties to implement.
-protocol AbstractModelProperty {
+protocol ModelProperty {
     var nonTypedValue: Any { get set }
 }
 
-/// Represents a property of a data model.
-class ModelProperty<T>: AbstractModelProperty {
+/// Represents a required property of a data model.
+class RequiredModelProperty<T>: ModelProperty {
     var value: T
 
     var nonTypedValue: Any {
@@ -39,51 +39,117 @@ class ModelProperty<T>: AbstractModelProperty {
 
         set {
             if let typedValue = newValue as? T {
-                self.value = typedValue
+                value = typedValue
             }
         }
     }
 
     init(defaultValue: T) {
-        self.value = defaultValue
+        value = defaultValue
     }
 }
 
-/// Protocol for data models to implement.
-protocol Model {
-    /// A name for the model's storage. This is used as a table name in a database.
-    var storageName: String { get }
+/// Represents an optional property of a data model.
+class OptionalModelProperty<T>: ModelProperty {
+    var value: T?
 
-    /// A number to uniquely identify the model.
-    var id: Int64 { get set }
+    var nonTypedValue: Any {
+        get {
+            return value as Any
+        }
+
+        set {
+            value = newValue as? T
+        }
+    }
+
+    init(defaultValue: T? = nil) {
+        value = defaultValue
+    }
 }
 
-extension Model {
-    typealias NameAndProperty = (name: String, property: AbstractModelProperty)
+/// Represents a data model.
+class Model {
+    typealias BoolProperty = RequiredModelProperty<Bool>
+    typealias OptionalBoolProperty = OptionalModelProperty<Bool>
+    typealias DoubleProperty = RequiredModelProperty<Double>
+    typealias OptionalDoubleProperty = OptionalModelProperty<Double>
+    typealias IntProperty = RequiredModelProperty<Int>
+    typealias OptionalIntProperty = OptionalModelProperty<Int>
+    typealias StringProperty = RequiredModelProperty<String>
+    typealias OptionalStringProperty = OptionalModelProperty<String>
+
+    typealias NameAndProperty = (name: String, property: ModelProperty)
     typealias NameAndPropertyValue = (name: String, value: Any)
+
+    private var _storageName: String?
+    private var _properties: [NameAndProperty]?
+    private var _propertiesDictionary: [String: ModelProperty]?
+
+    /// A name for the model's storage. This is used as a table name in a database.
+    var storageName: String {
+        if _storageName == nil {
+            _storageName = String(self.dynamicType)
+        }
+
+        return _storageName!
+    }
+
+    /// A number to uniquely identify the model.
+    var id: Int64 = 0
 
     /// List of tuples containing property names and properties.
     var properties: [NameAndProperty] {
-        var result: [NameAndProperty] = []
+        if _properties == nil {
+            var result: [NameAndProperty] = []
 
-        let mirror = Mirror(reflecting: self)
-        for child in mirror.children {
-            if let label = child.label {
-                if let property = child.value as? AbstractModelProperty {
-                    result.append((label, property))
+            let mirror = Mirror(reflecting: self)
+            for child in mirror.children {
+                if let label = child.label {
+                    if let property = child.value as? ModelProperty {
+                        result.append((label, property))
+                    }
                 }
             }
+
+            _properties = result
         }
 
-        return result
+        return _properties!
+    }
+
+    /// Dictionary of property names to properties.
+    var propertiesDictionary: [String: ModelProperty] {
+        if _propertiesDictionary == nil {
+            var result: [String: ModelProperty] = [:]
+
+            for (name, property) in properties {
+                result[name] = property
+            }
+
+            _propertiesDictionary = result
+        }
+
+        return _propertiesDictionary!
     }
 
     /// List of tuples containing property names and values.
     var propertyValues: [NameAndPropertyValue] {
         var result: [NameAndPropertyValue] = []
 
-        for pair in properties {
-            result.append((pair.name, pair.property.nonTypedValue))
+        for (name, property) in properties {
+            result.append((name, property.nonTypedValue))
+        }
+        
+        return result
+    }
+
+    /// Dictionary of property names to values.
+    var propertyValuesDictionary: [String: Any] {
+        var result: [String: Any] = [:]
+
+        for (name, property) in properties {
+            result[name] = property.nonTypedValue
         }
 
         return result

@@ -52,17 +52,17 @@ class SQLiteDatabase: Database {
             propertyList += ", "
             
             var propertyType: String?
-            if property is ModelProperty<Bool> || property is ModelProperty<Int> {
+            if property is Model.BoolProperty || property is Model.IntProperty {
                 propertyType = "INTEGER NOT NULL"
-            } else if property is ModelProperty<Bool?> || property is ModelProperty<Int?> {
+            } else if property is Model.OptionalBoolProperty || property is Model.OptionalIntProperty {
                 propertyType = "INTEGER NULL"
-            } else if property is ModelProperty<Double> {
+            } else if property is Model.DoubleProperty {
                 propertyType = "REAL NOT NULL"
-            } else if property is ModelProperty<Double?> {
+            } else if property is Model.OptionalDoubleProperty {
                 propertyType = "REAL NULL"
-            } else if property is ModelProperty<String> {
+            } else if property is Model.StringProperty {
                 propertyType = "TEXT NOT NULL"
-            } else if property is ModelProperty<String?> {
+            } else if property is Model.OptionalStringProperty {
                 propertyType = "TEXT NULL"
             }
 
@@ -91,33 +91,33 @@ class SQLiteDatabase: Database {
 
         for (name, abstractProperty) in model.properties {
             var propertyValue: String?
-            if let property = abstractProperty as? ModelProperty<Bool> {
+            if let property = abstractProperty as? Model.BoolProperty {
                 propertyValue = property.value ? "1" : "0"
-            } else if let property = abstractProperty as? ModelProperty<Bool?> {
+            } else if let property = abstractProperty as? Model.OptionalBoolProperty {
                 if property.value != nil {
                     propertyValue = property.value! ? "1" : "0"
                 } else {
                     propertyValue = "NULL"
                 }
-            } else if let property = abstractProperty as? ModelProperty<Double> {
+            } else if let property = abstractProperty as? Model.DoubleProperty {
                 propertyValue = String(property.value)
-            } else if let property = abstractProperty as? ModelProperty<Double?> {
+            } else if let property = abstractProperty as? Model.OptionalDoubleProperty {
                 if let value = property.value {
                     propertyValue = String(value)
                 } else {
                     propertyValue = "NULL"
                 }
-            } else if let property = abstractProperty as? ModelProperty<Int> {
+            } else if let property = abstractProperty as? Model.IntProperty {
                 propertyValue = String(property.value)
-            } else if let property = abstractProperty as? ModelProperty<Int?> {
+            } else if let property = abstractProperty as? Model.OptionalIntProperty {
                 if let value = property.value {
                     propertyValue = String(value)
                 } else {
                     propertyValue = "NULL"
                 }
-            } else if let property = abstractProperty as? ModelProperty<String> {
+            } else if let property = abstractProperty as? Model.StringProperty {
                 propertyValue = escapeString(property.value)
-            } else if let property = abstractProperty as? ModelProperty<String?> {
+            } else if let property = abstractProperty as? Model.OptionalStringProperty {
                 if let value = property.value {
                     propertyValue = escapeString(value)
                 } else {

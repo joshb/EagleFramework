@@ -39,16 +39,10 @@ class ModelTests: XCTestCase {
 
     func testPropertyValues() {
         class TestModel: Model {
-            var storageName: String {
-                return "TestModel"
-            }
-
-            var id: Int64 = 0
-
-            let boolProperty = ModelProperty<Bool>(defaultValue: false)
-            let doubleProperty = ModelProperty<Double>(defaultValue: 1.23)
-            let intProperty = ModelProperty<Int>(defaultValue: 42)
-            let stringProperty = ModelProperty<String>(defaultValue: "Hello")
+            let boolProperty = Model.BoolProperty(defaultValue: false)
+            let doubleProperty = Model.DoubleProperty(defaultValue: 1.23)
+            let intProperty = Model.IntProperty(defaultValue: 42)
+            let stringProperty = Model.StringProperty(defaultValue: "Hello")
         }
 
         let model = TestModel()

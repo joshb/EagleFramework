@@ -27,15 +27,10 @@ import XCTest
 
 class SQLiteDatabaseTests: XCTestCase {
     class User: Model {
-        var storageName: String {
-            return "User"
-        }
-
-        var id: Int64 = 0
-        let username = ModelProperty<String>(defaultValue: "")
-        let password = ModelProperty<String>(defaultValue: "")
-        let isAdmin = ModelProperty<Bool>(defaultValue: false)
-        let fullName = ModelProperty<String?>(defaultValue: nil)
+        let username = Model.StringProperty(defaultValue: "")
+        let password = Model.StringProperty(defaultValue: "")
+        let isAdmin = Model.BoolProperty(defaultValue: false)
+        let fullName = Model.OptionalStringProperty()
     }
 
     override func setUp() {
