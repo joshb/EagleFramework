@@ -100,7 +100,7 @@ class TemplateTokenizer {
 
             // If the token now has the code start symbol, we emit
             // the token as text and switch to in-code processing.
-            if token.endsWith(TemplateTokenizer.codeStartSymbol) {
+            if token.hasSuffix(TemplateTokenizer.codeStartSymbol) {
                 token = token.substringToIndex(token.endIndex.advancedBy(-TemplateTokenizer.codeStartSymbol.length))
                 emitToken()
                 delegate?.codeStartFound()
