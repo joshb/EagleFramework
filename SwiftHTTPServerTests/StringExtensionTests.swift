@@ -41,6 +41,18 @@ class SwiftHTTPServerTests: XCTestCase {
         XCTAssertEqual("INDEX.HTML".fileContentType, "text/html")
     }
 
+    func testIsDirectory() {
+        XCTAssertFalse("/bin/ls".isDirectory)
+        XCTAssertFalse("/this/path/does/not/exist".isDirectory)
+        XCTAssertTrue("/tmp".isDirectory)
+    }
+
+    func testIsFile() {
+        XCTAssertFalse("/tmp".isFile)
+        XCTAssertFalse("/this/path/does/not/exist".isFile)
+        XCTAssertTrue("/bin/ls".isFile)
+    }
+
     func testLength() {
         XCTAssertEqual("".length, 0)
         XCTAssertEqual("Hello, world!".length, 13)

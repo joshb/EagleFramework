@@ -52,6 +52,34 @@ extension String {
         return "binary/octet-stream"
     }
 
+    private var fstatMode: mode_t {
+        var fd = open(self.asciiCString, O_RDONLY)
+        guard fd != -1 else {
+            return 0
+        }
+
+        defer {
+            close(fd)
+        }
+
+        var status = stat()
+        guard fstat(fd, &status) != -1 else {
+            return 0
+        }
+
+        return status.st_mode
+    }
+
+    // Indicates whether or not the string contains the path of a directory.
+    var isDirectory: Bool {
+        return (fstatMode & S_IFDIR) != 0
+    }
+
+    // Indicates whether or not the string contains the path of a regular file.
+    var isFile: Bool {
+        return (fstatMode & S_IFREG) != 0
+    }
+
     /// The string's character count.
     var length: Int {
         return self.characters.count

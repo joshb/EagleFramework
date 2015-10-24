@@ -30,8 +30,13 @@ class FileResponder: Responder {
 
     func respond(request: HttpRequest) -> HttpResponse? {
         if let wwwPath = Settings.wwwPath {
-            if let filePath = request.safeFilePath {
-                return HttpResponse.file(wwwPath + "/" + filePath)
+            if let path = request.safeFilePath {
+                var fullPath = wwwPath + "/" + path
+                if fullPath.isDirectory {
+                    fullPath += "/index.html"
+                }
+
+                return HttpResponse.file(fullPath)
             }
         }
 
