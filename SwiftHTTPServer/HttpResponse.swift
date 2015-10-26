@@ -151,4 +151,15 @@ class HttpResponse: CustomStringConvertible {
 
         return nil
     }
+
+    static func template(statusCode: Int, statusMessage: String, contentType: String, template: Template, data: [String: Any]? = nil) -> HttpResponse {
+        let response = HttpResponse(statusCode: statusCode, statusMessage: statusMessage)
+        response.contentType = contentType
+        response.textContent = template.render(data ?? [String: Any]())
+        return response
+    }
+
+    static func template(statusCode: Int, statusMessage: String, template: Template, data: [String: Any]? = nil) -> HttpResponse {
+        return HttpResponse.template(statusCode, statusMessage: statusMessage, contentType: "text/html; charset=utf-8", template: template, data: data)
+    }
 }
