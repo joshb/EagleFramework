@@ -24,15 +24,15 @@
  */
 
 class Settings {
-    static var wwwPath: String? {
-        return Process.arguments.count >= 2 ? Process.arguments[1] : nil
+    static var wwwPath: String {
+        return Process.arguments[1]
     }
 
-    static var resourcesPath: String? {
-        return Process.arguments.count >= 3 ? Process.arguments[2] : nil
+    static var resourcesPath: String {
+        return Process.arguments[2]
     }
 
-    static func getAbsoluteResourcePath(relativePath: String) -> String? {
-        return (resourcesPath != nil) ? resourcesPath! + "/" + relativePath : nil
+    static func getAbsoluteResourcePath(relativePath: String) -> String {
+        return resourcesPath + "/" + relativePath
     }
 }
