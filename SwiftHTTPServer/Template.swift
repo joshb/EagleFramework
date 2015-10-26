@@ -63,4 +63,13 @@ class Template: CustomStringConvertible, TemplateParserDelegate {
 
         return s
     }
+
+    static func fromFile(path: String) -> Template? {
+        let fullPath = Settings.getAbsoluteResourcePath(path)
+        if let source = try? String(contentsOfFile: fullPath, encoding: 4) {
+            return Template(source: source)
+        }
+
+        return nil
+    }
 }
