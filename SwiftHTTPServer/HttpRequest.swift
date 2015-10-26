@@ -25,11 +25,21 @@
 
 /// Represents an HTTP request from a client.
 class HttpRequest: CustomStringConvertible {
+    enum Method: String {
+        case Delete = "DELETE",
+             Get = "GET",
+             Head = "HEAD",
+             Options = "OPTIONS",
+             Post = "POST",
+             Put = "PUT"
+    }
+
     var method: String
     var path: String
     var version: String
 
     var headers: [String: String] = [:]
+    var postData: String?
 
     var safeFilePath: String? {
         if path[path.startIndex] != "/" || path.containsString("..") {
@@ -37,6 +47,40 @@ class HttpRequest: CustomStringConvertible {
         }
 
         return path.substring(1)
+    }
+
+    // The length (in bytes) of the HTTP request's content.
+    var contentLength: Int {
+        get {
+            return Int(headers["Content-Length"] ?? "0") ?? 0
+        }
+
+        set {
+            headers["Content-Length"] = newValue.description
+        }
+    }
+
+    var formData: [String: String] {
+        var data: [String: String] = [:]
+        guard method == Method.Post.rawValue else {
+            return data
+        }
+
+        if let postData = self.postData {
+            let pairs = postData.split("&")
+            for pair in pairs {
+                let keyAndValue = pair.split("=")
+                if keyAndValue.count != 2 {
+                    continue
+                }
+
+                let key = keyAndValue[0]
+                let value = keyAndValue[1]
+                data[key] = value
+            }
+        }
+
+        return data
     }
 
     init(method: String, path: String, version: String) {
