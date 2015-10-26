@@ -36,6 +36,7 @@ class HttpConnection: CustomStringConvertible {
 
     private var lineBuffer: [CChar] = []
     private var lines: [String] = []
+    private var requestAwaitingPostData: HttpRequest?
     private var readMilliseconds = getMilliseconds()
 
     /// The number of milliseconds that have elapsed since the connection's socket was last read.
@@ -87,9 +88,18 @@ class HttpConnection: CustomStringConvertible {
     }
 
     private func processLine(line: String) {
-        if line.length == 0 {
+        if let request = requestAwaitingPostData {
+            request.postData = line
+            processRequest(request)
+            requestAwaitingPostData = nil
+            lines = []
+        } else if line.length == 0 {
             if let request = HttpRequest.parse(lines) {
-                processRequest(request)
+                if request.method == "POST" {
+                    requestAwaitingPostData = request
+                } else {
+                    processRequest(request)
+                }
                 lines = []
             }
         } else {
@@ -126,6 +136,18 @@ class HttpConnection: CustomStringConvertible {
             }
 
             lineBuffer.appendContentsOf(buf[bufStart..<length])
+
+            // If we're waiting for a request's post data and the line buffer
+            // length is equal to the content length, then we can go ahead
+            // and process the contents of the line buffer.
+            if let request = requestAwaitingPostData {
+                if lineBuffer.count >= request.contentLength {
+                    let lineData = lineBuffer + [0]
+                    if let line = String.fromCString(lineData) {
+                        processLine(line.trimmed)
+                    }
+                }
+            }
         }
 
         readMilliseconds = getMilliseconds()
