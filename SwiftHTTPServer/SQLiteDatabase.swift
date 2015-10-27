@@ -274,11 +274,12 @@ class SQLiteDatabase: Database {
     }
 
     func saveModel(model: Model) throws {
-        // If the model's ID is not set, it's a new model that must be
+        // If the model's ID is 0, it's a new model that must be
         // inserted into the appropriate table. If the ID is set, it's
         // an existing model that must have its row updated.
         var command: String
-        if model.id == 0 {
+        let newModel = (model.id == 0)
+        if newModel {
             command = try SQLiteDatabase.insertCommandForModel(model)
         } else {
             command = try SQLiteDatabase.updateCommandForModel(model)
@@ -290,6 +291,10 @@ class SQLiteDatabase: Database {
             // Create the table and try executing the command again.
             try executeCommand(SQLiteDatabase.createTableCommandForModel(model))
             try executeCommand(command)
+        }
+
+        if newModel {
+            model.id = sqlite3_last_insert_rowid(db)
         }
     }
 
