@@ -100,6 +100,12 @@ class HttpResponse: CustomStringConvertible {
         self.statusMessage = statusMessage
     }
 
+    static func redirect(location: String) -> HttpResponse {
+        let response = HttpResponse(statusCode: 302, statusMessage: "Found")
+        response.headers["Location"] = location
+        return response
+    }
+
     static func html(statusCode: Int, statusMessage: String, content: String) -> HttpResponse {
         let response = HttpResponse(statusCode: statusCode, statusMessage: statusMessage)
         response.textContent = content
