@@ -17,17 +17,20 @@
 		0D1645971BC7757E0003FACC /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9B081B1BC61C9D00D4C87C /* Model.swift */; };
 		0D1645991BC77B0E0003FACC /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1645981BC77B0E0003FACC /* SQLiteDatabase.swift */; };
 		0D16459A1BC7818C0003FACC /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D16458F1BC76F9E0003FACC /* libsqlite3.tbd */; };
-		0D72EC371B5CA230001B6659 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC2B1B5CA230001B6659 /* Address.swift */; };
-		0D72EC381B5CA230001B6659 /* CUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC2C1B5CA230001B6659 /* CUtil.c */; };
 		0D72EC391B5CA230001B6659 /* HttpConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC2E1B5CA230001B6659 /* HttpConnection.swift */; };
 		0D72EC3A1B5CA230001B6659 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC2F1B5CA230001B6659 /* HttpRequest.swift */; };
 		0D72EC3B1B5CA230001B6659 /* HttpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC301B5CA230001B6659 /* HttpResponse.swift */; };
 		0D72EC3C1B5CA230001B6659 /* HttpServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC311B5CA230001B6659 /* HttpServer.swift */; };
 		0D72EC3D1B5CA230001B6659 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC321B5CA230001B6659 /* main.swift */; };
-		0D72EC3E1B5CA230001B6659 /* Poller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC331B5CA230001B6659 /* Poller.swift */; };
 		0D72EC3F1B5CA230001B6659 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC341B5CA230001B6659 /* Settings.swift */; };
 		0D72EC401B5CA230001B6659 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC351B5CA230001B6659 /* StringExtension.swift */; };
 		0D9B081C1BC61C9D00D4C87C /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9B081B1BC61C9D00D4C87C /* Model.swift */; };
+		0DABF22B1BEDADF200B09088 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DABF2261BEDADF200B09088 /* Address.swift */; };
+		0DABF22C1BEDADF200B09088 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DABF2271BEDADF200B09088 /* Endpoint.swift */; };
+		0DABF22D1BEDADF200B09088 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DABF2281BEDADF200B09088 /* Server.swift */; };
+		0DABF22E1BEDADF200B09088 /* ServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DABF2291BEDADF200B09088 /* ServerConnection.swift */; };
+		0DABF22F1BEDADF200B09088 /* ServerUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DABF22A1BEDADF200B09088 /* ServerUtil.swift */; };
+		0DABF2311BEDBBC300B09088 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC341B5CA230001B6659 /* Settings.swift */; };
 		0DAEFC481BBF755A001ABDDE /* TemplateTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEFC471BBF755A001ABDDE /* TemplateTokenizer.swift */; };
 		0DAEFC4A1BBF863B001ABDDE /* TemplateTokenizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEFC491BBF863B001ABDDE /* TemplateTokenizerTests.swift */; };
 		0DAEFC4B1BBF8674001ABDDE /* TemplateTokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAEFC471BBF755A001ABDDE /* TemplateTokenizer.swift */; };
@@ -71,20 +74,21 @@
 		0D1645951BC775430003FACC /* ModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		0D1645981BC77B0E0003FACC /* SQLiteDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteDatabase.swift; sourceTree = "<group>"; };
 		0D72EC211B5CA201001B6659 /* SwiftHTTPServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftHTTPServer; sourceTree = BUILT_PRODUCTS_DIR; };
-		0D72EC2B1B5CA230001B6659 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
-		0D72EC2C1B5CA230001B6659 /* CUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CUtil.c; sourceTree = "<group>"; };
-		0D72EC2D1B5CA230001B6659 /* CUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUtil.h; sourceTree = "<group>"; };
 		0D72EC2E1B5CA230001B6659 /* HttpConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpConnection.swift; sourceTree = "<group>"; };
 		0D72EC2F1B5CA230001B6659 /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
 		0D72EC301B5CA230001B6659 /* HttpResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpResponse.swift; sourceTree = "<group>"; };
 		0D72EC311B5CA230001B6659 /* HttpServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpServer.swift; sourceTree = "<group>"; };
 		0D72EC321B5CA230001B6659 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		0D72EC331B5CA230001B6659 /* Poller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Poller.swift; sourceTree = "<group>"; };
 		0D72EC341B5CA230001B6659 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		0D72EC351B5CA230001B6659 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		0D72EC361B5CA230001B6659 /* SwiftHTTPServer-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SwiftHTTPServer-Bridging-Header.h"; sourceTree = "<group>"; };
 		0D72EC411B5CA29B001B6659 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		0D9B081B1BC61C9D00D4C87C /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		0DABF2261BEDADF200B09088 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		0DABF2271BEDADF200B09088 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		0DABF2281BEDADF200B09088 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		0DABF2291BEDADF200B09088 /* ServerConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerConnection.swift; sourceTree = "<group>"; };
+		0DABF22A1BEDADF200B09088 /* ServerUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerUtil.swift; sourceTree = "<group>"; };
 		0DAEFC471BBF755A001ABDDE /* TemplateTokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateTokenizer.swift; sourceTree = "<group>"; };
 		0DAEFC491BBF863B001ABDDE /* TemplateTokenizerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateTokenizerTests.swift; sourceTree = "<group>"; };
 		0DB8C8721BC1983F00C02E36 /* TemplateParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateParser.swift; sourceTree = "<group>"; };
@@ -179,21 +183,15 @@
 			isa = PBXGroup;
 			children = (
 				0D1645921BC7700D0003FACC /* Database */,
+				0DABF2301BEDAE6400B09088 /* HttpServer */,
 				0D9B081A1BC61C8E00D4C87C /* Models */,
 				0D04A4EC1BB8556D00818D64 /* Responders */,
+				0DABF2251BEDAD9800B09088 /* Server */,
 				0DAEFC461BBF74B8001ABDDE /* Templates */,
-				0D72EC2B1B5CA230001B6659 /* Address.swift */,
-				0D72EC2C1B5CA230001B6659 /* CUtil.c */,
-				0D72EC2D1B5CA230001B6659 /* CUtil.h */,
-				0D72EC2E1B5CA230001B6659 /* HttpConnection.swift */,
-				0D72EC2F1B5CA230001B6659 /* HttpRequest.swift */,
-				0D72EC301B5CA230001B6659 /* HttpResponse.swift */,
-				0D72EC311B5CA230001B6659 /* HttpServer.swift */,
-				0D72EC321B5CA230001B6659 /* main.swift */,
-				0D72EC331B5CA230001B6659 /* Poller.swift */,
 				0D72EC341B5CA230001B6659 /* Settings.swift */,
 				0D72EC351B5CA230001B6659 /* StringExtension.swift */,
 				0D72EC361B5CA230001B6659 /* SwiftHTTPServer-Bridging-Header.h */,
+				0D72EC321B5CA230001B6659 /* main.swift */,
 			);
 			path = SwiftHTTPServer;
 			sourceTree = "<group>";
@@ -204,6 +202,29 @@
 				0D9B081B1BC61C9D00D4C87C /* Model.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		0DABF2251BEDAD9800B09088 /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				0DABF2261BEDADF200B09088 /* Address.swift */,
+				0DABF2271BEDADF200B09088 /* Endpoint.swift */,
+				0DABF2281BEDADF200B09088 /* Server.swift */,
+				0DABF2291BEDADF200B09088 /* ServerConnection.swift */,
+				0DABF22A1BEDADF200B09088 /* ServerUtil.swift */,
+			);
+			name = Server;
+			sourceTree = "<group>";
+		};
+		0DABF2301BEDAE6400B09088 /* HttpServer */ = {
+			isa = PBXGroup;
+			children = (
+				0D72EC2E1B5CA230001B6659 /* HttpConnection.swift */,
+				0D72EC2F1B5CA230001B6659 /* HttpRequest.swift */,
+				0D72EC301B5CA230001B6659 /* HttpResponse.swift */,
+				0D72EC311B5CA230001B6659 /* HttpServer.swift */,
+			);
+			name = HttpServer;
 			sourceTree = "<group>";
 		};
 		0DAEFC461BBF74B8001ABDDE /* Templates */ = {
@@ -308,6 +329,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DABF2311BEDBBC300B09088 /* Settings.swift in Sources */,
 				0DD0C9F01BC87FE8004F2632 /* Database.swift in Sources */,
 				0DD0C9EF1BC87EE4004F2632 /* SQLiteDatabase.swift in Sources */,
 				0D1645971BC7757E0003FACC /* Model.swift in Sources */,
@@ -336,20 +358,22 @@
 				0DB8C87B1BC1A0A900C02E36 /* TemplateExpressionNode.swift in Sources */,
 				0DB8C8791BC1A01700C02E36 /* Template.swift in Sources */,
 				0DAEFC481BBF755A001ABDDE /* TemplateTokenizer.swift in Sources */,
+				0DABF22D1BEDADF200B09088 /* Server.swift in Sources */,
+				0DABF22E1BEDADF200B09088 /* ServerConnection.swift in Sources */,
 				0D72EC391B5CA230001B6659 /* HttpConnection.swift in Sources */,
+				0DABF22C1BEDADF200B09088 /* Endpoint.swift in Sources */,
 				0D04A4EE1BB8557A00818D64 /* FileResponder.swift in Sources */,
 				0D1645991BC77B0E0003FACC /* SQLiteDatabase.swift in Sources */,
 				0D72EC3C1B5CA230001B6659 /* HttpServer.swift in Sources */,
 				0D72EC3A1B5CA230001B6659 /* HttpRequest.swift in Sources */,
 				0DB8C8771BC19B3B00C02E36 /* TemplateTextNode.swift in Sources */,
-				0D72EC3E1B5CA230001B6659 /* Poller.swift in Sources */,
 				0D1645941BC770210003FACC /* Database.swift in Sources */,
+				0DABF22F1BEDADF200B09088 /* ServerUtil.swift in Sources */,
 				0D72EC3F1B5CA230001B6659 /* Settings.swift in Sources */,
+				0DABF22B1BEDADF200B09088 /* Address.swift in Sources */,
 				0DB8C8731BC1983F00C02E36 /* TemplateParser.swift in Sources */,
 				0D0666311BB74D4C00F9C362 /* Responder.swift in Sources */,
 				0D9B081C1BC61C9D00D4C87C /* Model.swift in Sources */,
-				0D72EC371B5CA230001B6659 /* Address.swift in Sources */,
-				0D72EC381B5CA230001B6659 /* CUtil.c in Sources */,
 				0D0666331BB74DEF00F9C362 /* ResponderRegistry.swift in Sources */,
 				0DB8C8751BC19A9E00C02E36 /* TemplateNode.swift in Sources */,
 			);

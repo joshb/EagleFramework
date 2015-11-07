@@ -11,7 +11,7 @@
  *      notice, this list of conditions and the following disclaimer in the
  *      documentation and/or other materials provided with the distribution.
  *
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AS IS'' AND ANY EXPRESS OR
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
  * IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
@@ -23,7 +23,9 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-enum AddressType {
+import Foundation
+
+public enum AddressType {
     case IPv4, IPv6
 }
 
@@ -38,22 +40,26 @@ struct Address: CustomStringConvertible {
     /// - parameter hostname: Hostname to resolve.
     /// - returns: Address, or nil if the hostname could not be resolved.
     static func fromHostname(hostname: String) -> Address? {
-        let hostnameCStr = hostname.asciiCString
+        let hostnameCStr = hostname.cStringUsingEncoding(NSUTF8StringEncoding)
+        guard hostnameCStr != nil else {
+            return nil
+        }
 
         // Resolve the hostname. We try resolving an IPv6 address
         // first, and fall back to IPv4 if that fails.
         var type = AddressType.IPv6
-        var host = gethostbyname2(hostnameCStr, AF_INET6)
+        var host = gethostbyname2(hostnameCStr!, AF_INET6)
         if host == nil {
             type = AddressType.IPv4
-            host = gethostbyname(hostnameCStr)
-            if host == nil {
-                return nil
-            }
+            host = gethostbyname(hostnameCStr!)
+        }
+
+        guard host != nil else {
+            return nil
         }
 
         // Create an array containing the address.
-        var address: [UInt8]?
+        var address: [UInt8]!
         if type == .IPv4 {
             address = [UInt8](count: 4, repeatedValue: 0)
             for i in 0..<4 {
@@ -66,7 +72,7 @@ struct Address: CustomStringConvertible {
             }
         }
 
-        return Address(type: type, address: address!, hostname: hostname)
+        return Address(type: type, address: address, hostname: hostname)
     }
 
     /// String representation of the IPv4/IPv6 address.
@@ -82,7 +88,35 @@ struct Address: CustomStringConvertible {
                 s += address[i].description
             }
         } else {
+            // First, find the longest sequence of zeros.
+            var maxZeroCount = 0
+            var maxZeroStart = 0
+            var zeroCount = 0
+            var zeroStart = 0
             for i in 0..<16 {
+                if address[i] == 0 {
+                    if zeroCount++ == 0 {
+                        zeroStart = i
+                    }
+
+                    if zeroCount > maxZeroCount {
+                        maxZeroCount = zeroCount
+                        maxZeroStart = zeroStart
+                    }
+                } else {
+                    zeroCount = 0
+                }
+            }
+
+            // Now build the string, shortening the longest sequence of zeros.
+            for i in 0..<16 {
+                if maxZeroCount > 1 && i >= maxZeroStart && i < maxZeroStart + maxZeroCount {
+                    if i == maxZeroStart {
+                        s += ":"
+                    }
+                    continue
+                }
+
                 if s.characters.count > 0 {
                     s += ":"
                 }

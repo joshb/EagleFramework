@@ -11,7 +11,7 @@
  *      notice, this list of conditions and the following disclaimer in the
  *      documentation and/or other materials provided with the distribution.
  *
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AS IS'' AND ANY EXPRESS OR
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
  * IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
@@ -23,91 +23,17 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/// Represents an HTTP server bound to a particular address and port.
-/// Handles accepting and managing connections from clients.
-class HttpServer: CustomStringConvertible {
-    private(set) var address: Address
-    private(set) var port: UInt16
-
-    private var boundSocket: Int32
-    private let poller = Poller()
-    private var connections: [Int32: HttpConnection] = [:]
-
-    private init(boundSocket: Int32, address: Address, port: UInt16) {
-        self.address = address
-        self.port = port
-
-        self.boundSocket = boundSocket
-        poller.addSocket(self.boundSocket) { (socket: Int32) -> () in
-            self.acceptConnection()
-        }
+/// Represents an HTTP server.
+class HttpServer: Server<HttpConnection> {
+    override init(endpoint: Endpoint) throws {
+        try super.init(endpoint: endpoint)
     }
 
-    deinit {
-        close(boundSocket)
+    override func createServerConnection(descriptor: Descriptor, localEndpoint: Endpoint, remoteEndpoint: Endpoint) -> HttpConnection {
+        return HttpConnection(descriptor: descriptor, localEndpoint: localEndpoint, remoteEndpoint: remoteEndpoint)
     }
 
-    /// Called when a connection to the bound socket is ready to be accepted.
-    private func acceptConnection() {
-        var rawAddress = [UInt8](count: 16, repeatedValue: 0)
-        var port: UInt16 = 0
-
-        let socket = myAccept(boundSocket, self.address.type == .IPv4 ? 1 : 0, &rawAddress, &port)
-        if socket < 0 {
-            return
-        }
-
-        // Create an HttpConnection.
-        let address = Address(type: self.address.type, address: rawAddress, hostname: nil)
-        let connection = HttpConnection(fd: socket,
-                                        address: address,
-                                        port: port,
-                                        connectionClosedClosure: connectionClosed)
-
-        // Add the connection to our socket -> connection dictionary and to the poller.
-        connections[socket] = connection
-        poller.addSocket(socket, closure: readFromConnectionSocket)
-    }
-
-    /**
-     * Called when a connection has been closed.
-     *
-     * - parameter connection: The connection that was closed.
-     */
-    private func connectionClosed(connection: HttpConnection) {
-        poller.removeSocket(connection.fd)
-    }
-
-    /**
-     * Called when data is available to be read from the given socket.
-     *
-     * - parameter socket: Integer representing the socket that has data available.
-     */
-    private func readFromConnectionSocket(socket: Int32) {
-        if let connection = connections[socket] {
-            connection.read()
-        }
-    }
-
-    /// Run the main server loop that waits for connections and processes them.
-    func run() {
-        while true {
-            poller.run()
-        }
-    }
-
-    var description: String {
-        return "[\(address)]:\(port)"
-    }
-
-    /**
-     * Creates a new HTTP server that listens for connections to the given address/port.
-     *
-     * - parameter address: The address to listen for connections to.
-     * - parameter port: The port to listen for connections to.
-     */
-    static func start(address address: Address, port: UInt16) -> HttpServer? {
-        let socket = myBind(address.type == .IPv4 ? 1 : 0, address.address, port)
-        return socket >= 0 ? HttpServer(boundSocket: socket, address: address, port: port) : nil
+    override func dataReceived(connection: HttpConnection, numberOfBytes: Int) {
+        connection.handleRead(numberOfBytes)
     }
 }

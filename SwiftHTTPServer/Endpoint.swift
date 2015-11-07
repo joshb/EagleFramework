@@ -11,7 +11,7 @@
  *      notice, this list of conditions and the following disclaimer in the
  *      documentation and/or other materials provided with the distribution.
  *
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AS IS'' AND ANY EXPRESS OR
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
  * IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
@@ -23,16 +23,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef __SwiftHTTPServer__CUtil__
-#define __SwiftHTTPServer__CUtil__
+typealias Port = UInt16
 
-#include <sys/types.h>
+/// Represents an address/port combination.
+struct Endpoint: CustomStringConvertible {
+    var address: Address
+    var port: Port
 
-int myClose(int fd);
-int myBind(int ipv4, const uint8_t *address, uint16_t port);
-int myAccept(int fd, int ipv4, uint8_t *address, uint16_t *port);
-ssize_t mySend(int fd, const char *s, size_t length);
-ssize_t myRecv(int fd, char *s, size_t length);
-long getMilliseconds();
-
-#endif /* defined(__SwiftHTTPServer__CUtil__) */
+    var description: String {
+        return "[\(address)]:\(port)"
+    }
+}

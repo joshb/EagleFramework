@@ -11,7 +11,7 @@
  *      notice, this list of conditions and the following disclaimer in the
  *      documentation and/or other materials provided with the distribution.
  *
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AS IS'' AND ANY EXPRESS OR
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
  * IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
@@ -28,13 +28,20 @@ print("Resources path: \(Settings.resourcesPath)")
 
 ResponderRegistry.register(FileResponder())
 
-if let address = Address.fromHostname("localhost") {
-    if let server = HttpServer.start(address: address, port: 5000) {
-        print("HTTP server started at \(server)")
-        server.run()
-    } else {
-        print("Unable to start HTTP server")
+if let address4 = Address.fromHostname("127.0.0.1") {
+    let port: Port = 5000
+
+    let endpoint4 = Endpoint(address: address4, port: port)
+    let server = try HttpServer(endpoint: endpoint4)
+
+    // Try adding the local IPv6 address as an endpoint as well.
+    if let address6 = Address.fromHostname("::1") {
+        let endpoint6 = Endpoint(address: address6, port: port)
+        try server.addLocalEndpoint(endpoint6)
     }
+
+    print("Server started")
+    try server.run()
 } else {
     print("Unable to resolve localhost")
 }

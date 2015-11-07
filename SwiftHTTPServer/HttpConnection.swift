@@ -11,7 +11,7 @@
  *      notice, this list of conditions and the following disclaimer in the
  *      documentation and/or other materials provided with the distribution.
  *
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AS IS'' AND ANY EXPRESS OR
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
  * IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
@@ -27,48 +27,13 @@ private let newlineChar: CChar = 10
 
 /// Represents an HTTP connection from a client. Instances of this class
 /// can be used to handle the processing of requests and sending responses.
-class HttpConnection: CustomStringConvertible {
-    private(set) var fd: Int32
-    private(set) var address: Address
-    private(set) var port: UInt16
-
-    private var connectionClosedClosure: (HttpConnection) -> ()
-
+class HttpConnection: ServerConnection {
     private var lineBuffer: [CChar] = []
     private var lines: [String] = []
     private var requestAwaitingPostData: HttpRequest?
-    private var readMilliseconds = getMilliseconds()
 
-    /// The number of milliseconds that have elapsed since the connection's socket was last read.
-    var millisecondsSinceLastRead: Int {
-        return getMilliseconds() - readMilliseconds
-    }
-
-    init(fd: Int32, address: Address, port: UInt16, connectionClosedClosure: (HttpConnection) -> ()) {
-        self.fd = fd
-        self.address = address
-        self.port = port
-        self.connectionClosedClosure = connectionClosedClosure
-
-        print("\(self): Connection opened")
-    }
-
-    /// Closes the connection.
-    func close() {
-        myClose(fd)
-        print("\(self): Connection closed")
-        connectionClosedClosure(self)
-    }
-
-    /// Sends the given string to the client.
-    func send(string: String) {
-        let cString = string.cStringUsingEncoding(4)! // UTF-8
-        mySend(fd, cString, cString.count - 1)
-    }
-
-    /// Sends the given line of text to the client.
-    func sendLine(line: String) {
-        send(line + "\r\n")
+    override init(descriptor: Descriptor, localEndpoint: Endpoint, remoteEndpoint: Endpoint) {
+        super.init(descriptor: descriptor, localEndpoint: localEndpoint, remoteEndpoint: remoteEndpoint)
     }
 
     /// Sends the given response to the client.
@@ -77,14 +42,14 @@ class HttpConnection: CustomStringConvertible {
             return
         }
 
-        send(response.description)
-        mySend(fd, &response.binaryContent!, response.contentLength)
+        sendString(response.description)
+        sendData(response.binaryContent!)
     }
 
     private func processRequest(request: HttpRequest) {
         print("\(self): Received request: \(request)")
         sendResponse(ResponderRegistry.respond(request))
-        close()
+        shouldClose = true
     }
 
     private func processLine(line: String) {
@@ -108,52 +73,37 @@ class HttpConnection: CustomStringConvertible {
     }
 
     /// Reads and processes any available data sent by the client.
-    func read() {
-        var buf = [CChar](count: 512, repeatedValue: 0)
-        while true {
-            let length = myRecv(fd, &buf, buf.count)
-            if length == -1 {
-                break
-            } else if length == 0 {
-                close()
-                break
-            }
+    func handleRead(length: Int) {
+        var buf = readData(length)
 
-            // Look for newline characters in the received data; if any are found, the
-            // line data will be constructed and given to the line processing function.
-            var bufStart = 0
-            for i in 0..<length {
-                let c: CChar = buf[i]
-                if c == newlineChar {
-                    let lineData = lineBuffer + buf[bufStart..<i] + [0]
-                    lineBuffer = []
-                    bufStart = i + 1
+        // Look for newline characters in the received data; if any are found, the
+        // line data will be constructed and given to the line processing function.
+        var bufStart = 0
+        for i in 0..<length {
+            let c: CChar = buf[i]
+            if c == newlineChar {
+                let lineData = lineBuffer + buf[bufStart..<i] + [0]
+                lineBuffer = []
+                bufStart = i + 1
 
-                    if let line = String.fromCString(lineData) {
-                        processLine(line.trimmed)
-                    }
-                }
-            }
-
-            lineBuffer.appendContentsOf(buf[bufStart..<length])
-
-            // If we're waiting for a request's post data and the line buffer
-            // length is equal to the content length, then we can go ahead
-            // and process the contents of the line buffer.
-            if let request = requestAwaitingPostData {
-                if lineBuffer.count >= request.contentLength {
-                    let lineData = lineBuffer + [0]
-                    if let line = String.fromCString(lineData) {
-                        processLine(line.trimmed)
-                    }
+                if let line = String.fromCString(lineData) {
+                    processLine(line.trimmed)
                 }
             }
         }
 
-        readMilliseconds = getMilliseconds()
-    }
+        lineBuffer.appendContentsOf(buf[bufStart..<length])
 
-    var description: String {
-        return "\(address) port \(port)"
+        // If we're waiting for a request's post data and the line buffer
+        // length is equal to the content length, then we can go ahead
+        // and process the contents of the line buffer.
+        if let request = requestAwaitingPostData {
+            if lineBuffer.count >= request.contentLength {
+                let lineData = lineBuffer + [0]
+                if let line = String.fromCString(lineData) {
+                    processLine(line.trimmed)
+                }
+            }
+        }
     }
 }
