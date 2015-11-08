@@ -24,12 +24,6 @@
  */
 
 extension String {
-    private static var fileContentTypes: [String: String] = [
-        "css": "text/css",
-        "html": "text/html",
-        "txt": "text/plain"
-    ]
-
     /// An ASCII C-string representation of the string.
     var asciiCString: [CChar] {
         return self.cStringUsingEncoding(1) ?? []
@@ -38,18 +32,6 @@ extension String {
     /// A UTF-8 C-string representation of the string.
     var utf8CString: [CChar] {
         return self.cStringUsingEncoding(4) ?? []
-    }
-
-    /// The content type based on the file extension in the string.
-    var fileContentType: String {
-        let parts = self.split(".")
-        if let fileExtension = parts.last {
-            if let contentType = String.fileContentTypes[fileExtension.lowercaseString] {
-                return contentType
-            }
-        }
-
-        return "binary/octet-stream"
     }
 
     private var fstatMode: mode_t {

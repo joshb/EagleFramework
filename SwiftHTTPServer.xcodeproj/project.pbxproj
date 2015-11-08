@@ -17,6 +17,7 @@
 		0D1645971BC7757E0003FACC /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9B081B1BC61C9D00D4C87C /* Model.swift */; };
 		0D1645991BC77B0E0003FACC /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1645981BC77B0E0003FACC /* SQLiteDatabase.swift */; };
 		0D16459A1BC7818C0003FACC /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D16458F1BC76F9E0003FACC /* libsqlite3.tbd */; };
+		0D1865BB1BEEE2AF00BF326F /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1865BA1BEEE2AF00BF326F /* ContentType.swift */; };
 		0D72EC391B5CA230001B6659 /* HttpConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC2E1B5CA230001B6659 /* HttpConnection.swift */; };
 		0D72EC3A1B5CA230001B6659 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC2F1B5CA230001B6659 /* HttpRequest.swift */; };
 		0D72EC3B1B5CA230001B6659 /* HttpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D72EC301B5CA230001B6659 /* HttpResponse.swift */; };
@@ -73,6 +74,7 @@
 		0D1645931BC770210003FACC /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		0D1645951BC775430003FACC /* ModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		0D1645981BC77B0E0003FACC /* SQLiteDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteDatabase.swift; sourceTree = "<group>"; };
+		0D1865BA1BEEE2AF00BF326F /* ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		0D72EC211B5CA201001B6659 /* SwiftHTTPServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftHTTPServer; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D72EC2E1B5CA230001B6659 /* HttpConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpConnection.swift; sourceTree = "<group>"; };
 		0D72EC2F1B5CA230001B6659 /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 		0DABF2301BEDAE6400B09088 /* HttpServer */ = {
 			isa = PBXGroup;
 			children = (
+				0D1865BA1BEEE2AF00BF326F /* ContentType.swift */,
 				0D72EC2E1B5CA230001B6659 /* HttpConnection.swift */,
 				0D72EC2F1B5CA230001B6659 /* HttpRequest.swift */,
 				0D72EC301B5CA230001B6659 /* HttpResponse.swift */,
@@ -367,6 +370,7 @@
 				0D72EC3C1B5CA230001B6659 /* HttpServer.swift in Sources */,
 				0D72EC3A1B5CA230001B6659 /* HttpRequest.swift in Sources */,
 				0DB8C8771BC19B3B00C02E36 /* TemplateTextNode.swift in Sources */,
+				0D1865BB1BEEE2AF00BF326F /* ContentType.swift in Sources */,
 				0D1645941BC770210003FACC /* Database.swift in Sources */,
 				0DABF22F1BEDADF200B09088 /* ServerUtil.swift in Sources */,
 				0D72EC3F1B5CA230001B6659 /* Settings.swift in Sources */,

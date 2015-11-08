@@ -89,7 +89,6 @@ class HttpResponse: CustomStringConvertible {
             s += "\r\n\(key): \(value)"
         }
 
-        s += "\r\n\r\n"
         return s
     }
 
@@ -141,7 +140,7 @@ class HttpResponse: CustomStringConvertible {
     static func text(statusCode: Int, statusMessage: String, content: String) -> HttpResponse {
         let response = HttpResponse(statusCode: statusCode, statusMessage: statusMessage)
         response.textContent = content
-        response.contentType = "text/plain; charset=utf-8"
+        response.contentType = ContentType.PlainText.rawValue
         return response
     }
 
@@ -149,10 +148,10 @@ class HttpResponse: CustomStringConvertible {
         return htmlMessage(404, statusMessage: "File Not Found", message: "The file with the given path could not be found.")
     }
 
-    static func file(filePath: String, withContentType contentType: String? = nil) -> HttpResponse? {
+    static func file(filePath: String, withContentType contentType: ContentType? = nil) -> HttpResponse? {
         if let data = NSData(contentsOfFile: filePath) {
             let response = HttpResponse(statusCode: 200, statusMessage: "OK")
-            response.contentType = contentType ?? filePath.fileContentType
+            response.contentType = (contentType ?? ContentType.forFile(filePath)).rawValue
             response.contentLength = data.length
             response.content = [CChar](count: data.length, repeatedValue: 0)
             data.getBytes(&response.content!, length: data.length)
@@ -162,14 +161,14 @@ class HttpResponse: CustomStringConvertible {
         return nil
     }
 
-    static func template(statusCode: Int, statusMessage: String, contentType: String, template: Template, data: [String: Any]? = nil) -> HttpResponse {
+    static func template(statusCode: Int, statusMessage: String, contentType: ContentType, template: Template, data: [String: Any]? = nil) -> HttpResponse {
         let response = HttpResponse(statusCode: statusCode, statusMessage: statusMessage)
-        response.contentType = contentType
+        response.contentType = contentType.rawValue
         response.textContent = template.render(data ?? [String: Any]())
         return response
     }
 
     static func template(statusCode: Int, statusMessage: String, template: Template, data: [String: Any]? = nil) -> HttpResponse {
-        return HttpResponse.template(statusCode, statusMessage: statusMessage, contentType: "text/html; charset=utf-8", template: template, data: data)
+        return HttpResponse.template(statusCode, statusMessage: statusMessage, contentType: ContentType.HTML, template: template, data: data)
     }
 }

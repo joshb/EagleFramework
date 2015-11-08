@@ -38,12 +38,11 @@ class HttpConnection: ServerConnection {
 
     /// Sends the given response to the client.
     func sendResponse(response: HttpResponse) {
-        if response.binaryContent == nil {
-            return
-        }
+        sendString(response.descriptionWithHeaders + "\r\n\r\n")
 
-        sendString(response.descriptionWithHeaders)
-        sendData(response.binaryContent!)
+        if let binaryContent = response.binaryContent {
+            sendData(binaryContent)
+        }
     }
 
     private func processRequest(request: HttpRequest) {

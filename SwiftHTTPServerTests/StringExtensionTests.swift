@@ -36,11 +36,6 @@ class SwiftHTTPServerTests: XCTestCase {
         super.tearDown()
     }
 
-    func testFileContentType() {
-        XCTAssertEqual("index.html".fileContentType, "text/html")
-        XCTAssertEqual("INDEX.HTML".fileContentType, "text/html")
-    }
-
     func testIsDirectory() {
         XCTAssertFalse("/bin/ls".isDirectory)
         XCTAssertFalse("/this/path/does/not/exist".isDirectory)
