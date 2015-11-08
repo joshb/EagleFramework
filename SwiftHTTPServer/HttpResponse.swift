@@ -79,7 +79,11 @@ class HttpResponse: CustomStringConvertible {
     }
 
     var description: String {
-        var s = "\(version) \(statusCode) \(statusMessage)"
+        return "\(version) \(statusCode) \(statusMessage)"
+    }
+
+    var descriptionWithHeaders: String {
+        var s = description
 
         for (key, value) in headers {
             s += "\r\n\(key): \(value)"

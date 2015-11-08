@@ -42,13 +42,17 @@ class HttpConnection: ServerConnection {
             return
         }
 
-        sendString(response.description)
+        sendString(response.descriptionWithHeaders)
         sendData(response.binaryContent!)
     }
 
     private func processRequest(request: HttpRequest) {
-        print("\(self): Received request: \(request)")
-        sendResponse(ResponderRegistry.respond(request))
+        print("\(self) request: \(request)")
+
+        let response = ResponderRegistry.respond(request)
+        print("\(self) response: \(response)")
+        sendResponse(response)
+
         shouldClose = true
     }
 
