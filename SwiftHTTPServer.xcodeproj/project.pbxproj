@@ -132,7 +132,7 @@
 			name = Responders;
 			sourceTree = "<group>";
 		};
-		0D10288E1BBF39E600F6AFA7 /* SwiftHTTPServerTests */ = {
+		0D10288E1BBF39E600F6AFA7 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				0D10288F1BBF39E600F6AFA7 /* StringExtensionTests.swift */,
@@ -141,7 +141,7 @@
 				0D1645951BC775430003FACC /* ModelTests.swift */,
 				0DD0C9ED1BC87EA4004F2632 /* SQLiteDatabaseTests.swift */,
 			);
-			path = SwiftHTTPServerTests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		0D1645911BC76FB80003FACC /* Libraries */ = {
@@ -164,8 +164,8 @@
 		0D72EC181B5CA200001B6659 = {
 			isa = PBXGroup;
 			children = (
-				0D72EC231B5CA201001B6659 /* SwiftHTTPServer */,
-				0D10288E1BBF39E600F6AFA7 /* SwiftHTTPServerTests */,
+				0D72EC231B5CA201001B6659 /* Sources */,
+				0D10288E1BBF39E600F6AFA7 /* Tests */,
 				0D1645911BC76FB80003FACC /* Libraries */,
 				0D72EC221B5CA201001B6659 /* Products */,
 				0D72EC411B5CA29B001B6659 /* www */,
@@ -181,7 +181,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0D72EC231B5CA201001B6659 /* SwiftHTTPServer */ = {
+		0D72EC231B5CA201001B6659 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				0D1645921BC7700D0003FACC /* Database */,
@@ -195,7 +195,7 @@
 				0D72EC361B5CA230001B6659 /* SwiftHTTPServer-Bridging-Header.h */,
 				0D72EC321B5CA230001B6659 /* main.swift */,
 			);
-			path = SwiftHTTPServer;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		0D9B081A1BC61C8E00D4C87C /* Models */ = {
