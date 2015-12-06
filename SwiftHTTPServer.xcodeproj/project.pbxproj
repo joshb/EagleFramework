@@ -83,7 +83,7 @@
 		0D72EC321B5CA230001B6659 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		0D72EC341B5CA230001B6659 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		0D72EC351B5CA230001B6659 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
-		0D72EC361B5CA230001B6659 /* SwiftHTTPServer-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SwiftHTTPServer-Bridging-Header.h"; sourceTree = "<group>"; };
+		0D72EC361B5CA230001B6659 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		0D72EC411B5CA29B001B6659 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		0D9B081B1BC61C9D00D4C87C /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		0DABF2261BEDADF200B09088 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
@@ -192,7 +192,7 @@
 				0DAEFC461BBF74B8001ABDDE /* Templates */,
 				0D72EC341B5CA230001B6659 /* Settings.swift */,
 				0D72EC351B5CA230001B6659 /* StringExtension.swift */,
-				0D72EC361B5CA230001B6659 /* SwiftHTTPServer-Bridging-Header.h */,
+				0D72EC361B5CA230001B6659 /* Bridging-Header.h */,
 				0D72EC321B5CA230001B6659 /* main.swift */,
 			);
 			path = Sources;
@@ -395,7 +395,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.joshbeam.SwiftHTTPServerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "SwiftHTTPServer/SwiftHTTPServer-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sources/Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -407,7 +407,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.joshbeam.SwiftHTTPServerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "SwiftHTTPServer/SwiftHTTPServer-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sources/Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -497,7 +497,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RESOURCES_PATH = "$(PROJECT_DIR)/Resources";
-				SWIFT_OBJC_BRIDGING_HEADER = "SwiftHTTPServer/SwiftHTTPServer-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sources/Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WWW_PATH = "$(PROJECT_DIR)/www";
 			};
@@ -510,7 +510,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RESOURCES_PATH = "$(PROJECT_DIR)/Resources";
-				SWIFT_OBJC_BRIDGING_HEADER = "SwiftHTTPServer/SwiftHTTPServer-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sources/Bridging-Header.h";
 				WWW_PATH = "$(PROJECT_DIR)/www";
 			};
 			name = Release;
