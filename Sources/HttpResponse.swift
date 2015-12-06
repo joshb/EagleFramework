@@ -40,7 +40,7 @@ class HttpResponse: CustomStringConvertible {
         }
 
         set {
-            content = newValue?.cStringUsingEncoding(4) // UTF-8
+            content = newValue?.utf8CString
             contentLength = (content?.count ?? 1) - 1
         }
     }

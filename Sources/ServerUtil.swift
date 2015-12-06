@@ -23,8 +23,6 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
-
 typealias Descriptor = Int32
 
 /// Contains server utility functions.
@@ -76,7 +74,7 @@ class ServerUtil {
     }
 
     class func doAccept(descriptor: Descriptor, address: UnsafePointer<Void>, inout len: socklen_t) -> Int32 {
-        return Foundation.accept(descriptor, UnsafeMutablePointer<sockaddr>(address), &len)
+        return accept(descriptor, UnsafeMutablePointer<sockaddr>(address), &len)
     }
 
     class func createSocket(endpoint: Endpoint) -> Descriptor? {

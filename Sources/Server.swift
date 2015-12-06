@@ -23,8 +23,6 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Foundation
-
 enum ServerError: ErrorType {
     case UnableToCreateKQueue, UnableToCreateSocket, UnableToAcceptConnection
 }
