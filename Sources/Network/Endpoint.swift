@@ -23,14 +23,19 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-typealias Port = UInt16
+public typealias Port = UInt16
 
 /// Represents an address/port combination.
-struct Endpoint: CustomStringConvertible {
-    var address: Address
-    var port: Port
+public struct Endpoint: CustomStringConvertible {
+    public var address: Address
+    public var port: Port
 
-    var description: String {
+    public init(address: Address, port: Port) {
+        self.address = address
+        self.port = port
+    }
+
+    public var description: String {
         return "[\(address)]:\(port)"
     }
 }

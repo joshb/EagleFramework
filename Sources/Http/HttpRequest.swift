@@ -24,8 +24,8 @@
  */
 
 /// Represents an HTTP request from a client.
-class HttpRequest: CustomStringConvertible {
-    enum Method: String {
+public class HttpRequest: CustomStringConvertible {
+    public enum Method: String {
         case Delete = "DELETE",
              Get = "GET",
              Head = "HEAD",
@@ -34,14 +34,14 @@ class HttpRequest: CustomStringConvertible {
              Put = "PUT"
     }
 
-    var method: String
-    var path: String
-    var version: String
+    public var method: String
+    public var path: String
+    public var version: String
 
-    var headers: [String: String] = [:]
-    var postData: String?
+    public var headers: [String: String] = [:]
+    public var postData: String?
 
-    var safeFilePath: String? {
+    public var safeFilePath: String? {
         if path[path.startIndex] != "/" || path.containsString("..") {
             return nil
         }
@@ -50,7 +50,7 @@ class HttpRequest: CustomStringConvertible {
     }
 
     // The length (in bytes) of the HTTP request's content.
-    var contentLength: Int {
+    public var contentLength: Int {
         get {
             return Int(headers["Content-Length"] ?? "0") ?? 0
         }
@@ -60,7 +60,7 @@ class HttpRequest: CustomStringConvertible {
         }
     }
 
-    var formData: [String: String] {
+    public var formData: [String: String] {
         var data: [String: String] = [:]
         guard method == Method.Post.rawValue else {
             return data
@@ -83,13 +83,13 @@ class HttpRequest: CustomStringConvertible {
         return data
     }
 
-    init(method: String, path: String, version: String) {
+    public init(method: String, path: String, version: String) {
         self.method = method
         self.path = path
         self.version = version
     }
 
-    static func parse(lines: [String]) -> HttpRequest? {
+    public static func parse(lines: [String]) -> HttpRequest? {
         let parts = lines[0].split(" ")
         if parts.count != 3 {
             return nil
@@ -110,11 +110,11 @@ class HttpRequest: CustomStringConvertible {
         return request
     }
 
-    static func parse(str: String) -> HttpRequest? {
+    public static func parse(str: String) -> HttpRequest? {
         return parse(str.split("\n"))
     }
 
-    var description: String {
+    public var description: String {
         return "\(method) \(path) \(version)"
     }
 }

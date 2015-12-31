@@ -23,53 +23,29 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-class Template: CustomStringConvertible, TemplateParserDelegate {
-    private(set) var nodes: [TemplateNode] = []
+import Base
+import Http
+import Network
 
-    init(source: String = "") {
-        if !source.isEmpty {
-            parseSource(source)
-        }
+print("WWW Path: \(Settings.wwwPath)")
+print("Resources path: \(Settings.resourcesPath)")
+
+ResponderRegistry.register(FileResponder())
+
+if let address4 = Address.fromHostname("127.0.0.1") {
+    let port: Port = 5000
+
+    let endpoint4 = Endpoint(address: address4, port: port)
+    let server = try HttpServer(endpoint: endpoint4)
+
+    // Try adding the local IPv6 address as an endpoint as well.
+    if let address6 = Address.fromHostname("::1") {
+        let endpoint6 = Endpoint(address: address6, port: port)
+        try server.addLocalEndpoint(endpoint6)
     }
 
-    func addTemplateNode(node: TemplateNode) {
-        nodes.append(node)
-    }
-
-    func parseSource(source: String) {
-        nodes = []
-
-        let parser = TemplateParser()
-        parser.delegate = self
-        parser.processString(source)
-    }
-
-    func render(data: [String : Any]) -> String {
-        var s = ""
-
-        for node in nodes {
-            s += node.render(data)
-        }
-
-        return s
-    }
-
-    var description: String {
-        var s = ""
-
-        for node in nodes {
-            s += node.description
-        }
-
-        return s
-    }
-
-    static func fromFile(path: String) -> Template? {
-        let fullPath = Settings.getAbsoluteResourcePath(path)
-        if let source = try? String(contentsOfFile: fullPath, encoding: 4) {
-            return Template(source: source)
-        }
-
-        return nil
-    }
+    print("Server started")
+    try server.run()
+} else {
+    print("Unable to resolve localhost")
 }

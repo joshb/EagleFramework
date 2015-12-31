@@ -23,6 +23,27 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-protocol TemplateNode: CustomStringConvertible {
-    func render(data: [String: Any]) -> String
+public enum ContentType: String {
+    case Default = "binary/octet-stream"
+    case CSS = "text/css"
+    case HTML = "text/html; charset=utf-8"
+    case JavaScript = "application/javascript"
+    case PlainText = "text/plain"
+
+    private static var fileContentTypes: [String: ContentType] = [
+        "css": ContentType.CSS,
+        "html": ContentType.HTML,
+        "txt": ContentType.PlainText
+    ]
+
+    public static func forFile(filePath: String) -> ContentType {
+        let parts = filePath.split(".")
+        if let fileExtension = parts.last {
+            if let contentType = fileContentTypes[fileExtension.lowercaseString] {
+                return contentType
+            }
+        }
+
+        return Default
+    }
 }

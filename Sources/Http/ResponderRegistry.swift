@@ -23,7 +23,27 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-protocol Responder {
-    func matchesRequest(request: HttpRequest) -> Bool
-    func respond(request: HttpRequest) -> HttpResponse?
+public class ResponderRegistry {
+    private static var responders: [Responder] = []
+
+    public static func register(responder: Responder) {
+        responders = [responder] + responders
+    }
+
+    public static func respond(request: HttpRequest) -> HttpResponse {
+        var response: HttpResponse?
+
+        for responder in responders {
+            if responder.matchesRequest(request) {
+                response = responder.respond(request)
+                break
+            }
+        }
+
+        if response == nil {
+            response = HttpResponse.fileNotFound(request.path)
+        }
+
+        return response!
+    }
 }

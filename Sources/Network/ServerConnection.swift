@@ -23,21 +23,23 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import Darwin
+
 /// Represents a connection to the server.
-class ServerConnection: CustomStringConvertible {
-    var shouldClose = false
+public class ServerConnection: CustomStringConvertible {
+    public var shouldClose = false
 
     private(set) var descriptor: Descriptor
     private(set) var localEndpoint: Endpoint
     private(set) var remoteEndpoint: Endpoint
 
-    init(descriptor: Descriptor, localEndpoint: Endpoint, remoteEndpoint: Endpoint) {
+    public init(descriptor: Descriptor, localEndpoint: Endpoint, remoteEndpoint: Endpoint) {
         self.descriptor = descriptor
         self.localEndpoint = localEndpoint
         self.remoteEndpoint = remoteEndpoint
     }
 
-    func readData(length: Int? = nil) -> [CChar] {
+    public func readData(length: Int? = nil) -> [CChar] {
         var buf = [CChar](count: length ?? 512, repeatedValue: 0)
         let len = recv(descriptor, &buf, buf.count, 0)
         guard len > 0 else {
@@ -48,7 +50,7 @@ class ServerConnection: CustomStringConvertible {
         return buf
     }
 
-    func readString() -> String {
+    public func readString() -> String {
         var data = readData()
         guard data.count != 0 else {
             return ""
@@ -58,20 +60,20 @@ class ServerConnection: CustomStringConvertible {
         return String.fromCString(data) ?? ""
     }
 
-    func sendData(data: [CChar]) -> Int {
+    public func sendData(data: [CChar]) -> Int {
         return send(descriptor, data, data.count, 0)
     }
 
-    func sendString(str: String) -> Int {
+    public func sendString(str: String) -> Int {
         let data = str.utf8CString
         return send(descriptor, data, data.count - 1, 0)
     }
 
-    func sendLine(line: String) -> Int {
+    public func sendLine(line: String) -> Int {
         return sendString(line + "\n")
     }
 
-    var description: String {
+    public var description: String {
         return "Connection from \(remoteEndpoint) to \(localEndpoint)"
     }
 }

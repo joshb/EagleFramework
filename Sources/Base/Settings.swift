@@ -23,27 +23,16 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-enum ContentType: String {
-    case Default = "binary/octet-stream"
-    case CSS = "text/css"
-    case HTML = "text/html; charset=utf-8"
-    case JavaScript = "application/javascript"
-    case PlainText = "text/plain"
+public class Settings {
+    public static var wwwPath: String {
+        return Process.arguments[1]
+    }
 
-    private static var fileContentTypes: [String: ContentType] = [
-        "css": ContentType.CSS,
-        "html": ContentType.HTML,
-        "txt": ContentType.PlainText
-    ]
+    public static var resourcesPath: String {
+        return Process.arguments[2]
+    }
 
-    static func forFile(filePath: String) -> ContentType {
-        let parts = filePath.split(".")
-        if let fileExtension = parts.last {
-            if let contentType = fileContentTypes[fileExtension.lowercaseString] {
-                return contentType
-            }
-        }
-
-        return Default
+    public static func getAbsoluteResourcePath(relativePath: String) -> String {
+        return resourcesPath + "/" + relativePath
     }
 }

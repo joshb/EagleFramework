@@ -23,16 +23,25 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-class Settings {
-    static var wwwPath: String {
-        return Process.arguments[1]
+import Base
+
+public class FileResponder: Responder {
+    public init() {}
+
+    public func matchesRequest(request: HttpRequest) -> Bool {
+        return true
     }
 
-    static var resourcesPath: String {
-        return Process.arguments[2]
-    }
+    public func respond(request: HttpRequest) -> HttpResponse? {
+        if let path = request.safeFilePath {
+            var fullPath = Settings.wwwPath + "/" + path
+            if fullPath.isDirectory {
+                fullPath += "/index.html"
+            }
 
-    static func getAbsoluteResourcePath(relativePath: String) -> String {
-        return resourcesPath + "/" + relativePath
+            return HttpResponse.file(fullPath)
+        }
+
+        return nil
     }
 }

@@ -23,15 +23,21 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-enum ServerError: ErrorType {
+#if os(Linux)
+import Glibc
+#else
+import Darwin
+#endif
+
+public enum ServerError: ErrorType {
     case UnableToCreateKQueue, UnableToCreateSocket, UnableToAcceptConnection
 }
 
-protocol ServerDelegate {
+public protocol ServerDelegate {
 
 }
 
-class Server<ServerConnectionType: ServerConnection> {
+public class Server<ServerConnectionType: ServerConnection> {
     var delegate: ServerDelegate?
 
     private var kqueueDescriptor: Descriptor
@@ -40,7 +46,7 @@ class Server<ServerConnectionType: ServerConnection> {
     private var localEndpoints: [Descriptor: Endpoint] = [:]
     private var connections: [Descriptor: ServerConnectionType] = [:]
 
-    init(endpoint: Endpoint) throws {
+    public init(endpoint: Endpoint) throws {
         kqueueDescriptor = kqueue()
         guard kqueueDescriptor != -1 else {
             throw ServerError.UnableToCreateKQueue
@@ -65,10 +71,10 @@ class Server<ServerConnectionType: ServerConnection> {
         print("\(connection) closed")
     }
 
-    func dataReceived(connection: ServerConnectionType, numberOfBytes: Int) {}
+    public func dataReceived(connection: ServerConnectionType, numberOfBytes: Int) {}
     func canSendData(connection: ServerConnectionType, numberOfBytes: Int) {}
 
-    func addLocalEndpoint(endpoint: Endpoint) throws {
+    public func addLocalEndpoint(endpoint: Endpoint) throws {
         if let socketDescriptor = ServerUtil.createSocket(endpoint) {
             localEndpoints[socketDescriptor] = endpoint
             ServerUtil.addKEvent(kqueueDescriptor, socketDescriptor: socketDescriptor)
@@ -79,7 +85,7 @@ class Server<ServerConnectionType: ServerConnection> {
         print("Listening for connections to \(endpoint)")
     }
 
-    func createServerConnection(descriptor: Descriptor, localEndpoint: Endpoint, remoteEndpoint: Endpoint) -> ServerConnectionType {
+    public func createServerConnection(descriptor: Descriptor, localEndpoint: Endpoint, remoteEndpoint: Endpoint) -> ServerConnectionType {
         return ServerConnection(descriptor: descriptor, localEndpoint: localEndpoint, remoteEndpoint: remoteEndpoint) as! ServerConnectionType
     }
 
@@ -146,7 +152,7 @@ class Server<ServerConnectionType: ServerConnection> {
         }
     }
 
-    func run() throws {
+    public func run() throws {
         while true {
             try handleEvents()
         }

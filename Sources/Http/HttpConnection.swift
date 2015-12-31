@@ -23,21 +23,23 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import Network
+
 private let newlineChar: CChar = 10
 
 /// Represents an HTTP connection from a client. Instances of this class
 /// can be used to handle the processing of requests and sending responses.
-class HttpConnection: ServerConnection {
+public class HttpConnection: ServerConnection {
     private var lineBuffer: [CChar] = []
     private var lines: [String] = []
     private var requestAwaitingPostData: HttpRequest?
 
-    override init(descriptor: Descriptor, localEndpoint: Endpoint, remoteEndpoint: Endpoint) {
+    override public init(descriptor: Descriptor, localEndpoint: Endpoint, remoteEndpoint: Endpoint) {
         super.init(descriptor: descriptor, localEndpoint: localEndpoint, remoteEndpoint: remoteEndpoint)
     }
 
     /// Sends the given response to the client.
-    func sendResponse(response: HttpResponse) {
+    public func sendResponse(response: HttpResponse) {
         sendString(response.descriptionWithHeaders + "\r\n\r\n")
 
         if let binaryContent = response.binaryContent {
@@ -76,7 +78,7 @@ class HttpConnection: ServerConnection {
     }
 
     /// Reads and processes any available data sent by the client.
-    func handleRead(length: Int) {
+    public func handleRead(length: Int) {
         var buf = readData(length)
 
         // Look for newline characters in the received data; if any are found, the

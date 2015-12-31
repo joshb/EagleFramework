@@ -23,21 +23,20 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-class FileResponder: Responder {
-    func matchesRequest(request: HttpRequest) -> Bool {
-        return true
+import Base
+import Network
+
+/// Represents an HTTP server.
+public class HttpServer: Server<HttpConnection> {
+    override public init(endpoint: Endpoint) throws {
+        try super.init(endpoint: endpoint)
     }
 
-    func respond(request: HttpRequest) -> HttpResponse? {
-        if let path = request.safeFilePath {
-            var fullPath = Settings.wwwPath + "/" + path
-            if fullPath.isDirectory {
-                fullPath += "/index.html"
-            }
+    override public func createServerConnection(descriptor: Descriptor, localEndpoint: Endpoint, remoteEndpoint: Endpoint) -> HttpConnection {
+        return HttpConnection(descriptor: descriptor, localEndpoint: localEndpoint, remoteEndpoint: remoteEndpoint)
+    }
 
-            return HttpResponse.file(fullPath)
-        }
-
-        return nil
+    override public func dataReceived(connection: HttpConnection, numberOfBytes: Int) {
+        connection.handleRead(numberOfBytes)
     }
 }

@@ -23,10 +23,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-typealias Descriptor = Int32
+import Darwin
+
+public typealias Descriptor = Int32
 
 /// Contains server utility functions.
-class ServerUtil {
+internal class ServerUtil {
     private class func createKEvent(descriptor: Descriptor, write: Bool = false) -> kevent {
         var event = kevent()
         event.ident = UInt(descriptor)

@@ -23,21 +23,28 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import Base
+#if os(Linux)
+import Glibc
+#else
+import Darwin
+#endif
+
 public enum AddressType {
     case IPv4, IPv6
 }
 
 /// Represents an IPv4 or IPv6 address.
-struct Address: CustomStringConvertible {
-    var type: AddressType
-    var address: [UInt8]
-    var hostname: String?
+public struct Address: CustomStringConvertible {
+    public var type: AddressType
+    public var address: [UInt8]
+    public var hostname: String?
 
     /// Resolves an address from the given hostname.
     ///
     /// - parameter hostname: Hostname to resolve.
     /// - returns: Address, or nil if the hostname could not be resolved.
-    static func fromHostname(hostname: String) -> Address? {
+    public static func fromHostname(hostname: String) -> Address? {
         let hostnameCStr = hostname.utf8CString
 
         // Resolve the hostname. We try resolving an IPv6 address
@@ -71,7 +78,7 @@ struct Address: CustomStringConvertible {
     }
 
     /// String representation of the IPv4/IPv6 address.
-    var addressString: String {
+    public var addressString: String {
         var s = ""
 
         if type == .IPv4 {
@@ -90,10 +97,11 @@ struct Address: CustomStringConvertible {
             var zeroStart = 0
             for i in 0..<16 {
                 if address[i] == 0 {
-                    if zeroCount++ == 0 {
+                    if zeroCount == 0 {
                         zeroStart = i
                     }
 
+                    zeroCount += 1
                     if zeroCount > maxZeroCount {
                         maxZeroCount = zeroCount
                         maxZeroStart = zeroStart
@@ -124,7 +132,7 @@ struct Address: CustomStringConvertible {
     }
 
     /// Hostname if set, otherwise the IPv4/IPv6 address.
-    var description: String {
+    public var description: String {
         return hostname ?? addressString
     }
 }

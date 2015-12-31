@@ -24,17 +24,18 @@
  */
 
 import Foundation
+import Template
 
 /// Represents a response to an HTTP request.
-class HttpResponse: CustomStringConvertible {
-    var version = "HTTP/1.1"
-    var statusCode = 200
-    var statusMessage = "OK"
-    var headers: [String: String] = ["Server": "SwiftHTTPServer"]
+public class HttpResponse: CustomStringConvertible {
+    public var version = "HTTP/1.1"
+    public var statusCode = 200
+    public var statusMessage = "OK"
+    public var headers: [String: String] = ["Server": "SwiftHTTPServer"]
 
     private var content: [CChar]?
 
-    var textContent: String? {
+    public var textContent: String? {
         get {
             return content != nil ? String.fromCString(content!) : nil
         }
@@ -45,7 +46,7 @@ class HttpResponse: CustomStringConvertible {
         }
     }
 
-    var binaryContent: [CChar]? {
+    public var binaryContent: [CChar]? {
         get {
             return content
         }
@@ -57,7 +58,7 @@ class HttpResponse: CustomStringConvertible {
     }
 
     /// The content type of the HTTP response.
-    var contentType: String {
+    public var contentType: String {
         get {
             return headers["Content-Type"] ?? ""
         }
@@ -68,7 +69,7 @@ class HttpResponse: CustomStringConvertible {
     }
 
     // The length (in bytes) of the HTTP response's content.
-    var contentLength: Int {
+    public var contentLength: Int {
         get {
             return Int(headers["Content-Length"] ?? "0") ?? 0
         }
@@ -78,11 +79,11 @@ class HttpResponse: CustomStringConvertible {
         }
     }
 
-    var description: String {
+    public var description: String {
         return "\(version) \(statusCode) \(statusMessage)"
     }
 
-    var descriptionWithHeaders: String {
+    public var descriptionWithHeaders: String {
         var s = description
 
         for (key, value) in headers {
@@ -92,31 +93,31 @@ class HttpResponse: CustomStringConvertible {
         return s
     }
 
-    init(version: String, statusCode: Int, statusMessage: String) {
+    public init(version: String, statusCode: Int, statusMessage: String) {
         self.version = version
         self.statusCode = statusCode
         self.statusMessage = statusMessage
     }
 
-    init(statusCode: Int, statusMessage: String) {
+    public init(statusCode: Int, statusMessage: String) {
         self.statusCode = statusCode
         self.statusMessage = statusMessage
     }
 
-    static func redirect(location: String) -> HttpResponse {
+    public static func redirect(location: String) -> HttpResponse {
         let response = HttpResponse(statusCode: 302, statusMessage: "Found")
         response.headers["Location"] = location
         return response
     }
 
-    static func html(statusCode: Int, statusMessage: String, content: String) -> HttpResponse {
+    public static func html(statusCode: Int, statusMessage: String, content: String) -> HttpResponse {
         let response = HttpResponse(statusCode: statusCode, statusMessage: statusMessage)
         response.textContent = content
         response.contentType = "text/html; charset=utf-8"
         return response
     }
 
-    static func htmlMessage(statusCode: Int, statusMessage: String, message: String) -> HttpResponse {
+    public static func htmlMessage(statusCode: Int, statusMessage: String, message: String) -> HttpResponse {
         var content = "<!DOCTYPE html>\r\n"
         content += "<html lang=\"en\">\r\n"
         content += "<head>\r\n"
@@ -137,18 +138,18 @@ class HttpResponse: CustomStringConvertible {
         return html(statusCode, statusMessage: statusMessage, content: content)
     }
 
-    static func text(statusCode: Int, statusMessage: String, content: String) -> HttpResponse {
+    public static func text(statusCode: Int, statusMessage: String, content: String) -> HttpResponse {
         let response = HttpResponse(statusCode: statusCode, statusMessage: statusMessage)
         response.textContent = content
         response.contentType = ContentType.PlainText.rawValue
         return response
     }
 
-    static func fileNotFound(path: String) -> HttpResponse {
+    public static func fileNotFound(path: String) -> HttpResponse {
         return htmlMessage(404, statusMessage: "File Not Found", message: "The file with the given path could not be found.")
     }
 
-    static func file(filePath: String, withContentType contentType: ContentType? = nil) -> HttpResponse? {
+    public static func file(filePath: String, withContentType contentType: ContentType? = nil) -> HttpResponse? {
         if let data = NSData(contentsOfFile: filePath) {
             let response = HttpResponse(statusCode: 200, statusMessage: "OK")
             response.contentType = (contentType ?? ContentType.forFile(filePath)).rawValue
@@ -161,14 +162,14 @@ class HttpResponse: CustomStringConvertible {
         return nil
     }
 
-    static func template(statusCode: Int, statusMessage: String, contentType: ContentType, template: Template, data: [String: Any]? = nil) -> HttpResponse {
+    public static func template(statusCode: Int, statusMessage: String, contentType: ContentType, template: Template, data: [String: Any]? = nil) -> HttpResponse {
         let response = HttpResponse(statusCode: statusCode, statusMessage: statusMessage)
         response.contentType = contentType.rawValue
         response.textContent = template.render(data ?? [String: Any]())
         return response
     }
 
-    static func template(statusCode: Int, statusMessage: String, template: Template, data: [String: Any]? = nil) -> HttpResponse {
+    public static func template(statusCode: Int, statusMessage: String, template: Template, data: [String: Any]? = nil) -> HttpResponse {
         return HttpResponse.template(statusCode, statusMessage: statusMessage, contentType: ContentType.HTML, template: template, data: data)
     }
 }

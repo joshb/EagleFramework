@@ -23,4 +23,55 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <sqlite3.h>
+import Base
+
+public class Template: CustomStringConvertible, TemplateParserDelegate {
+    private(set) var nodes: [TemplateNode] = []
+
+    public init(source: String = "") {
+        if !source.isEmpty {
+            parseSource(source)
+        }
+    }
+
+    public func addTemplateNode(node: TemplateNode) {
+        nodes.append(node)
+    }
+
+    public func parseSource(source: String) {
+        nodes = []
+
+        let parser = TemplateParser()
+        parser.delegate = self
+        parser.processString(source)
+    }
+
+    public func render(data: [String : Any]) -> String {
+        var s = ""
+
+        for node in nodes {
+            s += node.render(data)
+        }
+
+        return s
+    }
+
+    public var description: String {
+        var s = ""
+
+        for node in nodes {
+            s += node.description
+        }
+
+        return s
+    }
+
+    public static func fromFile(path: String) -> Template? {
+        let fullPath = Settings.getAbsoluteResourcePath(path)
+        if let source = try? String(contentsOfFile: fullPath, encoding: 4) {
+            return Template(source: source)
+        }
+
+        return nil
+    }
+}
