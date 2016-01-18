@@ -23,7 +23,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if os(Linux)
+import Glibc
+#else
 import Darwin
+#endif
 
 /// Represents a connection to the server.
 public class ServerConnection: CustomStringConvertible {
@@ -47,7 +51,12 @@ public class ServerConnection: CustomStringConvertible {
             return []
         }
 
-        return buf
+        var data = [CChar](count: len, repeatedValue: 0)
+        for i in 0..<len {
+            data[i] = buf[i]
+        }
+
+        return data
     }
 
     public func readString() -> String {

@@ -29,6 +29,11 @@ protocol TemplateParserDelegate {
     func addTemplateNode(node: TemplateNode)
 }
 
+public enum TemplateParserError: ErrorType {
+    case UnexpectedText, UnexpectedCodeStart, UnexpectedCodeStop
+    case UnexpectedToken(token: String)
+}
+
 class TemplateParser: TemplateTokenizerDelegate {
     var delegate: TemplateParserDelegate?
     
@@ -43,43 +48,43 @@ class TemplateParser: TemplateTokenizerDelegate {
         tokenizer.delegate = self
     }
 
-    func textFound(text: String) {
+    func textFound(text: String) throws {
         switch state {
             case .WaitingForNode:
                 delegate?.addTemplateNode(TemplateTextNode(text: text))
 
             default:
-                NSLog("Unexpected text")
+                throw TemplateParserError.UnexpectedText
         }
     }
 
-    func codeStartFound() {
+    func codeStartFound() throws {
         switch state {
             case .WaitingForNode:
                 state = .WaitingForKeyword
 
             default:
-                NSLog("Unexpected code start")
+                throw TemplateParserError.UnexpectedCodeStart
         }
     }
 
-    func codeStopFound() {
+    func codeStopFound() throws {
         switch state {
             case .WaitingForCodeStop:
                 state = .WaitingForNode
 
             default:
-                NSLog("Unexpected code stop")
+                throw TemplateParserError.UnexpectedCodeStop
         }
     }
 
-    func tokenFound(token: String, quoted: Bool) {
+    func tokenFound(token: String, quoted: Bool) throws {
         switch state {
             case .WaitingForKeyword:
                 if token == "=" {
                     state = .WaitingForExpression
                 } else {
-                    NSLog("Unexpected token '\(token)'")
+                    throw TemplateParserError.UnexpectedToken(token: token)
                 }
 
             case .WaitingForExpression:
@@ -87,11 +92,11 @@ class TemplateParser: TemplateTokenizerDelegate {
                 state = .WaitingForCodeStop
 
             default:
-                NSLog("Unexpected token '\(token)'")
+                throw TemplateParserError.UnexpectedToken(token: token)
         }
     }
 
-    func processString(s: String) {
-        tokenizer.processString(s)
+    func processString(s: String) throws {
+        try tokenizer.processString(s)
     }
 }

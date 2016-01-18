@@ -30,23 +30,26 @@ protocol TemplateTokenizerDelegate {
     /// Called when non-code text has been found.
     ///
     /// - parameter text: The text that was found.
-    func textFound(text: String)
+    func textFound(text: String) throws
 
     /// Called when the beginning of a code segment has been found.
-    func codeStartFound()
+    func codeStartFound() throws
 
     /// Called when the end of a code segment has been found.
-    func codeStopFound()
+    func codeStopFound() throws
 
     /// Called when a token has been found in a code segment.
     ///
     /// - parameter token: The token that was found.
     /// - parameter quoted: true if the token was surrounded by quotes, false otherwise.
-    func tokenFound(token: String, quoted: Bool)
+    func tokenFound(token: String, quoted: Bool) throws
 }
 
 /// Tokenizes strings for the template engine.
 class TemplateTokenizer {
+    private static let codeStartSymbol = "<%"
+    private static let codeStopSymbol = "%>"
+
     var delegate: TemplateTokenizerDelegate?
 
     private var inCode: Bool = false
@@ -54,14 +57,11 @@ class TemplateTokenizer {
     private var token: String = ""
     private var quoteChar: Character?
 
-    static let codeStartSymbol = "<%"
-    static let codeStopSymbol = "%>"
-
     /// Check if a token is a special token, such as a mathematical symbol.
     ///
     /// - parameter token: The token to check.
     /// - returns: true if the token is a special token, false otherwise.
-    static func isSpecialToken(token: String) -> Bool {
+    private static func isSpecialToken(token: String) -> Bool {
         let specialTokens = [
             "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "+", "=",
             "{", "}", "[", "]", ":", ";", ",", "<", ">", "?", "/", "~", "|",
@@ -73,7 +73,7 @@ class TemplateTokenizer {
         return specialTokens.contains(token)
     }
 
-    private func emitToken(quoted: Bool = false) {
+    private func emitToken(quoted: Bool = false) throws {
         if token.isEmpty {
             return
         }
@@ -81,18 +81,18 @@ class TemplateTokenizer {
         if inCode {
             if token == TemplateTokenizer.codeStopSymbol && !quoted {
                 inCode = false
-                delegate?.codeStopFound()
+                try delegate?.codeStopFound()
             } else {
-                delegate?.tokenFound(token, quoted: quoted)
+                try delegate?.tokenFound(token, quoted: quoted)
             }
         } else {
-            delegate?.textFound(token)
+            try delegate?.textFound(token)
         }
 
         token = ""
     }
 
-    private func processCharacter(c: Character) {
+    private func processCharacter(c: Character) throws {
         let cs = String(c)
 
         // If we're not processing code yet, just append
@@ -103,9 +103,9 @@ class TemplateTokenizer {
             // If the token now has the code start symbol, we emit
             // the token as text and switch to in-code processing.
             if token.hasSuffix(TemplateTokenizer.codeStartSymbol) {
-                token = token.substringToIndex(token.endIndex.advancedBy(-TemplateTokenizer.codeStartSymbol.length))
-                emitToken()
-                delegate?.codeStartFound()
+                token = token.substring(0, length: token.length - TemplateTokenizer.codeStartSymbol.length)
+                try emitToken()
+                try delegate?.codeStartFound()
                 inCode = true
             }
 
@@ -115,7 +115,7 @@ class TemplateTokenizer {
         // Check for the end of a quoted token.
         if let quoteChar = self.quoteChar {
             if c == quoteChar {
-                emitToken(true)
+                try emitToken(true)
                 self.quoteChar = nil
             } else {
                 token += cs
@@ -132,18 +132,18 @@ class TemplateTokenizer {
 
         // Check for whitespace separating tokens.
         if String.isWhitespace(c) {
-            emitToken()
+            try emitToken()
             return
         }
 
         // Now check for special tokens, such as mathematical symbols.
         if TemplateTokenizer.isSpecialToken(token) {
             if !TemplateTokenizer.isSpecialToken(token + cs) {
-                emitToken()
+                try emitToken()
             }
         } else {
             if TemplateTokenizer.isSpecialToken(cs) {
-                emitToken()
+                try emitToken()
             }
         }
 
@@ -153,11 +153,11 @@ class TemplateTokenizer {
     /// Tokenize a string, sending tokens and events to the delegate.
     ///
     /// - parameter s: The string to tokenize.
-    func processString(s: String) {
+    func processString(s: String) throws {
         for c in s.characters {
-            processCharacter(c)
+            try processCharacter(c)
         }
 
-        emitToken()
+        try emitToken()
     }
 }

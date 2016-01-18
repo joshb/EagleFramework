@@ -78,13 +78,13 @@ public class HttpConnection: ServerConnection {
     }
 
     /// Reads and processes any available data sent by the client.
-    public func handleRead(length: Int) {
-        var buf = readData(length)
+    public func handleRead() {
+        let buf = readData()
 
         // Look for newline characters in the received data; if any are found, the
         // line data will be constructed and given to the line processing function.
         var bufStart = 0
-        for i in 0..<length {
+        for i in 0..<buf.count {
             let c: CChar = buf[i]
             if c == newlineChar {
                 let lineData = lineBuffer + buf[bufStart..<i] + [0]
@@ -97,7 +97,7 @@ public class HttpConnection: ServerConnection {
             }
         }
 
-        lineBuffer.appendContentsOf(buf[bufStart..<length])
+        lineBuffer.appendContentsOf(buf[bufStart..<buf.count])
 
         // If we're waiting for a request's post data and the line buffer
         // length is equal to the content length, then we can go ahead

@@ -36,7 +36,7 @@ public class HttpServer: Server<HttpConnection> {
         return HttpConnection(descriptor: descriptor, localEndpoint: localEndpoint, remoteEndpoint: remoteEndpoint)
     }
 
-    override public func dataReceived(connection: HttpConnection, numberOfBytes: Int) {
-        connection.handleRead(numberOfBytes)
+    override public func dataReceived(connection: HttpConnection) {
+        connection.handleRead()
     }
 }

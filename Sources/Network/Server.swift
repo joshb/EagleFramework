@@ -24,28 +24,46 @@
  */
 
 #if os(Linux)
+import CEpoll
 import Glibc
 #else
 import Darwin
 #endif
 
 public enum ServerError: ErrorType {
-    case UnableToCreateKQueue, UnableToCreateSocket, UnableToAcceptConnection
-}
-
-public protocol ServerDelegate {
-
+    case UnableToCreateEpoll, UnableToCreateKQueue, UnableToCreateSocket, UnableToAcceptConnection
 }
 
 public class Server<ServerConnectionType: ServerConnection> {
-    var delegate: ServerDelegate?
-
+#if os(Linux)
+    private var epollDescriptor: Descriptor
+    private var events: [epoll_event] = []
+#else
     private var kqueueDescriptor: Descriptor
     private var events: [kevent] = []
+#endif
 
     private var localEndpoints: [Descriptor: Endpoint] = [:]
     private var connections: [Descriptor: ServerConnectionType] = [:]
 
+#if os(Linux)
+    public init(endpoint: Endpoint) throws {
+        epollDescriptor = epoll_create1(0)
+        guard epollDescriptor != -1 else {
+            throw ServerError.UnableToCreateEpoll
+        }
+
+        for _ in 0..<100 {
+            events.append(epoll_event())
+        }
+
+        try addLocalEndpoint(endpoint)
+    }
+
+    deinit {
+        close(epollDescriptor)
+    }
+#else
     public init(endpoint: Endpoint) throws {
         kqueueDescriptor = kqueue()
         guard kqueueDescriptor != -1 else {
@@ -62,6 +80,7 @@ public class Server<ServerConnectionType: ServerConnection> {
     deinit {
         close(kqueueDescriptor)
     }
+#endif
 
     func connectionOpened(connection: ServerConnectionType) {
         print("\(connection) opened")
@@ -71,13 +90,16 @@ public class Server<ServerConnectionType: ServerConnection> {
         print("\(connection) closed")
     }
 
-    public func dataReceived(connection: ServerConnectionType, numberOfBytes: Int) {}
-    func canSendData(connection: ServerConnectionType, numberOfBytes: Int) {}
+    public func dataReceived(connection: ServerConnectionType) {}
 
-    public func addLocalEndpoint(endpoint: Endpoint) throws {
+public func addLocalEndpoint(endpoint: Endpoint) throws {
         if let socketDescriptor = ServerUtil.createSocket(endpoint) {
             localEndpoints[socketDescriptor] = endpoint
+#if os(Linux)
+            ServerUtil.addEpollEvent(epollDescriptor, socketDescriptor: socketDescriptor)
+#else
             ServerUtil.addKEvent(kqueueDescriptor, socketDescriptor: socketDescriptor)
+#endif
         } else {
             throw ServerError.UnableToCreateSocket
         }
@@ -98,7 +120,12 @@ public class Server<ServerConnectionType: ServerConnection> {
         let (remoteDescriptor, remoteEndpoint) = pair!
         let connection = createServerConnection(remoteDescriptor, localEndpoint: localEndpoint, remoteEndpoint: remoteEndpoint)
         connections[remoteDescriptor] = connection
-        ServerUtil.addKEvent(kqueueDescriptor, socketDescriptor: remoteDescriptor, readOnly: false)
+
+#if os(Linux)
+        ServerUtil.addEpollEvent(epollDescriptor, socketDescriptor: remoteDescriptor)
+#else
+        ServerUtil.addKEvent(kqueueDescriptor, socketDescriptor: remoteDescriptor)
+#endif
 
         connectionOpened(connection)
     }
@@ -109,13 +136,45 @@ public class Server<ServerConnectionType: ServerConnection> {
         connectionClosed(connection)
     }
 
+#if os(Linux)
+    private func handleReadEvent(event: epoll_event, connection: ServerConnectionType) {
+        dataReceived(connection)
+
+        if connection.shouldClose {
+            closeConnection(connection)
+        }
+    }
+
+    private func handleEvent(event: epoll_event) throws {
+        let descriptor = Descriptor(event.data.fd)
+
+        if let endpoint = localEndpoints[descriptor] {
+            try handleConnection(descriptor, localEndpoint: endpoint)
+            return
+        }
+
+        if let connection = connections[descriptor] {
+            if (event.events & 1) != 0 {
+                handleReadEvent(event, connection: connection)
+            }
+        }
+    }
+
+    public func handleEvents() throws {
+        let numEvents = Int(epoll_wait(epollDescriptor, &events, Int32(events.count), -1))
+        for i in 0..<numEvents {
+            let event = self.events[i]
+            try handleEvent(event)
+        }
+    }
+#else
     private func handleReadEvent(event: kevent, connection: ServerConnectionType) {
         if event.data == 0 {
             closeConnection(connection)
             return
         }
 
-        dataReceived(connection, numberOfBytes: event.data)
+        dataReceived(connection)
 
         if connection.shouldClose {
             closeConnection(connection)
@@ -135,22 +194,20 @@ public class Server<ServerConnectionType: ServerConnection> {
                 case EVFILT_READ:
                     handleReadEvent(event, connection: connection)
 
-                case EVFILT_WRITE:
-                    canSendData(connection, numberOfBytes: event.data)
-
                 default:
                     break
             }
         }
     }
 
-    private func handleEvents() throws {
+    public func handleEvents() throws {
         let numEvents = Int(kevent(kqueueDescriptor, nil, 0, &events, Int32(events.count), nil))
         for i in 0..<numEvents {
             let event = self.events[i]
             try handleEvent(event)
         }
     }
+#endif
 
     public func run() throws {
         while true {

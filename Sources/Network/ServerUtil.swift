@@ -23,36 +23,41 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if os(Linux)
+import CEpoll
+import Glibc
+#else
 import Darwin
+#endif
 
 public typealias Descriptor = Int32
 
+#if os(Linux)
+private let SOCK_STREAM: Int32 = 1
+#endif
+
 /// Contains server utility functions.
 internal class ServerUtil {
-    private class func createKEvent(descriptor: Descriptor, write: Bool = false) -> kevent {
+#if os(Linux)
+    class func addEpollEvent(epollDescriptor: Descriptor, socketDescriptor: Descriptor) {
+        var event = epoll_event()
+        event.events = 1 // EPOLLIN
+        event.data.fd = socketDescriptor
+
+        epoll_ctl(epollDescriptor, EPOLL_CTL_ADD, socketDescriptor, &event)
+    }
+#else
+    class func addKEvent(kqueueDescriptor: Descriptor, socketDescriptor: Descriptor) {
         var event = kevent()
-        event.ident = UInt(descriptor)
-        if write {
-            event.filter = Int16(EVFILT_WRITE)
-        } else {
-            event.filter = Int16(EVFILT_READ)
-        }
+        event.ident = UInt(socketDescriptor)
+        event.filter = Int16(EVFILT_READ)
         event.flags = UInt16(EV_ADD | EV_RECEIPT | EV_CLEAR)
         event.fflags = 0
         event.data = 0
         event.udata = nil
-        return event
+        kevent(kqueueDescriptor, &event, 1, nil, 0, nil)
     }
-
-    class func addKEvent(kqueueDescriptor: Descriptor, socketDescriptor: Descriptor, readOnly: Bool = true) {
-        if readOnly {
-            var event = createKEvent(socketDescriptor)
-            kevent(kqueueDescriptor, &event, 1, nil, 0, nil)
-        } else {
-            var events = [createKEvent(socketDescriptor), createKEvent(socketDescriptor, write: true)]
-            kevent(kqueueDescriptor, &events, 2, nil, 0, nil)
-        }
-    }
+#endif
 
     private class var hostIsLittleEndian: Bool {
         let a: [UInt8] = [0, 1]
@@ -91,7 +96,11 @@ internal class ServerUtil {
         if endpoint.address.type == .IPv4 {
             var sin = sockaddr_in()
             bzero(&sin, sizeofValue(sin))
+#if os(Linux)
+            sin.sin_family = UInt16(AF_INET)
+#else
             sin.sin_family = UInt8(AF_INET)
+#endif
             sin.sin_port = hostToNetwork(endpoint.port)
             memcpy(&sin.sin_addr, endpoint.address.address, 4)
             let len = UInt32(sizeofValue(sin))
@@ -103,7 +112,11 @@ internal class ServerUtil {
         } else {
             var sin6 = sockaddr_in6()
             bzero(&sin6, sizeofValue(sin6))
+#if os(Linux)
+            sin6.sin6_family = UInt16(AF_INET6)
+#else
             sin6.sin6_family = UInt8(AF_INET6)
+#endif
             sin6.sin6_port = hostToNetwork(endpoint.port)
             memcpy(&sin6.sin6_addr, endpoint.address.address, 16)
             let len = UInt32(sizeofValue(sin6))
