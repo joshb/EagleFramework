@@ -28,9 +28,9 @@ import Base
 public class Template: CustomStringConvertible, TemplateParserDelegate {
     private(set) var nodes: [TemplateNode] = []
 
-    public init(source: String = "") {
+    public init(source: String = "") throws {
         if !source.isEmpty {
-            parseSource(source)
+            try parseSource(source)
         }
     }
 
@@ -38,12 +38,12 @@ public class Template: CustomStringConvertible, TemplateParserDelegate {
         nodes.append(node)
     }
 
-    public func parseSource(source: String) {
+    public func parseSource(source: String) throws {
         nodes = []
 
         let parser = TemplateParser()
         parser.delegate = self
-        parser.processString(source)
+        try parser.processString(source)
     }
 
     public func render(data: [String : Any]) -> String {
@@ -69,7 +69,7 @@ public class Template: CustomStringConvertible, TemplateParserDelegate {
     public static func fromFile(path: String) -> Template? {
         let fullPath = Settings.getAbsoluteResourcePath(path)
         if let source = try? String(contentsOfFile: fullPath, encoding: 4) {
-            return Template(source: source)
+            return try? Template(source: source)
         }
 
         return nil
