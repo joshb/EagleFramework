@@ -92,7 +92,7 @@ public class Server<ServerConnectionType: ServerConnection> {
 
     public func dataReceived(connection: ServerConnectionType) {}
 
-public func addLocalEndpoint(endpoint: Endpoint) throws {
+    public func addLocalEndpoint(endpoint: Endpoint) throws {
         if let socketDescriptor = ServerUtil.createSocket(endpoint) {
             localEndpoints[socketDescriptor] = endpoint
 #if os(Linux)
