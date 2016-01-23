@@ -23,32 +23,25 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if os(Linux)
-import Glibc
-#else
-import Darwin
-#endif
+enum DatabaseError: ErrorType {
+    case ConnectionFailed(message: String?)
+    case CommandFailed(message: String?)
+    case ModelNotSupported
+    case TableDoesNotExist
+    case RecordDoesNotExist
+    case UnexpectedNumberOfColumns
+}
 
-public class Settings {
-    public static var wwwPath: String {
-        guard Process.arguments.count > 1 else {
-            print("Error: wwwPath not set")
-            exit(1)
-        }
+protocol Database {
+    /// Saves a data model to the database.
+    ///
+    /// - parameter model: The data model to save.
+    func saveModel(model: Model) throws
 
-        return Process.arguments[1]
-    }
-
-    public static var resourcesPath: String {
-        guard Process.arguments.count > 2 else {
-            print("Error: resourcesPath not set")
-            exit(1)
-        }
-
-        return Process.arguments[2]
-    }
-
-    public static func getAbsoluteResourcePath(relativePath: String) -> String {
-        return resourcesPath + "/" + relativePath
-    }
+    /// Loads a data model from the database.
+    ///
+    /// - parameter model: The data model instance to load the data into.
+    /// - parameter id: The unique identifier of the data model to load.
+    /// - returns: The data model populated with the loaded data.
+    func loadModel(model: Model, id: Int64) throws -> Model
 }

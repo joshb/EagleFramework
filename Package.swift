@@ -10,6 +10,7 @@ let package = Package(
 
     targets: [
         Target(name: "Base"),
+        Target(name: "Database", dependencies: [.Target(name: "Base")]),
         Target(name: "Http", dependencies: [.Target(name: "Base"),
                                             .Target(name: "Network"),
                                             .Target(name: "Template")]),
@@ -25,8 +26,13 @@ let package = Package(
 let package = Package(
     name: "SwiftHTTPServer",
 
+    dependencies: [
+        .Package(url: "https://github.com/joshb/CSQLite3OSX.git", majorVersion: 1)
+    ],
+
     targets: [
         Target(name: "Base"),
+        Target(name: "Database", dependencies: [.Target(name: "Base")]),
         Target(name: "Http", dependencies: [.Target(name: "Base"),
                                             .Target(name: "Network"),
                                             .Target(name: "Template")]),
