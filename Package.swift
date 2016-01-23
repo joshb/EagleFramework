@@ -5,7 +5,8 @@ let package = Package(
     name: "SwiftHTTPServer",
 
     dependencies: [
-        .Package(url: "https://github.com/joshb/CEpoll.git", majorVersion: 1)
+        .Package(url: "https://github.com/joshb/CEpoll.git", majorVersion: 1),
+        .Package(url: "https://github.com/joshb/CSQLite3Linux.git", majorVersion: 1)
     ],
 
     targets: [

@@ -26,6 +26,7 @@
 import Base
 
 #if os(Linux)
+import CSQLite3Linux
 #else
 import CSQLite3OSX
 #endif

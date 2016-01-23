@@ -165,6 +165,16 @@ public extension String {
         return String(subCharacters) 
     }
 
+#if os(Linux)
+    public func hasPrefix(prefix: String) -> Bool {
+        guard self.length >= prefix.length else {
+            return false
+        }
+
+        return self.substring(0, length: prefix.length) == prefix
+    }
+#endif
+
     /// Gets a substring of the string.
     ///
     /// - parameter startIndex: The starting index to create the substring from.
