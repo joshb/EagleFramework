@@ -13,15 +13,20 @@ This software was developed by [Josh Beam](http://joshbeam.com/) and is distribu
 
 Supported Platforms
 -------------------
-This software currently only runs on Mac OS X. The plan is to port it to Linux after the [open source Swift release](https://developer.apple.com/swift/blog/?id=29) has happened, at which point it will be able to run on a wide range of Linux server offerings. Until then, though, it can be useful for people with Mac-based servers, whether they be self-hosted or hosted through a service such as [macminicolo](http://www.macminicolo.net/) or [MacStadium](http://www.macstadium.com/).
+This software has been developed and tested on Mac OS X El Capitan and Ubuntu 15.10 (x86-64). It can be built using a recent Swift 2.2 snapshot (see https://swift.org/download/) with the Swift package manager.
 
 Usage
 -----
-Open SwiftHTTPServer.xcodeproj in Xcode 7.0 or greater. Press ⌘R to build and run the server. By default, it binds to localhost (preferring IPv6 to IPv4) on port 5000, and serves the files stored in the [www](https://github.com/joshb/SwiftHTTPServer/tree/master/www) directory. If you have the server running, go to [http://localhost:5000/index.html](http://localhost:5000/index.html) to see the welcome page. When you're done, just hit ⌘. in Xcode to stop the server.
+Make sure that you have a recent Swift 2.2 snapshot installed, and run the following commands from the SwiftHTTPServer root directory to build and run it:
+
+    swift build
+    .build/debug/SwiftHTTPServer www Resources
+
+By default, the server binds to localhost (both IPv4 and IPv6) on port 5000, and serves the files stored in the directory given after the executable path (in the above example, this is the [www](https://github.com/joshb/SwiftHTTPServer/tree/master/www) directory). The Resources directory given last can contain files used by the server that are not served by default like the files in the www directory. If you have the server running, go to http://localhost:5000/ to see the welcome page. When you're done, just hit Ctrl-C to stop the server.
 
 License
 -------
-Copyright © 2015 Josh A. Beam  
+Copyright © 2015-2016 Josh A. Beam  
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
