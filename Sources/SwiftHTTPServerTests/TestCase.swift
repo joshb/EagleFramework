@@ -98,6 +98,13 @@ func assertEqual<T: Equatable>(a: [T], _ b: [T]) throws {
     }
 }
 
+func assertEqual<T, U: Equatable>(a: [T: U], _ b: [T: U]) throws {
+    try assertEqual(a.count, b.count)
+    for (key, value) in a {
+        try assertEqual(b[key], value)
+    }
+}
+
 func assertEqual<T: Equatable>(a: T?, _ b: T) throws {
     if let c = a {
         try assertEqual(c, b)

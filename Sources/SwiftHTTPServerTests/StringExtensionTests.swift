@@ -82,6 +82,21 @@ class StringExtensionTests: TestCase {
                 let s2 = "&quot;&lt;i&gt;Hello &amp; good morning, world!&lt;/i&gt;&quot;"
 
                 try assertEqual(s1.htmlSafe, s2)
+            },
+
+            "testUrlDecoded": {
+                let s1 = "Hello%2c+world%21"
+                let s2 = "Hello, world!"
+
+                try assertEqual(s1.urlDecoded, s2)
+            },
+
+            "testFormData": {
+                let s = "title=Good%20morning&body=Hello%2c+world%21"
+                let formData = ["title": "Good morning",
+                                "body": "Hello, world!"]
+
+                try assertEqual(s.formData, formData)
             }
         ]
     }

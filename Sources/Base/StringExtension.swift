@@ -179,4 +179,47 @@ public extension String {
 
         return s
     }
+
+    /// A URL-decoded copy of the string.
+    public var urlDecoded: String {
+        var s1 = ""
+        var s2 = self.replace("+", withString: " ")
+
+        while let range = s2.rangeOfString("%") {
+            let hexStart = range.endIndex
+            let hexEnd = hexStart.advancedBy(2)
+            if hexEnd > s2.endIndex {
+                break
+            }
+
+            var hexInt: UInt32 = 0
+            let hex = s2.substringWithRange(Range(start: hexStart, end: hexEnd))
+            let scanner = NSScanner(string: hex)
+            if !scanner.scanHexInt(&hexInt) {
+                break
+            }
+
+            s1 += s2.substringWithRange(Range(start: s2.startIndex, end: range.startIndex))
+            s1 += String(UnicodeScalar(hexInt))
+            s2 = s2.substringWithRange(Range(start: hexEnd, end: s2.endIndex))
+        }
+
+        return s1 + s2
+    }
+
+    /// A dictionary containing form data in the string.
+    public var formData: [String: String] {
+        var result: [String: String] = [:]
+
+        for pairString in self.split("&") {
+            let pair = pairString.split("=")
+            if pair.count != 2 {
+                continue
+            }
+
+            result[pair[0]] = pair[1].urlDecoded
+        }
+
+        return result
+    }
 }

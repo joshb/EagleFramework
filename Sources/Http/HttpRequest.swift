@@ -67,17 +67,7 @@ public class HttpRequest: CustomStringConvertible {
         }
 
         if let postData = self.postData {
-            let pairs = postData.split("&")
-            for pair in pairs {
-                let keyAndValue = pair.split("=")
-                if keyAndValue.count != 2 {
-                    continue
-                }
-
-                let key = keyAndValue[0]
-                let value = keyAndValue[1]
-                data[key] = value
-            }
+            data = postData.formData
         }
 
         return data
