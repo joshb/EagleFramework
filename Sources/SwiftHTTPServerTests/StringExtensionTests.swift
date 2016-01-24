@@ -26,7 +26,7 @@
 import Base
 
 class StringExtensionTests: TestCase {
-    override var tests: [String: TestFunc] {
+    override var tests: TestDictionary {
         return [
             "testIsDirectory": {
                 try assertFalse("/bin/ls".isDirectory)

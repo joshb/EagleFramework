@@ -26,7 +26,7 @@
 import Database
 
 class ModelTests: TestCase {
-    override var tests: [String: TestFunc] {
+    override var tests: TestDictionary {
         return [
             "testPropertyValues": {
                 class TestModel: Model {

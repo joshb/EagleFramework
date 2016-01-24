@@ -26,7 +26,7 @@
 import Template
 
 class TemplateTests: TestCase {
-    override var tests: [String: TestFunc] {
+    override var tests: TestDictionary {
         return [
             "test1": {
                 let template = try Template(source: "Hello, world!")

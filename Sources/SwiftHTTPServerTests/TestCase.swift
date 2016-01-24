@@ -24,6 +24,7 @@
  */
 
 typealias TestFunc = () throws -> Void
+typealias TestDictionary = [String: TestFunc]
 
 enum TestCaseError: ErrorType {
     case AssertionFailed
@@ -33,7 +34,7 @@ class TestCase {
     static var testsRun = 0
     static var testsSucceeded = 0
 
-    var tests: [String: TestFunc] {
+    var tests: TestDictionary {
         return [:]
     }
 

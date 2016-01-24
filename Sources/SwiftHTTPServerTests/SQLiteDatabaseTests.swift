@@ -33,7 +33,7 @@ class SQLiteDatabaseTests: TestCase {
         let fullName = Model.OptionalStringProperty()
     }
 
-    override var tests: [String: TestFunc] {
+    override var tests: TestDictionary {
         return [
             "testCreateTableCommandForModel": {
                 let command = try SQLiteDatabase.createTableCommandForModel(User())

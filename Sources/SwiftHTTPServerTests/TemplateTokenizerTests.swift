@@ -68,7 +68,7 @@ class TemplateTokenizerTests: TestCase {
         super.tearDown()
     }
 
-    override var tests: [String: TestFunc] {
+    override var tests: TestDictionary {
         return [
             "test1": {
                 try self.tokenizer.processString("hello")
