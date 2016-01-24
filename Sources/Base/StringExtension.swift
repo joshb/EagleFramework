@@ -154,11 +154,11 @@ public extension String {
         var s = self
 
         while !s.isEmpty && String.isWhitespace(s.characters[s.startIndex]) {
-            s = s.substring(1)
+            s = s.substringWithRange(Range(start: s.startIndex.successor(), end: s.endIndex))
         }
 
         while !s.isEmpty && String.isWhitespace(s.characters[s.endIndex.predecessor()]) {
-            s = s.substring(0, length: s.length - 1)
+            s = s.substringWithRange(Range(start: s.startIndex, end: s.endIndex.predecessor()))
         }
 
         return s
