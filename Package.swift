@@ -11,16 +11,26 @@ let package = Package(
 
     targets: [
         Target(name: "Base"),
-        Target(name: "Database", dependencies: [.Target(name: "Base")]),
-        Target(name: "Http", dependencies: [.Target(name: "Base"),
-                                            .Target(name: "Network"),
-                                            .Target(name: "Template")]),
-        Target(name: "Network", dependencies: [.Target(name: "Base")]),
-        Target(name: "Template", dependencies: [.Target(name: "Base")]),
+        Target(name: "Database",
+               dependencies: [.Target(name: "Base")]),
+        Target(name: "Http",
+               dependencies: [.Target(name: "Base"),
+                              .Target(name: "Network"),
+                              .Target(name: "Template")]),
+        Target(name: "Network",
+               dependencies: [.Target(name: "Base")]),
+        Target(name: "Template",
+               dependencies: [.Target(name: "Base")]),
 
-        Target(name: "SwiftHTTPServer", dependencies: [.Target(name: "Base"),
-                                                       .Target(name: "Http"),
-                                                       .Target(name: "Network")])
+        Target(name: "SwiftHTTPServer",
+               dependencies: [.Target(name: "Base"),
+                              .Target(name: "Http"),
+                              .Target(name: "Network")]),
+
+        Target(name: "SwiftHTTPServerTests",
+               dependencies: [.Target(name: "Base"),
+                              .Target(name: "Database"),
+                              .Target(name: "Template")])
     ]
 )
 #else
@@ -33,16 +43,26 @@ let package = Package(
 
     targets: [
         Target(name: "Base"),
-        Target(name: "Database", dependencies: [.Target(name: "Base")]),
-        Target(name: "Http", dependencies: [.Target(name: "Base"),
-                                            .Target(name: "Network"),
-                                            .Target(name: "Template")]),
-        Target(name: "Network", dependencies: [.Target(name: "Base")]),
-        Target(name: "Template", dependencies: [.Target(name: "Base")]),
+        Target(name: "Database",
+               dependencies: [.Target(name: "Base")]),
+        Target(name: "Http",
+               dependencies: [.Target(name: "Base"),
+                              .Target(name: "Network"),
+                              .Target(name: "Template")]),
+        Target(name: "Network",
+               dependencies: [.Target(name: "Base")]),
+        Target(name: "Template",
+               dependencies: [.Target(name: "Base")]),
 
-        Target(name: "SwiftHTTPServer", dependencies: [.Target(name: "Base"),
-                                                       .Target(name: "Http"),
-                                                       .Target(name: "Network")])
+        Target(name: "SwiftHTTPServer",
+               dependencies: [.Target(name: "Base"),
+                              .Target(name: "Http"),
+                              .Target(name: "Network")]),
+
+        Target(name: "SwiftHTTPServerTests",
+               dependencies: [.Target(name: "Base"),
+                              .Target(name: "Database"),
+                              .Target(name: "Template")])
     ]
 )
 #endif

@@ -32,14 +32,14 @@ import CSQLite3OSX
 #endif
 
 /// Represents an SQLite database.
-class SQLiteDatabase: Database {
+public class SQLiteDatabase: Database {
     enum SQLiteValue {
         case Null
     }
 
     private var db: COpaquePointer = nil
 
-    init(filePath: String) throws {
+    public init(filePath: String) throws {
         if sqlite3_open(filePath.utf8CString, &db) != SQLITE_OK {
             throw DatabaseError.ConnectionFailed(message: "Could not open the file: " + filePath)
         }
@@ -64,7 +64,7 @@ class SQLiteDatabase: Database {
     ///
     /// - parameter model: The model to generate the command for.
     /// - returns: String containing the command.
-    static func createTableCommandForModel(model: Model) throws -> String {
+    public static func createTableCommandForModel(model: Model) throws -> String {
         var propertyList = "id INTEGER PRIMARY KEY NOT NULL"
 
         for (name, property) in model.properties {
@@ -160,7 +160,7 @@ class SQLiteDatabase: Database {
     ///
     /// - parameter model: The model to generate the command for.
     /// - returns: String containing the command.
-    static func insertCommandForModel(model: Model) throws -> String {
+    public static func insertCommandForModel(model: Model) throws -> String {
         var propertyList = ""
         var valueList = ""
         for (name, value) in try getFieldNamesAndValuesForModel(model) {
@@ -180,7 +180,7 @@ class SQLiteDatabase: Database {
     ///
     /// - parameter model: The model to generate the command for.
     /// - returns: String containing the command.
-    static func updateCommandForModel(model: Model) throws -> String {
+    public static func updateCommandForModel(model: Model) throws -> String {
         var valueList = ""
         for (name, value) in try getFieldNamesAndValuesForModel(model) {
             if !valueList.isEmpty {
@@ -197,7 +197,7 @@ class SQLiteDatabase: Database {
     ///
     /// - parameter model: The model to generate the command for.
     /// - returns: String containing the command.
-    static func selectCommandForModel(model: Model) throws -> String {
+    public static func selectCommandForModel(model: Model) throws -> String {
         var propertyList = ""
         for (name, _) in try getFieldNamesAndValuesForModel(model) {
             if !propertyList.isEmpty {

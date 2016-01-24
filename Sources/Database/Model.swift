@@ -24,15 +24,15 @@
  */
 
 /// Protocol for data model properties to implement.
-protocol ModelProperty {
+public protocol ModelProperty {
     var nonTypedValue: Any { get set }
 }
 
 /// Represents a required property of a data model.
-class RequiredModelProperty<T>: ModelProperty {
-    var value: T
+public class RequiredModelProperty<T>: ModelProperty {
+    public var value: T
 
-    var nonTypedValue: Any {
+    public var nonTypedValue: Any {
         get {
             return self.value as Any
         }
@@ -44,16 +44,16 @@ class RequiredModelProperty<T>: ModelProperty {
         }
     }
 
-    init(defaultValue: T) {
+    public init(defaultValue: T) {
         self.value = defaultValue
     }
 }
 
 /// Represents an optional property of a data model.
-class OptionalModelProperty<T>: ModelProperty {
-    var value: T?
+public class OptionalModelProperty<T>: ModelProperty {
+    public var value: T?
 
-    var nonTypedValue: Any {
+    public var nonTypedValue: Any {
         get {
             return self.value as Any
         }
@@ -63,34 +63,34 @@ class OptionalModelProperty<T>: ModelProperty {
         }
     }
 
-    init(defaultValue: T? = nil) {
+    public init(defaultValue: T? = nil) {
         self.value = defaultValue
     }
 }
 
 /// Represents a data model.
-class Model: CustomStringConvertible {
-    typealias BoolProperty = RequiredModelProperty<Bool>
-    typealias OptionalBoolProperty = OptionalModelProperty<Bool>
-    typealias DoubleProperty = RequiredModelProperty<Double>
-    typealias OptionalDoubleProperty = OptionalModelProperty<Double>
-    typealias IntProperty = RequiredModelProperty<Int64>
-    typealias OptionalIntProperty = OptionalModelProperty<Int64>
-    typealias StringProperty = RequiredModelProperty<String>
-    typealias OptionalStringProperty = OptionalModelProperty<String>
+public class Model: CustomStringConvertible {
+    public typealias BoolProperty = RequiredModelProperty<Bool>
+    public typealias OptionalBoolProperty = OptionalModelProperty<Bool>
+    public typealias DoubleProperty = RequiredModelProperty<Double>
+    public typealias OptionalDoubleProperty = OptionalModelProperty<Double>
+    public typealias IntProperty = RequiredModelProperty<Int64>
+    public typealias OptionalIntProperty = OptionalModelProperty<Int64>
+    public typealias StringProperty = RequiredModelProperty<String>
+    public typealias OptionalStringProperty = OptionalModelProperty<String>
 
-    typealias ForeignKeyProperty = IntProperty
-    typealias OptionalForeignKeyProperty = OptionalIntProperty
+    public typealias ForeignKeyProperty = IntProperty
+    public typealias OptionalForeignKeyProperty = OptionalIntProperty
 
-    typealias NameAndProperty = (name: String, property: ModelProperty)
-    typealias NameAndPropertyValue = (name: String, value: Any)
+    public typealias NameAndProperty = (name: String, property: ModelProperty)
+    public typealias NameAndPropertyValue = (name: String, value: Any)
 
     private var _storageName: String?
     private var _properties: [NameAndProperty]?
     private var _propertiesDictionary: [String: ModelProperty]?
 
     /// A name for the model's storage. This is used as a table name in a database.
-    var storageName: String {
+    public var storageName: String {
         if _storageName == nil {
             _storageName = String(self.dynamicType)
         }
@@ -99,10 +99,10 @@ class Model: CustomStringConvertible {
     }
 
     /// A number to uniquely identify the model.
-    var id: Int64 = 0
+    public var id: Int64 = 0
 
     /// List of tuples containing property names and properties.
-    var properties: [NameAndProperty] {
+    public var properties: [NameAndProperty] {
         if _properties == nil {
             var result: [NameAndProperty] = []
 
@@ -137,7 +137,7 @@ class Model: CustomStringConvertible {
     }
 
     /// List of tuples containing property names and values.
-    var propertyValues: [NameAndPropertyValue] {
+    public var propertyValues: [NameAndPropertyValue] {
         var result: [NameAndPropertyValue] = []
 
         for (name, property) in properties {
@@ -158,7 +158,9 @@ class Model: CustomStringConvertible {
         return result
     }
 
-    var description: String {
+    public init() {}
+
+    public var description: String {
         var propertyList = "id: " + id.description
 
         for (name, value) in propertyValues {

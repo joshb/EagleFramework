@@ -26,7 +26,7 @@
 import Base
 
 /// Represents an object to be notified of tokenization events.
-protocol TemplateTokenizerDelegate {
+public protocol TemplateTokenizerDelegate {
     /// Called when non-code text has been found.
     ///
     /// - parameter text: The text that was found.
@@ -46,16 +46,18 @@ protocol TemplateTokenizerDelegate {
 }
 
 /// Tokenizes strings for the template engine.
-class TemplateTokenizer {
+public class TemplateTokenizer {
     private static let codeStartSymbol = "<%"
     private static let codeStopSymbol = "%>"
 
-    var delegate: TemplateTokenizerDelegate?
+    public var delegate: TemplateTokenizerDelegate?
 
     private var inCode: Bool = false
     private var previousChar: Character = " "
     private var token: String = ""
     private var quoteChar: Character?
+
+    public init() {}
 
     /// Check if a token is a special token, such as a mathematical symbol.
     ///
@@ -153,7 +155,7 @@ class TemplateTokenizer {
     /// Tokenize a string, sending tokens and events to the delegate.
     ///
     /// - parameter s: The string to tokenize.
-    func processString(s: String) throws {
+    public func processString(s: String) throws {
         for c in s.characters {
             try processCharacter(c)
         }

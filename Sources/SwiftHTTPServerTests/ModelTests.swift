@@ -23,28 +23,33 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import XCTest
+import Database
 
-class TemplateTests: XCTestCase {
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
+class ModelTests: TestCase {
+    override var tests: [String: TestFunc] {
+        return [
+            "testPropertyValues": {
+                class TestModel: Model {
+                    let boolProperty = Model.BoolProperty(defaultValue: false)
+                    let doubleProperty = Model.DoubleProperty(defaultValue: 1.23)
+                    let intProperty = Model.IntProperty(defaultValue: 42)
+                    let stringProperty = Model.StringProperty(defaultValue: "Hello")
 
-    func test1() {
-        let template = Template(source: "Hello, world!")
-        XCTAssertEqual(template.render([:]), "Hello, world!")
-    }
+                    override init() {}
+                }
 
-    func test2() {
-        let template = Template(source: "Hello, <%=name%>!")
-        let data: [String: Any] = ["name": "Josh"]
-
-        XCTAssertEqual(template.render(data), "Hello, Josh!")
+                let model = TestModel()
+                let propertyValues = model.propertyValues
+                try assertEqual(propertyValues.count, 4)
+                try assertEqual(propertyValues[0].name, "boolProperty")
+                try assertEqual(propertyValues[0].value as? Bool, false)
+                try assertEqual(propertyValues[1].value as? Double, 1.23)
+                try assertEqual(propertyValues[1].name, "doubleProperty")
+                try assertEqual(propertyValues[2].value as? Int64, 42)
+                try assertEqual(propertyValues[2].name, "intProperty")
+                try assertEqual(propertyValues[3].value as? String, "Hello")
+                try assertEqual(propertyValues[3].name, "stringProperty")
+            }
+        ]
     }
 }

@@ -23,6 +23,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import Foundation
 #if os(Linux)
 import Glibc
 #else
@@ -41,29 +42,6 @@ public extension String {
     /// A UTF-8 C-string representation of the string.
     public var utf8CString: [CChar] {
         return self.nulTerminatedUTF8.map({ String.ucharToChar($0) })
-    }
-
-    public func find(substring: String, startIndex: Int = 0) -> Int {
-        let s = self.substring(startIndex)
-        if s == substring {
-            return startIndex
-        }
-
-        let length = s.length
-        let substringLength = substring.length
-        if length < substringLength {
-            return -1
-        }
-
-        let max = length - substringLength
-        for i in 0..<max {
-            let tmp = s.substring(i, length: substringLength);
-            if tmp == substring {
-                return startIndex + i
-            }
-        }
-
-        return -1
     }
 
     private var fstatMode: mode_t {
@@ -107,20 +85,16 @@ public extension String {
     /// - returns: A new string with all occurrences
     ///   of the given substring replaced.
     public func replace(target: String, withString replacement: String) -> String {
-        var s = self
-        var startIndex = 0
+        var s1 = ""
+        var s2 = self
 
-        while true {
-            let index = self.find(target, startIndex: startIndex)
-            if index == -1 {
-                break
-            }
-
-            s = s.substring(0, length: index) + replacement + s.substring(index + target.length)
-            startIndex = index + target.length
+        while let range = s2.rangeOfString(target) {
+            s1 += s2.substringWithRange(Range(start: s2.startIndex, end: range.startIndex))
+            s1 += replacement
+            s2 = s2.substringWithRange(Range(start: range.endIndex, end: s2.endIndex))
         }
 
-        return s
+        return s1 + s2
     }
 
     /// Splits a string using a given delimiter.
@@ -129,25 +103,18 @@ public extension String {
     /// - returns: An array containing the components of the string
     ///   separated by the given delimiter.
     public func split(delimiter: String) -> [String] {
-        let delimiterLength = delimiter.length
+        var s = self
         var components: [String] = []
-        var startIndex = 0
 
-        while true {
-            let index = self.find(delimiter, startIndex: startIndex)
-            if index == -1 {
-                break
-            }
-
-            let s = self.substring(startIndex, length: index - startIndex)
-            components.append(s)
-            startIndex = index + delimiterLength
+        while let range = s.rangeOfString(delimiter) {
+            components.append(s.substringWithRange(Range(start: s.startIndex, end: range.startIndex)))
+            s = s.substringWithRange(Range(start: range.endIndex, end: s.endIndex))
         }
 
         // If there are any characters left, we'll
         // include them as the last component.
-        if startIndex < self.length {
-            components.append(self.substring(startIndex))
+        if s.length > 0 {
+            components.append(s)
         }
 
         return components
@@ -159,31 +126,19 @@ public extension String {
     /// - parameter length: The length of the substring.
     /// - returns: A substring from the starting index and with the given length.
     public func substring(startIndex: Int, length: Int) -> String {
-        let start = self.characters.startIndex.advancedBy(startIndex)
+        let start = self.startIndex.advancedBy(startIndex)
         let end = start.advancedBy(length)
-        let subCharacters = self.characters[start..<end]
-        return String(subCharacters) 
+        return self.substringWithRange(Range(start: start, end: end))
     }
-
-#if os(Linux)
-    public func hasPrefix(prefix: String) -> Bool {
-        guard self.length >= prefix.length else {
-            return false
-        }
-
-        return self.substring(0, length: prefix.length) == prefix
-    }
-#endif
 
     /// Gets a substring of the string.
     ///
     /// - parameter startIndex: The starting index to create the substring from.
     /// - returns: A substring from the starting index up to the end of the string.
     public func substring(startIndex: Int) -> String {
-        let start = self.characters.startIndex.advancedBy(startIndex)
-        let end = self.characters.endIndex
-        let subCharacters = self.characters[start..<end]
-        return String(subCharacters) 
+        let start = self.startIndex.advancedBy(startIndex)
+        let end = self.endIndex
+        return self.substringWithRange(Range(start: start, end: end))
     }
 
     /// Checks whether or not the given character is a whitespace character.
