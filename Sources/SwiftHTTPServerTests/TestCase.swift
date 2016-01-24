@@ -31,8 +31,8 @@ enum TestCaseError: ErrorType {
 }
 
 class TestCase {
-    static var testsRun = 0
     static var testsSucceeded = 0
+    static var testsFailed = 0
 
     var tests: TestDictionary {
         return [:]
@@ -52,18 +52,28 @@ class TestCase {
                 TestCase.testsSucceeded += 1
                 print("\u{1b}[1;32msuccess\u{1b}[0;0m")
             } catch {
+                TestCase.testsFailed += 1
                 print("\u{1b}[1;31mfailure\u{1b}[0;0m")
             }
 
             tearDown()
-            TestCase.testsRun += 1
         }
 
         print()
     }
 
     static func printStats() {
-        print("\(testsSucceeded) of \(testsRun) tests succeeded")
+        var succeeded = "\(testsSucceeded)"
+        if testsSucceeded > 0 {
+            succeeded = "\u{1b}[1;32m\(succeeded)\u{1b}[0;0m"
+        }
+
+        var failed = "\(testsFailed)"
+        if testsFailed > 0 {
+            failed = "\u{1b}[1;31m\(failed)\u{1b}[0;0m"
+        }
+
+        print("\(succeeded) succeeded, \(failed) failed")
     }
 
     static func runTestCases(testCases: [TestCase]) {
