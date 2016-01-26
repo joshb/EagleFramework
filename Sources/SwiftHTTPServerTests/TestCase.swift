@@ -122,3 +122,9 @@ func assertTrue(value: Bool) throws {
 func assertFalse(value: Bool) throws {
     try assertTrue(!value)
 }
+
+func assertNil<T>(value: T?) throws {
+    if value != nil {
+        throw TestCaseError.AssertionFailed
+    }
+}

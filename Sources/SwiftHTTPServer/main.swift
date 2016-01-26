@@ -30,7 +30,8 @@ import Network
 print("WWW Path: \(Settings.wwwPath)")
 print("Resources path: \(Settings.resourcesPath)")
 
-ResponderRegistry.register(FileResponder())
+ResponderRegistry.register(FileResponder(webPath: "",
+                                         fileSystemPath: Settings.wwwPath))
 
 if let address4 = Address.fromHostname("127.0.0.1") {
     let port: Port = 5000

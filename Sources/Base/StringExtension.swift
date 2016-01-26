@@ -62,14 +62,40 @@ public extension String {
         return status.st_mode
     }
 
-    // Indicates whether or not the string contains the path of a directory.
+    /// Indicates whether or not the string contains the path of a directory.
     public var isDirectory: Bool {
         return (fstatMode & S_IFDIR) != 0
     }
 
-    // Indicates whether or not the string contains the path of a regular file.
+    /// Indicates whether or not the string contains the path of a regular file.
     public var isFile: Bool {
         return (fstatMode & S_IFREG) != 0
+    }
+
+    /// If the string contains a path that begins with the given
+    /// path, returns a path relative to the given path.
+    public func relativeToPath(path: String) -> String? {
+        let p1 = self.trimmed
+        var p2 = path.trimmed
+
+        // Remove any trailing slashes.
+        while p2.hasSuffix("/") {
+            p2 = p2.substringWithRange(Range(start: p2.startIndex, end: p2.endIndex.predecessor())).trimmed
+        }
+
+        if p2.isEmpty && !p1.hasPrefix("/") {
+            return p1
+        }
+
+        if p1 == p2 {
+            return ""
+        }
+
+        if !p2.isEmpty && p1.hasPrefix(p2 + "/") {
+            return p1.substring(p2.length + 1)
+        }
+
+        return nil
     }
 
     /// The string's character count.

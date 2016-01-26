@@ -41,6 +41,16 @@ class StringExtensionTests: TestCase {
                 try assertTrue("/bin/ls".isFile)
             },
 
+            "testRelativeToPath": {
+                try assertNil("/tmp/test.txt".relativeToPath("/usr"))
+                try assertNil("/tmp/test.txt".relativeToPath(""))
+                try assertEqual("/tmp".relativeToPath("/tmp"), "")
+                try assertEqual("/tmp/".relativeToPath("/tmp"), "")
+                try assertEqual("/tmp/test.txt".relativeToPath("/tmp"), "test.txt")
+                try assertEqual("/tmp/test.txt".relativeToPath("/tmp/"), "test.txt")
+                try assertEqual("index.html".relativeToPath(""), "index.html")
+            },
+
             "testLength": {
                 try assertEqual("".length, 0)
                 try assertEqual("Hello, world!".length, 13)

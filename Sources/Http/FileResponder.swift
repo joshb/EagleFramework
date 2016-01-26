@@ -26,7 +26,13 @@
 import Base
 
 public class FileResponder: Responder {
-    public init() {}
+    public private(set) var webPath: String
+    public private(set) var fileSystemPath: String
+
+    public init(webPath: String, fileSystemPath: String) {
+        self.webPath = webPath
+        self.fileSystemPath = fileSystemPath
+    }
 
     public func matchesRequest(request: HttpRequest) -> Bool {
         return true
@@ -34,12 +40,18 @@ public class FileResponder: Responder {
 
     public func respond(request: HttpRequest) -> HttpResponse? {
         if let path = request.safeFilePath {
-            var fullPath = Settings.wwwPath + "/" + path
-            if fullPath.isDirectory {
-                fullPath += "/index.html"
-            }
+            if let relativePath = path.relativeToPath(webPath) {
+                var fullPath = fileSystemPath + "/" + relativePath
+                if fullPath.isDirectory {
+                    if !path.isEmpty && !path.hasSuffix("/") {
+                        return HttpResponse.redirect(path + "/")
+                    }
 
-            return HttpResponse.file(fullPath)
+                    fullPath += "/index.html"
+                }
+
+                return HttpResponse.file(fullPath)
+            }
         }
 
         return nil
