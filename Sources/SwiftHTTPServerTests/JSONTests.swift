@@ -23,11 +23,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-TestCase.runTestCases([
-    JSONTests(),
-    ModelTests(),
-    StringExtensionTests(),
-    SQLiteDatabaseTests(),
-    TemplateTokenizerTests(),
-    TemplateTests()
-])
+import Base
+
+class JSONTests: TestCase {
+    override var tests: TestDictionary {
+        return [
+            "testToJSON": {
+                try assertEqual([1, 2, 3].toJSON(), "[1,2,3]")
+                try assertEqual(["abc": 123].toJSON(), "{\"abc\":123}")
+            }
+        ]
+    }
+}

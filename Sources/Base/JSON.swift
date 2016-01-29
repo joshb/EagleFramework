@@ -23,11 +23,35 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-TestCase.runTestCases([
-    JSONTests(),
-    ModelTests(),
-    StringExtensionTests(),
-    SQLiteDatabaseTests(),
-    TemplateTokenizerTests(),
-    TemplateTests()
-])
+import Foundation
+
+private func objectToJSON(object: AnyObject?, compact: Bool) -> String? {
+    guard object != nil else {
+        return nil
+    }
+
+    guard NSJSONSerialization.isValidJSONObject(object!) else {
+        return nil
+    }
+
+    let options = compact ? NSJSONWritingOptions() : NSJSONWritingOptions.PrettyPrinted
+    if let data = try? NSJSONSerialization.dataWithJSONObject(object!, options: options) {
+        var bytes = [CChar](count: data.length + 1, repeatedValue: 0)
+        data.getBytes(&bytes, length: data.length)
+        return String.fromCString(bytes)
+    }
+
+    return nil
+}
+
+public extension Array {
+    public func toJSON(compact compact: Bool = true) -> String? {
+        return objectToJSON(self as? AnyObject, compact: compact)
+    }
+}
+
+public extension Dictionary {
+    public func toJSON(compact compact: Bool = true) -> String? {
+        return objectToJSON(self as? AnyObject, compact: compact)
+    }
+}
