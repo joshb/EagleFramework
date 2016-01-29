@@ -13,11 +13,11 @@ This software was developed by [Josh Beam](http://joshbeam.com/) and is distribu
 
 Supported Platforms
 -------------------
-This software has been developed and tested on Mac OS X El Capitan and Ubuntu 15.10 (x86-64). It can be built using a recent Swift 2.2 snapshot (see https://swift.org/download/) with the Swift package manager.
+This software has been developed and tested on Mac OS X El Capitan and Ubuntu 15.10 (x86-64). It can be built using a recent Swift Development snapshot (see https://swift.org/download/) with the Swift package manager.
 
 Usage
 -----
-Make sure that you have a recent Swift 2.2 snapshot installed, and run the following commands from the SwiftHTTPServer root directory to build and run it:
+Make sure that you have a recent Swift Development snapshot installed, and run the following commands from the SwiftHTTPServer root directory to build and run it:
 
     swift build
     .build/debug/SwiftHTTPServer www Resources
