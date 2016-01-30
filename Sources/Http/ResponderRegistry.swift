@@ -31,19 +31,12 @@ public class ResponderRegistry {
     }
 
     public static func respond(request: HttpRequest) -> HttpResponse {
-        var response: HttpResponse?
-
         for responder in responders {
-            if responder.matchesRequest(request) {
-                response = responder.respond(request)
-                break
+            if let response = responder.respond(request) {
+                return response
             }
         }
 
-        if response == nil {
-            response = HttpResponse.fileNotFound(request.path)
-        }
-
-        return response!
+        return HttpResponse.fileNotFound(request.path)
     }
 }

@@ -34,10 +34,6 @@ public class FileResponder: Responder {
         self.fileSystemPath = fileSystemPath
     }
 
-    public func matchesRequest(request: HttpRequest) -> Bool {
-        return true
-    }
-
     public func respond(request: HttpRequest) -> HttpResponse? {
         if let path = request.safeFilePath {
             if let relativePath = path.relativeToPath(webPath) {

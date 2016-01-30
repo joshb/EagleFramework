@@ -24,6 +24,5 @@
  */
 
 public protocol Responder {
-    func matchesRequest(request: HttpRequest) -> Bool
     func respond(request: HttpRequest) -> HttpResponse?
 }
