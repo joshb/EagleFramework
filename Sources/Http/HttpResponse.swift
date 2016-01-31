@@ -24,7 +24,6 @@
  */
 
 import Foundation
-import Template
 
 /// Represents a response to an HTTP request.
 public class HttpResponse: CustomStringConvertible {
@@ -117,6 +116,10 @@ public class HttpResponse: CustomStringConvertible {
         return response
     }
 
+    public static func html(content: String) -> HttpResponse {
+        return html(200, statusMessage: "OK", content: content)
+    }
+
     public static func htmlMessage(statusCode: Int, statusMessage: String, message: String) -> HttpResponse {
         var content = "<!DOCTYPE html>\r\n"
         content += "<html lang=\"en\">\r\n"
@@ -168,16 +171,5 @@ public class HttpResponse: CustomStringConvertible {
         }
 
         return nil
-    }
-
-    public static func template(statusCode: Int, statusMessage: String, contentType: ContentType, template: Template, data: [String: Any]? = nil) -> HttpResponse {
-        let response = HttpResponse(statusCode: statusCode, statusMessage: statusMessage)
-        response.contentType = contentType.rawValue
-        response.textContent = template.render(data ?? [String: Any]())
-        return response
-    }
-
-    public static func template(statusCode: Int, statusMessage: String, template: Template, data: [String: Any]? = nil) -> HttpResponse {
-        return HttpResponse.template(statusCode, statusMessage: statusMessage, contentType: ContentType.HTML, template: template, data: data)
     }
 }

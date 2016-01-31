@@ -53,7 +53,8 @@ class BlogResponder: Responder {
             html += "<p>\(post.body)</p>"
         }
 
-        return HttpResponse.template(200, statusMessage: "OK", template: indexTemplate, data: ["blog_posts": html])
+        let content = indexTemplate.render(["blog_posts": html])
+        return HttpResponse.html(content)
     }
 
     func addPost(request: HttpRequest) -> HttpResponse? {
