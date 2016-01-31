@@ -25,6 +25,10 @@
 
 import Base
 
+public enum TemplateError: ErrorType {
+    case UnableToOpenFile
+}
+
 public class Template: CustomStringConvertible, TemplateParserDelegate {
     private(set) var nodes: [TemplateNode] = []
 
@@ -66,12 +70,12 @@ public class Template: CustomStringConvertible, TemplateParserDelegate {
         return s
     }
 
-    public static func fromFile(path: String) -> Template? {
+    public static func fromFile(path: String) throws -> Template {
         let fullPath = Settings.getAbsoluteResourcePath(path)
         if let source = try? String(contentsOfFile: fullPath, encoding: 4) {
-            return try? Template(source: source)
+            return try Template(source: source)
         }
 
-        return nil
+        throw TemplateError.UnableToOpenFile
     }
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Blog</title>
+<link href="/blog.css" rel="stylesheet" />
+<body>
+
+<h1>SwiftHTTPServer Blog Example</h1>
+
+<div id="blog_posts">
+    <form action="/blog/addPost" method="post">
+    <table>
+        <tr>
+            <td>Title:</td>
+            <td><input type="text" name="title" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><textarea name="body" style="width: 100%" rows="4"></textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Post" /></td>
+        </tr>
+    </table>
+    </form>
+
+    <hr />
+
+    <%=blog_posts%>
+</div>
+
+</body>
+</html>

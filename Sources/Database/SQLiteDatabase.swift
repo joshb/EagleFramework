@@ -281,7 +281,7 @@ public class SQLiteDatabase: Database {
         return results
     }
 
-    func saveModel(model: Model) throws {
+    public func saveModel(model: Model) throws {
         // If the model's ID is 0, it's a new model that must be
         // inserted into the appropriate table. If the ID is set, it's
         // an existing model that must have its row updated.
@@ -306,7 +306,7 @@ public class SQLiteDatabase: Database {
         }
     }
 
-    func loadModel(model: Model, id: Int64) throws -> Model {
+    public func loadModel(model: Model, id: Int64) throws -> Model {
         let command = try SQLiteDatabase.selectCommandForModel(model) + " WHERE id = " + id.description
         let results = try executeQuery(command)
         guard results.count == 1 else {
@@ -322,9 +322,32 @@ public class SQLiteDatabase: Database {
         for i in 0..<row.count {
             var property = properties[i].property
             property.nonTypedValue = row[i]
-            print(property.nonTypedValue)
         }
 
         return model
+    }
+
+    public func query<T: Model>(model: T) throws -> [T] {
+        let command = try SQLiteDatabase.selectCommandForModel(model)
+        let results = try executeQuery(command)
+        var models: [T] = []
+
+        for row in results {
+            let m = T()
+            let properties = m.properties
+
+            guard row.count == properties.count else {
+                throw DatabaseError.UnexpectedNumberOfColumns
+            }
+
+            for i in 0..<row.count {
+                var property = properties[i].property
+                property.nonTypedValue = row[i]
+            }
+
+            models.append(m)
+        }
+
+        return models
     }
 }

@@ -23,7 +23,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-enum DatabaseError: ErrorType {
+public enum DatabaseError: ErrorType {
     case ConnectionFailed(message: String?)
     case CommandFailed(message: String?)
     case ModelNotSupported
@@ -32,7 +32,7 @@ enum DatabaseError: ErrorType {
     case UnexpectedNumberOfColumns
 }
 
-protocol Database {
+public protocol Database {
     /// Saves a data model to the database.
     ///
     /// - parameter model: The data model to save.
@@ -44,4 +44,7 @@ protocol Database {
     /// - parameter id: The unique identifier of the data model to load.
     /// - returns: The data model populated with the loaded data.
     func loadModel(model: Model, id: Int64) throws -> Model
+
+    /// Query for models of the given type.
+    func query<T: Model>(model: T) throws -> [T]
 }

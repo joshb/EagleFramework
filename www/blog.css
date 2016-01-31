@@ -1,0 +1,23 @@
+body {
+    margin: 0;
+    font-family: "Helvetica Neue", Arial, Helvetica;
+    font-size: 12pt;
+    background-color: white;
+    color: black;
+}
+
+h1 {
+    margin: 0;
+    padding: 32px;
+    background: linear-gradient(#f0b080, #b07040);
+    color: white;
+    text-shadow: 1px 1px 4px black;
+}
+
+#blog_posts {
+    padding: 32px;
+}
+
+h2 {
+    margin: 0;
+}

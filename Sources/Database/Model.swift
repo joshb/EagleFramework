@@ -24,7 +24,7 @@
  */
 
 /// Protocol for data model properties to implement.
-public protocol ModelProperty {
+public protocol ModelProperty: CustomStringConvertible {
     var nonTypedValue: Any { get set }
 }
 
@@ -47,6 +47,10 @@ public class RequiredModelProperty<T>: ModelProperty {
     public init(defaultValue: T) {
         self.value = defaultValue
     }
+
+    public var description: String {
+        return "\(self.value)".htmlSafe
+    }
 }
 
 /// Represents an optional property of a data model.
@@ -65,6 +69,14 @@ public class OptionalModelProperty<T>: ModelProperty {
 
     public init(defaultValue: T? = nil) {
         self.value = defaultValue
+    }
+
+    public var description: String {
+        if let value = self.value {
+            return "\(value)".htmlSafe
+        } else {
+            return "(nil)"
+        }
     }
 }
 
@@ -158,7 +170,7 @@ public class Model: CustomStringConvertible {
         return result
     }
 
-    public init() {}
+    required public init() {}
 
     public var description: String {
         var propertyList = "id: " + id.description

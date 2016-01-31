@@ -24,6 +24,7 @@ let package = Package(
 
         Target(name: "SwiftHTTPServer",
                dependencies: [.Target(name: "Base"),
+                              .Target(name: "Database"),
                               .Target(name: "Http"),
                               .Target(name: "Network")]),
 
@@ -56,6 +57,7 @@ let package = Package(
 
         Target(name: "SwiftHTTPServer",
                dependencies: [.Target(name: "Base"),
+                              .Target(name: "Database"),
                               .Target(name: "Http"),
                               .Target(name: "Network")]),
 

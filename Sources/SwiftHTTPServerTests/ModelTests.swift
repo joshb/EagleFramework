@@ -35,7 +35,7 @@ class ModelTests: TestCase {
                     let intProperty = Model.IntProperty(defaultValue: 42)
                     let stringProperty = Model.StringProperty(defaultValue: "Hello")
 
-                    override init() {}
+                    required init() {}
                 }
 
                 let model = TestModel()

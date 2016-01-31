@@ -145,6 +145,14 @@ public class HttpResponse: CustomStringConvertible {
         return response
     }
 
+    public static func text(content: String) -> HttpResponse {
+        return text(200, statusMessage: "OK", content: content)
+    }
+
+    public static func error(message: String) -> HttpResponse {
+        return htmlMessage(500, statusMessage: "Internal Server Error", message: message)
+    }
+
     public static func fileNotFound(path: String) -> HttpResponse {
         return htmlMessage(404, statusMessage: "File Not Found", message: "The file with the given path could not be found.")
     }

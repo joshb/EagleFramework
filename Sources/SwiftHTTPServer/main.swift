@@ -33,6 +33,10 @@ print("Resources path: \(Settings.resourcesPath)")
 ResponderRegistry.register(FileResponder(webPath: "",
                                          fileSystemPath: Settings.wwwPath))
 
+let blogDatabasePath = Settings.getAbsoluteResourcePath("blog.db")
+ResponderRegistry.register(try BlogResponder(webPath: "blog",
+                                             databasePath: blogDatabasePath))
+
 if let address4 = Address.fromHostname("127.0.0.1") {
     let port: Port = 5000
 
