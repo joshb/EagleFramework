@@ -26,7 +26,7 @@
 typealias TestFunc = () throws -> Void
 typealias TestDictionary = [String: TestFunc]
 
-enum TestCaseError: ErrorType {
+enum TestCaseError: ErrorProtocol {
     case AssertionFailed
 }
 
@@ -76,7 +76,7 @@ class TestCase {
         print("\(succeeded) succeeded, \(failed) failed")
     }
 
-    static func runTestCases(testCases: [TestCase]) {
+    static func runTestCases(_ testCases: [TestCase]) {
         for testCase in testCases {
             testCase.run()
         }
@@ -85,27 +85,27 @@ class TestCase {
     }
 }
 
-func assertEqual<T: Equatable>(a: T, _ b: T) throws {
+func assertEqual<T: Equatable>(_ a: T, _ b: T) throws {
     if a != b {
         throw TestCaseError.AssertionFailed
     }
 }
 
-func assertEqual<T: Equatable>(a: [T], _ b: [T]) throws {
+func assertEqual<T: Equatable>(_ a: [T], _ b: [T]) throws {
     try assertEqual(a.count, b.count)
     for i in 0..<a.count {
         try assertEqual(a[i], b[i])
     }
 }
 
-func assertEqual<T, U: Equatable>(a: [T: U], _ b: [T: U]) throws {
+func assertEqual<T, U: Equatable>(_ a: [T: U], _ b: [T: U]) throws {
     try assertEqual(a.count, b.count)
     for (key, value) in a {
         try assertEqual(b[key], value)
     }
 }
 
-func assertEqual<T: Equatable>(a: T?, _ b: T) throws {
+func assertEqual<T: Equatable>(_ a: T?, _ b: T) throws {
     if let c = a {
         try assertEqual(c, b)
     } else {
@@ -113,17 +113,17 @@ func assertEqual<T: Equatable>(a: T?, _ b: T) throws {
     }
 }
 
-func assertTrue(value: Bool) throws {
+func assertTrue(_ value: Bool) throws {
     if !value {
         throw TestCaseError.AssertionFailed
     }
 }
 
-func assertFalse(value: Bool) throws {
+func assertFalse(_ value: Bool) throws {
     try assertTrue(!value)
 }
 
-func assertNil<T>(value: T?) throws {
+func assertNil<T>(_ value: T?) throws {
     if value != nil {
         throw TestCaseError.AssertionFailed
     }

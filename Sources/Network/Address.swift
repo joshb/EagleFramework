@@ -44,7 +44,7 @@ public struct Address: CustomStringConvertible {
     ///
     /// - parameter hostname: Hostname to resolve.
     /// - returns: Address, or nil if the hostname could not be resolved.
-    public static func fromHostname(hostname: String) -> Address? {
+    public static func fromHostname(_ hostname: String) -> Address? {
         let hostnameCStr = hostname.utf8CString
 
         // Resolve the hostname. We try resolving an IPv6 address
@@ -63,14 +63,14 @@ public struct Address: CustomStringConvertible {
         // Create an array containing the address.
         var address: [UInt8]!
         if type == .IPv4 {
-            address = [UInt8](count: 4, repeatedValue: 0)
+            address = [UInt8](repeating: 0, count: 4)
             for i in 0..<4 {
-                address![i] = UInt8(bitPattern: host.memory.h_addr_list[0][i])
+                address![i] = UInt8(bitPattern: host.pointee.h_addr_list[0]![i])
             }
         } else {
-            address = [UInt8](count: 16, repeatedValue: 0)
+            address = [UInt8](repeating: 0, count: 16)
             for i in 0..<16 {
-                address![i] = UInt8(bitPattern: host.memory.h_addr_list[0][i])
+                address![i] = UInt8(bitPattern: host.pointee.h_addr_list[0]![i])
             }
         }
 

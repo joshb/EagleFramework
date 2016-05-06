@@ -30,7 +30,7 @@ public protocol TemplateTokenizerDelegate {
     /// Called when non-code text has been found.
     ///
     /// - parameter text: The text that was found.
-    func textFound(text: String) throws
+    func textFound(_ text: String) throws
 
     /// Called when the beginning of a code segment has been found.
     func codeStartFound() throws
@@ -42,7 +42,7 @@ public protocol TemplateTokenizerDelegate {
     ///
     /// - parameter token: The token that was found.
     /// - parameter quoted: true if the token was surrounded by quotes, false otherwise.
-    func tokenFound(token: String, quoted: Bool) throws
+    func tokenFound(_ token: String, quoted: Bool) throws
 }
 
 /// Tokenizes strings for the template engine.
@@ -63,7 +63,7 @@ public class TemplateTokenizer {
     ///
     /// - parameter token: The token to check.
     /// - returns: true if the token is a special token, false otherwise.
-    private static func isSpecialToken(token: String) -> Bool {
+    private static func isSpecialToken(_ token: String) -> Bool {
         let specialTokens = [
             "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "+", "=",
             "{", "}", "[", "]", ":", ";", ",", "<", ">", "?", "/", "~", "|",
@@ -75,7 +75,7 @@ public class TemplateTokenizer {
         return specialTokens.contains(token)
     }
 
-    private func emitToken(quoted: Bool = false) throws {
+    private func emitToken(_ quoted: Bool = false) throws {
         if token.isEmpty {
             return
         }
@@ -94,7 +94,7 @@ public class TemplateTokenizer {
         token = ""
     }
 
-    private func processCharacter(c: Character) throws {
+    private func processCharacter(_ c: Character) throws {
         let cs = String(c)
 
         // If we're not processing code yet, just append
@@ -155,7 +155,7 @@ public class TemplateTokenizer {
     /// Tokenize a string, sending tokens and events to the delegate.
     ///
     /// - parameter s: The string to tokenize.
-    public func processString(s: String) throws {
+    public func processString(_ s: String) throws {
         for c in s.characters {
             try processCharacter(c)
         }

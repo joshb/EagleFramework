@@ -43,15 +43,15 @@ public class ServerConnection: CustomStringConvertible {
         self.remoteEndpoint = remoteEndpoint
     }
 
-    public func readData(length: Int? = nil) -> [CChar] {
-        var buf = [CChar](count: length ?? 512, repeatedValue: 0)
+    public func readData(_ length: Int? = nil) -> [CChar] {
+        var buf = [CChar](repeating: 0, count: length ?? 512)
         let len = recv(descriptor, &buf, buf.count, 0)
         guard len > 0 else {
             shouldClose = true
             return []
         }
 
-        var data = [CChar](count: len, repeatedValue: 0)
+        var data = [CChar](repeating:0, count: len)
         for i in 0..<len {
             data[i] = buf[i]
         }
@@ -66,19 +66,19 @@ public class ServerConnection: CustomStringConvertible {
         }
 
         data.append(CChar(0))
-        return String.fromCString(data) ?? ""
+        return String(cString: data) ?? ""
     }
 
-    public func sendData(data: [CChar]) -> Int {
+    public func sendData(_ data: [CChar]) -> Int {
         return send(descriptor, data, data.count, 0)
     }
 
-    public func sendString(str: String) -> Int {
+    public func sendString(_ str: String) -> Int {
         let data = str.utf8CString
         return send(descriptor, data, data.count - 1, 0)
     }
 
-    public func sendLine(line: String) -> Int {
+    public func sendLine(_ line: String) -> Int {
         return sendString(line + "\n")
     }
 

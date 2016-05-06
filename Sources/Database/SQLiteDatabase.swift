@@ -37,7 +37,7 @@ public class SQLiteDatabase: Database {
         case Null
     }
 
-    private var db: COpaquePointer = nil
+    private var db: OpaquePointer? = nil
 
     public init(filePath: String) throws {
         if sqlite3_open(filePath.utf8CString, &db) != SQLITE_OK {
@@ -64,7 +64,7 @@ public class SQLiteDatabase: Database {
     ///
     /// - parameter model: The model to generate the command for.
     /// - returns: String containing the command.
-    public static func createTableCommandForModel(model: Model) throws -> String {
+    public static func createTableCommandForModel(_ model: Model) throws -> String {
         var propertyList = "id INTEGER PRIMARY KEY NOT NULL"
 
         for (name, property) in model.properties {
@@ -99,7 +99,7 @@ public class SQLiteDatabase: Database {
     ///
     /// - parameter s: The string to escape.
     /// - returns: The escaped string.
-    static func escapeString(s: String) -> String {
+    static func escapeString(_ s: String) -> String {
         return "'" + s.replace("'", withString: "''") + "'"
     }
 
@@ -107,7 +107,7 @@ public class SQLiteDatabase: Database {
     ///
     /// - parameter model: The model to get field names and values for.
     /// - returns: Array of tuples, each containing a field name and a value.
-    static func getFieldNamesAndValuesForModel(model: Model) throws -> [(String, String)] {
+    static func getFieldNamesAndValuesForModel(_ model: Model) throws -> [(String, String)] {
         var result: [(String, String)] = []
 
         for (name, abstractProperty) in model.properties {
@@ -160,7 +160,7 @@ public class SQLiteDatabase: Database {
     ///
     /// - parameter model: The model to generate the command for.
     /// - returns: String containing the command.
-    public static func insertCommandForModel(model: Model) throws -> String {
+    public static func insertCommandForModel(_ model: Model) throws -> String {
         var propertyList = ""
         var valueList = ""
         for (name, value) in try getFieldNamesAndValuesForModel(model) {
@@ -180,7 +180,7 @@ public class SQLiteDatabase: Database {
     ///
     /// - parameter model: The model to generate the command for.
     /// - returns: String containing the command.
-    public static func updateCommandForModel(model: Model) throws -> String {
+    public static func updateCommandForModel(_ model: Model) throws -> String {
         var valueList = ""
         for (name, value) in try getFieldNamesAndValuesForModel(model) {
             if !valueList.isEmpty {
@@ -197,7 +197,7 @@ public class SQLiteDatabase: Database {
     ///
     /// - parameter model: The model to generate the command for.
     /// - returns: String containing the command.
-    public static func selectCommandForModel(model: Model) throws -> String {
+    public static func selectCommandForModel(_ model: Model) throws -> String {
         var propertyList = ""
         for (name, _) in try getFieldNamesAndValuesForModel(model) {
             if !propertyList.isEmpty {
@@ -213,15 +213,13 @@ public class SQLiteDatabase: Database {
     /// Executes an SQL command that does not return any data.
     ///
     /// - parameter command: String containing the command to execute.
-    func executeCommand(command: String) throws {
-        var errorPointer: UnsafeMutablePointer<CChar> = nil
+    func executeCommand(_ command: String) throws {
+        var errorPointer: UnsafeMutablePointer<CChar>? = nil
 
         if sqlite3_exec(db, command.utf8CString, nil, nil, &errorPointer) != SQLITE_OK {
-            let error = String.fromCString(errorPointer)
-            if let errorMessage = error {
-                if errorMessage.hasPrefix("no such table:") {
-                    throw DatabaseError.TableDoesNotExist
-                }
+            let error = String(cString: errorPointer!)
+            if error.hasPrefix("no such table:") {
+                throw DatabaseError.TableDoesNotExist
             }
 
             throw DatabaseError.CommandFailed(message: error)
@@ -232,8 +230,8 @@ public class SQLiteDatabase: Database {
     ///
     /// - parameter query: String containing the query to execute.
     /// - returns: A two-dimensional array of values in each row/column.
-    func executeQuery(query: String) throws -> [[Any]] {
-        var statement: COpaquePointer = nil
+    func executeQuery(_ query: String) throws -> [[Any]] {
+        var statement: OpaquePointer? = nil
 
         // Prepare the query.
         let queryCString = query.utf8CString
@@ -265,7 +263,7 @@ public class SQLiteDatabase: Database {
                         row.append(sqlite3_column_double(statement, i))
 
                     case SQLITE_TEXT:
-                        row.append(String.fromCString(UnsafePointer<Int8>(sqlite3_column_text(statement, i))) ?? "")
+                        row.append(String(cString: UnsafePointer<Int8>(sqlite3_column_text(statement, i))) ?? "")
 
                     case SQLITE_NULL:
                         row.append(SQLiteValue.Null)
@@ -281,7 +279,7 @@ public class SQLiteDatabase: Database {
         return results
     }
 
-    public func saveModel(model: Model) throws {
+    public func saveModel(_ model: Model) throws {
         // If the model's ID is 0, it's a new model that must be
         // inserted into the appropriate table. If the ID is set, it's
         // an existing model that must have its row updated.
@@ -306,7 +304,7 @@ public class SQLiteDatabase: Database {
         }
     }
 
-    public func loadModel(model: Model, id: Int64) throws -> Model {
+    public func loadModel(_ model: Model, id: Int64) throws -> Model {
         let command = try SQLiteDatabase.selectCommandForModel(model) + " WHERE id = " + id.description
         let results = try executeQuery(command)
         guard results.count == 1 else {
@@ -327,7 +325,7 @@ public class SQLiteDatabase: Database {
         return model
     }
 
-    public func query<T: Model>(model: T) throws -> [T] {
+    public func query<T: Model>(_ model: T) throws -> [T] {
         let command = try SQLiteDatabase.selectCommandForModel(model)
         let results = try executeQuery(command)
         var models: [T] = []

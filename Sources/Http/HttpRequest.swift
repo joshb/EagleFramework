@@ -42,7 +42,7 @@ public class HttpRequest: CustomStringConvertible {
     public var postData: String?
 
     public var safeFilePath: String? {
-        if path[path.startIndex] != "/" || path.containsString("..") {
+        if path[path.startIndex] != "/" || path.contains("..") {
             return nil
         }
 
@@ -79,7 +79,7 @@ public class HttpRequest: CustomStringConvertible {
         self.version = version
     }
 
-    public static func parse(lines: [String]) -> HttpRequest? {
+    public static func parse(_ lines: [String]) -> HttpRequest? {
         let parts = lines[0].split(" ")
         if parts.count != 3 {
             return nil
@@ -100,7 +100,7 @@ public class HttpRequest: CustomStringConvertible {
         return request
     }
 
-    public static func parse(str: String) -> HttpRequest? {
+    public static func parse(_ str: String) -> HttpRequest? {
         return parse(str.split("\n"))
     }
 

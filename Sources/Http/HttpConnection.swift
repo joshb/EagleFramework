@@ -39,7 +39,7 @@ public class HttpConnection: ServerConnection {
     }
 
     /// Sends the given response to the client.
-    public func sendResponse(response: HttpResponse) {
+    public func sendResponse(_ response: HttpResponse) {
         sendString(response.descriptionWithHeaders + "\r\n\r\n")
 
         if let binaryContent = response.binaryContent {
@@ -47,7 +47,7 @@ public class HttpConnection: ServerConnection {
         }
     }
 
-    private func processRequest(request: HttpRequest) {
+    private func processRequest(_ request: HttpRequest) {
         print("\(self) request: \(request)")
 
         let response = ResponderRegistry.respond(request)
@@ -57,7 +57,7 @@ public class HttpConnection: ServerConnection {
         shouldClose = true
     }
 
-    private func processLine(line: String) {
+    private func processLine(_ line: String) {
         if let request = requestAwaitingPostData {
             request.postData = line
             processRequest(request)
@@ -91,13 +91,12 @@ public class HttpConnection: ServerConnection {
                 lineBuffer = []
                 bufStart = i + 1
 
-                if let line = String.fromCString(lineData) {
-                    processLine(line.trimmed)
-                }
+                let line = String(cString: lineData)
+                processLine(line.trimmed)
             }
         }
 
-        lineBuffer.appendContentsOf(buf[bufStart..<buf.count])
+        lineBuffer.append(contentsOf: buf[bufStart..<buf.count])
 
         // If we're waiting for a request's post data and the line buffer
         // length is equal to the content length, then we can go ahead
@@ -105,9 +104,8 @@ public class HttpConnection: ServerConnection {
         if let request = requestAwaitingPostData {
             if lineBuffer.count >= request.contentLength {
                 let lineData = lineBuffer + [0]
-                if let line = String.fromCString(lineData) {
-                    processLine(line.trimmed)
-                }
+                let line = String(cString: lineData)
+                processLine(line.trimmed)
             }
         }
     }

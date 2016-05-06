@@ -48,7 +48,7 @@ public class Settings {
         return Process.arguments[2]
     }
 
-    public static func getAbsoluteResourcePath(relativePath: String) -> String {
+    public static func getAbsoluteResourcePath(_ relativePath: String) -> String {
         return resourcesPath + "/" + relativePath
     }
 }

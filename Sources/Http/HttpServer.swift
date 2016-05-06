@@ -32,11 +32,11 @@ public class HttpServer: Server<HttpConnection> {
         try super.init(endpoint: endpoint)
     }
 
-    override public func createServerConnection(descriptor: Descriptor, localEndpoint: Endpoint, remoteEndpoint: Endpoint) -> HttpConnection {
+    override public func createServerConnection(_ descriptor: Descriptor, localEndpoint: Endpoint, remoteEndpoint: Endpoint) -> HttpConnection {
         return HttpConnection(descriptor: descriptor, localEndpoint: localEndpoint, remoteEndpoint: remoteEndpoint)
     }
 
-    override public func dataReceived(connection: HttpConnection) {
+    override public func dataReceived(_ connection: HttpConnection) {
         connection.handleRead()
     }
 }

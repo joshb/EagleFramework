@@ -26,10 +26,10 @@
 import Foundation
 
 protocol TemplateParserDelegate {
-    func addTemplateNode(node: TemplateNode)
+    func addTemplateNode(_ node: TemplateNode)
 }
 
-public enum TemplateParserError: ErrorType {
+public enum TemplateParserError: ErrorProtocol {
     case UnexpectedText, UnexpectedCodeStart, UnexpectedCodeStop
     case UnexpectedToken(token: String)
 }
@@ -48,7 +48,7 @@ class TemplateParser: TemplateTokenizerDelegate {
         tokenizer.delegate = self
     }
 
-    func textFound(text: String) throws {
+    func textFound(_ text: String) throws {
         switch state {
             case .WaitingForNode:
                 delegate?.addTemplateNode(TemplateTextNode(text: text))
@@ -78,7 +78,7 @@ class TemplateParser: TemplateTokenizerDelegate {
         }
     }
 
-    func tokenFound(token: String, quoted: Bool) throws {
+    func tokenFound(_ token: String, quoted: Bool) throws {
         switch state {
             case .WaitingForKeyword:
                 if token == "=" {
@@ -96,7 +96,7 @@ class TemplateParser: TemplateTokenizerDelegate {
         }
     }
 
-    func processString(s: String) throws {
+    func processString(_ s: String) throws {
         try tokenizer.processString(s)
     }
 }

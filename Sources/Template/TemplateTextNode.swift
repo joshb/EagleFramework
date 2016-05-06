@@ -30,7 +30,7 @@ class TemplateTextNode: TemplateNode {
         self.text = text
     }
 
-    func render(data: [String : Any]) -> String {
+    func render(_ data: [String : Any]) -> String {
         return text
     }
 

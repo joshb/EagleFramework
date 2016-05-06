@@ -30,7 +30,7 @@ class TemplateExpressionNode: TemplateNode {
         self.expression = expression
     }
 
-    func render(data: [String : Any]) -> String {
+    func render(_ data: [String : Any]) -> String {
         if let object = data[expression] {
             if let objectStringConvertible = object as? CustomStringConvertible {
                 return objectStringConvertible.description

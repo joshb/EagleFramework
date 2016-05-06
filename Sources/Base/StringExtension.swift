@@ -31,7 +31,7 @@ import Darwin
 #endif
 
 public extension String {
-    private static func ucharToChar(c: CUnsignedChar) -> CChar {
+    private static func ucharToChar(_ c: CUnsignedChar) -> CChar {
         if c < 128 {
             return CChar(c)
         } else {
@@ -74,13 +74,13 @@ public extension String {
 
     /// If the string contains a path that begins with the given
     /// path, returns a path relative to the given path.
-    public func relativeToPath(path: String) -> String? {
+    public func relativeToPath(_ path: String) -> String? {
         let p1 = self.trimmed
         var p2 = path.trimmed
 
         // Remove any trailing slashes.
         while p2.hasSuffix("/") {
-            p2 = p2.substringWithRange(Range(start: p2.startIndex, end: p2.endIndex.predecessor())).trimmed
+            p2 = p2.substring(with: Range(uncheckedBounds: (p2.startIndex, p2.index(before: p2.endIndex)))).trimmed
         }
 
         if p2.isEmpty && !p1.hasPrefix("/") {
@@ -110,14 +110,14 @@ public extension String {
     /// - parameter withString: The replacement string.
     /// - returns: A new string with all occurrences
     ///   of the given substring replaced.
-    public func replace(target: String, withString replacement: String) -> String {
+    public func replace(_ target: String, withString replacement: String) -> String {
         var s1 = ""
         var s2 = self
 
-        while let range = s2.rangeOfString(target) {
-            s1 += s2.substringWithRange(Range(start: s2.startIndex, end: range.startIndex))
+        while let range = s2.range(of: target) {
+            s1 += s2.substring(with: Range(uncheckedBounds: (s2.startIndex, range.lowerBound)))
             s1 += replacement
-            s2 = s2.substringWithRange(Range(start: range.endIndex, end: s2.endIndex))
+            s2 = s2.substring(with: Range(uncheckedBounds: (range.upperBound, s2.endIndex)))
         }
 
         return s1 + s2
@@ -128,13 +128,13 @@ public extension String {
     /// - parameter delimiter: The delimiter to use to split the string.
     /// - returns: An array containing the components of the string
     ///   separated by the given delimiter.
-    public func split(delimiter: String) -> [String] {
+    public func split(_ delimiter: String) -> [String] {
         var s = self
         var components: [String] = []
 
-        while let range = s.rangeOfString(delimiter) {
-            components.append(s.substringWithRange(Range(start: s.startIndex, end: range.startIndex)))
-            s = s.substringWithRange(Range(start: range.endIndex, end: s.endIndex))
+        while let range = s.range(of: delimiter) {
+            components.append(s.substring(with: Range(uncheckedBounds: (s.startIndex, range.lowerBound))))
+            s = s.substring(with: Range(uncheckedBounds: (range.upperBound, s.endIndex)))
         }
 
         // If there are any characters left, we'll
@@ -151,27 +151,27 @@ public extension String {
     /// - parameter startIndex: The starting index to create the substring from.
     /// - parameter length: The length of the substring.
     /// - returns: A substring from the starting index and with the given length.
-    public func substring(startIndex: Int, length: Int) -> String {
-        let start = self.startIndex.advancedBy(startIndex)
-        let end = start.advancedBy(length)
-        return self.substringWithRange(Range(start: start, end: end))
+    public func substring(_ startIndex: Int, length: Int) -> String {
+        let start = self.index(self.startIndex, offsetBy: startIndex)
+        let end = self.index(start, offsetBy: length)
+        return self.substring(with: Range(uncheckedBounds: (start, end)))
     }
 
     /// Gets a substring of the string.
     ///
     /// - parameter startIndex: The starting index to create the substring from.
     /// - returns: A substring from the starting index up to the end of the string.
-    public func substring(startIndex: Int) -> String {
-        let start = self.startIndex.advancedBy(startIndex)
+    public func substring(_ startIndex: Int) -> String {
+        let start = self.index(self.startIndex, offsetBy: startIndex)
         let end = self.endIndex
-        return self.substringWithRange(Range(start: start, end: end))
+        return self.substring(with: Range(uncheckedBounds: (start, end)))
     }
 
     /// Checks whether or not the given character is a whitespace character.
     ///
     /// - parameter c: The character to check.
     /// - returns: true if the character is a whitespace character, false otherwise.
-    public static func isWhitespace(c: Character) -> Bool {
+    public static func isWhitespace(_ c: Character) -> Bool {
         return c == " " || c == "\r" || c == "\n" || c == "\r\n" || c == "\t"
     }
 
@@ -180,11 +180,11 @@ public extension String {
         var s = self
 
         while !s.isEmpty && String.isWhitespace(s.characters[s.startIndex]) {
-            s = s.substringWithRange(Range(start: s.startIndex.successor(), end: s.endIndex))
+            s = s.substring(with: Range(uncheckedBounds: (s.index(after: s.startIndex), s.endIndex)))
         }
 
-        while !s.isEmpty && String.isWhitespace(s.characters[s.endIndex.predecessor()]) {
-            s = s.substringWithRange(Range(start: s.startIndex, end: s.endIndex.predecessor()))
+        while !s.isEmpty && String.isWhitespace(s.characters[s.index(before: s.endIndex)]) {
+            s = s.substring(with: Range(uncheckedBounds: (s.startIndex, s.index(before: s.endIndex))))
         }
 
         return s
@@ -211,23 +211,23 @@ public extension String {
         var s1 = ""
         var s2 = self.replace("+", withString: " ")
 
-        while let range = s2.rangeOfString("%") {
-            let hexStart = range.endIndex
-            let hexEnd = hexStart.advancedBy(2)
+        while let range = s2.range(of: "%") {
+            let hexStart = range.upperBound
+            let hexEnd = s2.index(hexStart, offsetBy: 2)
             if hexEnd > s2.endIndex {
                 break
             }
 
             var hexInt: UInt32 = 0
-            let hex = s2.substringWithRange(Range(start: hexStart, end: hexEnd))
+            let hex = s2.substring(with: Range(uncheckedBounds: (hexStart, hexEnd)))
             let scanner = NSScanner(string: hex)
-            if !scanner.scanHexInt(&hexInt) {
+            if !scanner.scanHexInt32(&hexInt) {
                 break
             }
 
-            s1 += s2.substringWithRange(Range(start: s2.startIndex, end: range.startIndex))
+            s1 += s2.substring(with: Range(uncheckedBounds: (s2.startIndex, range.lowerBound)))
             s1 += String(UnicodeScalar(hexInt))
-            s2 = s2.substringWithRange(Range(start: hexEnd, end: s2.endIndex))
+            s2 = s2.substring(with: Range(uncheckedBounds: (hexEnd, s2.endIndex)))
         }
 
         return s1 + s2

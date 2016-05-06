@@ -39,7 +39,7 @@ private let SOCK_STREAM: Int32 = 1
 /// Contains server utility functions.
 internal class ServerUtil {
 #if os(Linux)
-    class func addEpollEvent(epollDescriptor: Descriptor, socketDescriptor: Descriptor) {
+    class func addEpollEvent(_ epollDescriptor: Descriptor, socketDescriptor: Descriptor) {
         var event = epoll_event()
         event.events = 1 // EPOLLIN
         event.data.fd = socketDescriptor
@@ -47,7 +47,7 @@ internal class ServerUtil {
         epoll_ctl(epollDescriptor, EPOLL_CTL_ADD, socketDescriptor, &event)
     }
 #else
-    class func addKEvent(kqueueDescriptor: Descriptor, socketDescriptor: Descriptor) {
+    class func addKEvent(_ kqueueDescriptor: Descriptor, socketDescriptor: Descriptor) {
         var event = kevent()
         event.ident = UInt(socketDescriptor)
         event.filter = Int16(EVFILT_READ)
@@ -66,7 +66,7 @@ internal class ServerUtil {
         return c == 256
     }
 
-    private class func hostToNetwork(port: Port) -> Port {
+    private class func hostToNetwork(_ port: Port) -> Port {
         if hostIsLittleEndian {
             let a = port & 0xff
             let b = (port >> 8) & 0xff
@@ -76,15 +76,15 @@ internal class ServerUtil {
         return port
     }
 
-    class func doBind(descriptor: Descriptor, address: UnsafePointer<Void>, len: socklen_t) -> Int32 {
+    class func doBind(_ descriptor: Descriptor, address: UnsafePointer<Void>, len: socklen_t) -> Int32 {
         return bind(descriptor, UnsafePointer<sockaddr>(address), len)
     }
 
-    class func doAccept(descriptor: Descriptor, address: UnsafePointer<Void>, inout len: socklen_t) -> Int32 {
+    class func doAccept(_ descriptor: Descriptor, address: UnsafePointer<Void>, len: inout socklen_t) -> Int32 {
         return accept(descriptor, UnsafeMutablePointer<sockaddr>(address), &len)
     }
 
-    class func createSocket(endpoint: Endpoint) -> Descriptor? {
+    class func createSocket(_ endpoint: Endpoint) -> Descriptor? {
         let descriptor = socket(endpoint.address.type == .IPv4 ? AF_INET : AF_INET6, SOCK_STREAM, 0)
         guard descriptor != -1 else {
             return nil
@@ -135,9 +135,9 @@ internal class ServerUtil {
         return descriptor
     }
 
-    class func acceptConnection(descriptor: Descriptor, localEndpoint: Endpoint) -> (Descriptor, Endpoint)? {
+    class func acceptConnection(_ descriptor: Descriptor, localEndpoint: Endpoint) -> (Descriptor, Endpoint)? {
         var newDescriptor: Descriptor
-        var rawAddress = [UInt8](count: 16, repeatedValue: 0)
+        var rawAddress = [UInt8](repeating: 0, count: 16)
         var newPort: Port
 
         if localEndpoint.address.type == .IPv4 {

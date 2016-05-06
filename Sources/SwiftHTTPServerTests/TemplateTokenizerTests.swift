@@ -37,11 +37,11 @@ class TemplateTokenizerTests: TestCase {
             events.append("codeStop")
         }
 
-        func textFound(text: String) {
+        func textFound(_ text: String) {
             events.append("text: " + text)
         }
 
-        func tokenFound(token: String, quoted: Bool) {
+        func tokenFound(_ token: String, quoted: Bool) {
             if quoted {
                 events.append("quotedToken: " + token)
             } else {

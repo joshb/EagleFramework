@@ -24,5 +24,5 @@
  */
 
 public protocol TemplateNode: CustomStringConvertible {
-    func render(data: [String: Any]) -> String
+    func render(_ data: [String: Any]) -> String
 }

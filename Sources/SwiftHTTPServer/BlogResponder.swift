@@ -45,7 +45,7 @@ class BlogResponder: Responder {
         self.indexTemplate = try Template.fromFile("blog_index.html.template")
     }
 
-    func index(request: HttpRequest) -> HttpResponse? {
+    func index(_ request: HttpRequest) -> HttpResponse? {
         var html = ""
 
         for post in (try? database.query(BlogPost())) ?? [] {
@@ -57,7 +57,7 @@ class BlogResponder: Responder {
         return HttpResponse.html(content)
     }
 
-    func addPost(request: HttpRequest) -> HttpResponse? {
+    func addPost(_ request: HttpRequest) -> HttpResponse? {
         let formData = request.formData
         let post = BlogPost()
         post.title.value = formData["title"] ?? ""
@@ -70,7 +70,7 @@ class BlogResponder: Responder {
         return HttpResponse.redirect("/" + webPath)
     }
 
-    func respond(request: HttpRequest) -> HttpResponse? {
+    func respond(_ request: HttpRequest) -> HttpResponse? {
         if let safeFilePath = request.safeFilePath {
             if let path = safeFilePath.relativeToPath(self.webPath) {
                 let pathComponents = path.split("/")

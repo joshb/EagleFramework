@@ -30,7 +30,7 @@ import Glibc
 import Darwin
 #endif
 
-public enum ServerError: ErrorType {
+public enum ServerError: ErrorProtocol {
     case UnableToCreateEpoll, UnableToCreateKQueue, UnableToCreateSocket, UnableToAcceptConnection
 }
 
@@ -82,17 +82,17 @@ public class Server<ServerConnectionType: ServerConnection> {
     }
 #endif
 
-    func connectionOpened(connection: ServerConnectionType) {
+    func connectionOpened(_ connection: ServerConnectionType) {
         print("\(connection) opened")
     }
 
-    func connectionClosed(connection: ServerConnectionType) {
+    func connectionClosed(_ connection: ServerConnectionType) {
         print("\(connection) closed")
     }
 
-    public func dataReceived(connection: ServerConnectionType) {}
+    public func dataReceived(_ connection: ServerConnectionType) {}
 
-    public func addLocalEndpoint(endpoint: Endpoint) throws {
+    public func addLocalEndpoint(_ endpoint: Endpoint) throws {
         if let socketDescriptor = ServerUtil.createSocket(endpoint) {
             localEndpoints[socketDescriptor] = endpoint
 #if os(Linux)
@@ -107,11 +107,11 @@ public class Server<ServerConnectionType: ServerConnection> {
         print("Listening for connections to \(endpoint)")
     }
 
-    public func createServerConnection(descriptor: Descriptor, localEndpoint: Endpoint, remoteEndpoint: Endpoint) -> ServerConnectionType {
+    public func createServerConnection(_ descriptor: Descriptor, localEndpoint: Endpoint, remoteEndpoint: Endpoint) -> ServerConnectionType {
         return ServerConnection(descriptor: descriptor, localEndpoint: localEndpoint, remoteEndpoint: remoteEndpoint) as! ServerConnectionType
     }
 
-    private func handleConnection(descriptor: Descriptor, localEndpoint: Endpoint) throws {
+    private func handleConnection(_ descriptor: Descriptor, localEndpoint: Endpoint) throws {
         let pair = ServerUtil.acceptConnection(descriptor, localEndpoint: localEndpoint)
         guard pair != nil else {
             throw ServerError.UnableToAcceptConnection
@@ -130,14 +130,14 @@ public class Server<ServerConnectionType: ServerConnection> {
         connectionOpened(connection)
     }
 
-    private func closeConnection(connection: ServerConnectionType) {
+    private func closeConnection(_ connection: ServerConnectionType) {
         close(connection.descriptor)
         connections[connection.descriptor] = nil
         connectionClosed(connection)
     }
 
 #if os(Linux)
-    private func handleReadEvent(event: epoll_event, connection: ServerConnectionType) {
+    private func handleReadEvent(_ event: epoll_event, connection: ServerConnectionType) {
         dataReceived(connection)
 
         if connection.shouldClose {
@@ -145,7 +145,7 @@ public class Server<ServerConnectionType: ServerConnection> {
         }
     }
 
-    private func handleEvent(event: epoll_event) throws {
+    private func handleEvent(_ event: epoll_event) throws {
         let descriptor = Descriptor(event.data.fd)
 
         if let endpoint = localEndpoints[descriptor] {
@@ -168,7 +168,7 @@ public class Server<ServerConnectionType: ServerConnection> {
         }
     }
 #else
-    private func handleReadEvent(event: kevent, connection: ServerConnectionType) {
+    private func handleReadEvent(_ event: kevent, connection: ServerConnectionType) {
         if event.data == 0 {
             closeConnection(connection)
             return
@@ -181,7 +181,7 @@ public class Server<ServerConnectionType: ServerConnection> {
         }
     }
 
-    private func handleEvent(event: kevent) throws {
+    private func handleEvent(_ event: kevent) throws {
         let descriptor = Descriptor(event.ident)
 
         if let endpoint = localEndpoints[descriptor] {

@@ -25,7 +25,7 @@
 
 import Foundation
 
-private func objectToJSON(object: AnyObject?, compact: Bool) -> String? {
+private func objectToJSON(_ object: AnyObject?, compact: Bool) -> String? {
     guard object != nil else {
         return nil
     }
@@ -34,24 +34,24 @@ private func objectToJSON(object: AnyObject?, compact: Bool) -> String? {
         return nil
     }
 
-    let options = compact ? NSJSONWritingOptions() : NSJSONWritingOptions.PrettyPrinted
-    if let data = try? NSJSONSerialization.dataWithJSONObject(object!, options: options) {
-        var bytes = [CChar](count: data.length + 1, repeatedValue: 0)
+    let options = compact ? NSJSONWritingOptions() : NSJSONWritingOptions.prettyPrinted
+    if let data = try? NSJSONSerialization.data(withJSONObject: object!, options: options) {
+        var bytes = [CChar](repeating: 0, count: data.length + 1)
         data.getBytes(&bytes, length: data.length)
-        return String.fromCString(bytes)
+        return String(cString: bytes)
     }
 
     return nil
 }
 
 public extension Array {
-    public func toJSON(compact compact: Bool = true) -> String? {
+    public func toJSON(compact: Bool = true) -> String? {
         return objectToJSON(self as? AnyObject, compact: compact)
     }
 }
 
 public extension Dictionary {
-    public func toJSON(compact compact: Bool = true) -> String? {
+    public func toJSON(compact: Bool = true) -> String? {
         return objectToJSON(self as? AnyObject, compact: compact)
     }
 }
