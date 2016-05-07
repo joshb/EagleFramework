@@ -48,7 +48,7 @@ class BlogResponder: Responder {
     func index(_ request: HttpRequest) -> HttpResponse? {
         var html = ""
 
-        for post in (try? database.query(model: BlogPost())) ?? [] {
+        for post in (try? database.query(model: BlogPost()).reversed()) ?? [] {
             html += "<h2>\(post.title)</h2>"
             html += "<p>\(post.body)</p>"
         }
