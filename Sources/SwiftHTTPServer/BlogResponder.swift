@@ -48,7 +48,7 @@ class BlogResponder: Responder {
     func index(_ request: HttpRequest) -> HttpResponse? {
         var html = ""
 
-        for post in (try? database.query(BlogPost())) ?? [] {
+        for post in (try? database.query(model: BlogPost())) ?? [] {
             html += "<h2>\(post.title)</h2>"
             html += "<p>\(post.body)</p>"
         }
@@ -64,7 +64,7 @@ class BlogResponder: Responder {
         post.body.value = formData["body"] ?? ""
 
         do {
-            try database.saveModel(post)
+            try database.save(model: post)
         } catch {}
 
         return HttpResponse.redirect("/" + webPath)

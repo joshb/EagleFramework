@@ -36,15 +36,15 @@ public protocol Database {
     /// Saves a data model to the database.
     ///
     /// - parameter model: The data model to save.
-    func saveModel(_ model: Model) throws
+    func save(model: Model) throws
 
     /// Loads a data model from the database.
     ///
     /// - parameter model: The data model instance to load the data into.
-    /// - parameter id: The unique identifier of the data model to load.
+    /// - parameter withId: The unique identifier of the data model to load.
     /// - returns: The data model populated with the loaded data.
-    func loadModel(_ model: Model, id: Int64) throws -> Model
+    func load(model: Model, withId id: Int64) throws -> Model
 
     /// Query for models of the given type.
-    func query<T: Model>(_ model: T) throws -> [T]
+    func query<T: Model>(model: T) throws -> [T]
 }

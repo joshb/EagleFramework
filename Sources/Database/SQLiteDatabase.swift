@@ -213,7 +213,7 @@ public class SQLiteDatabase: Database {
     /// Executes an SQL command that does not return any data.
     ///
     /// - parameter command: String containing the command to execute.
-    func executeCommand(_ command: String) throws {
+    func execute(command: String) throws {
         var errorPointer: UnsafeMutablePointer<CChar>? = nil
 
         if sqlite3_exec(db, command.utf8CString, nil, nil, &errorPointer) != SQLITE_OK {
@@ -230,7 +230,7 @@ public class SQLiteDatabase: Database {
     ///
     /// - parameter query: String containing the query to execute.
     /// - returns: A two-dimensional array of values in each row/column.
-    func executeQuery(_ query: String) throws -> [[Any]] {
+    func execute(query: String) throws -> [[Any]] {
         var statement: OpaquePointer? = nil
 
         // Prepare the query.
@@ -279,7 +279,7 @@ public class SQLiteDatabase: Database {
         return results
     }
 
-    public func saveModel(_ model: Model) throws {
+    public func save(model: Model) throws {
         // If the model's ID is 0, it's a new model that must be
         // inserted into the appropriate table. If the ID is set, it's
         // an existing model that must have its row updated.
@@ -292,11 +292,11 @@ public class SQLiteDatabase: Database {
         }
 
         do {
-            try executeCommand(command)
+            try execute(command: command)
         } catch DatabaseError.TableDoesNotExist {
             // Create the table and try executing the command again.
-            try executeCommand(SQLiteDatabase.createTableCommandForModel(model))
-            try executeCommand(command)
+            try execute(command: SQLiteDatabase.createTableCommandForModel(model))
+            try execute(command: command)
         }
 
         if newModel {
@@ -304,9 +304,9 @@ public class SQLiteDatabase: Database {
         }
     }
 
-    public func loadModel(_ model: Model, id: Int64) throws -> Model {
+    public func load(model: Model, withId id: Int64) throws -> Model {
         let command = try SQLiteDatabase.selectCommandForModel(model) + " WHERE id = " + id.description
-        let results = try executeQuery(command)
+        let results = try execute(query: command)
         guard results.count == 1 else {
             throw DatabaseError.RecordDoesNotExist
         }
@@ -325,9 +325,9 @@ public class SQLiteDatabase: Database {
         return model
     }
 
-    public func query<T: Model>(_ model: T) throws -> [T] {
+    public func query<T: Model>(model: T) throws -> [T] {
         let command = try SQLiteDatabase.selectCommandForModel(model)
-        let results = try executeQuery(command)
+        let results = try execute(query: command)
         var models: [T] = []
 
         for row in results {
