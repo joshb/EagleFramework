@@ -79,7 +79,7 @@ public class HttpRequest: CustomStringConvertible {
         self.version = version
     }
 
-    public static func parse(_ lines: [String]) -> HttpRequest? {
+    public static func parse(lines: [String]) -> HttpRequest? {
         let parts = lines[0].split(" ")
         if parts.count != 3 {
             return nil
@@ -100,8 +100,8 @@ public class HttpRequest: CustomStringConvertible {
         return request
     }
 
-    public static func parse(_ str: String) -> HttpRequest? {
-        return parse(str.split("\n"))
+    public static func parse(string: String) -> HttpRequest? {
+        return parse(lines: string.split("\n"))
     }
 
     public var description: String {

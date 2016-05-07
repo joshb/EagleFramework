@@ -54,7 +54,7 @@ class BlogResponder: Responder {
         }
 
         let content = indexTemplate.render(["blog_posts": html])
-        return HttpResponse.html(content)
+        return HttpResponse.html(content: content)
     }
 
     func addPost(_ request: HttpRequest) -> HttpResponse? {
@@ -67,7 +67,7 @@ class BlogResponder: Responder {
             try database.save(model: post)
         } catch {}
 
-        return HttpResponse.redirect("/" + webPath)
+        return HttpResponse.redirect(to: "/" + webPath)
     }
 
     func response(to request: HttpRequest) -> HttpResponse? {

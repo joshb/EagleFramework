@@ -40,13 +40,13 @@ public class FileResponder: Responder {
                 var fullPath = fileSystemPath + "/" + relativePath
                 if fullPath.isDirectory {
                     if !path.isEmpty && !path.hasSuffix("/") {
-                        return HttpResponse.redirect(path + "/")
+                        return HttpResponse.redirect(to: path + "/")
                     }
 
                     fullPath += "/index.html"
                 }
 
-                return HttpResponse.file(fullPath)
+                return HttpResponse.file(withPath: fullPath)
             }
         }
 

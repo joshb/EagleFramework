@@ -37,6 +37,6 @@ public class ResponderRegistry {
             }
         }
 
-        return HttpResponse.fileNotFound(request.path)
+        return HttpResponse.fileNotFound(path: request.path)
     }
 }

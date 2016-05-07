@@ -39,7 +39,7 @@ public class HttpConnection: ServerConnection {
     }
 
     /// Sends the given response to the client.
-    public func sendResponse(_ response: HttpResponse) {
+    public func send(response: HttpResponse) {
         send(string: response.descriptionWithHeaders + "\r\n\r\n")
 
         if let binaryContent = response.binaryContent {
@@ -47,28 +47,28 @@ public class HttpConnection: ServerConnection {
         }
     }
 
-    private func processRequest(_ request: HttpRequest) {
+    private func process(request: HttpRequest) {
         print("\(self) request: \(request)")
 
         let response = ResponderRegistry.response(to: request)
         print("\(self) response: \(response)")
-        sendResponse(response)
+        send(response: response)
 
         shouldClose = true
     }
 
-    private func processLine(_ line: String) {
+    private func process(line: String) {
         if let request = requestAwaitingPostData {
             request.postData = line
-            processRequest(request)
+            process(request: request)
             requestAwaitingPostData = nil
             lines = []
         } else if line.length == 0 {
-            if let request = HttpRequest.parse(lines) {
+            if let request = HttpRequest.parse(lines: lines) {
                 if request.method == "POST" {
                     requestAwaitingPostData = request
                 } else {
-                    processRequest(request)
+                    process(request: request)
                 }
                 lines = []
             }
@@ -92,7 +92,7 @@ public class HttpConnection: ServerConnection {
                 bufStart = i + 1
 
                 let line = String(cString: lineData)
-                processLine(line.trimmed)
+                process(line: line.trimmed)
             }
         }
 
@@ -105,7 +105,7 @@ public class HttpConnection: ServerConnection {
             if lineBuffer.count >= request.contentLength {
                 let lineData = lineBuffer + [0]
                 let line = String(cString: lineData)
-                processLine(line.trimmed)
+                process(line: line.trimmed)
             }
         }
     }

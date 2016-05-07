@@ -36,7 +36,7 @@ public enum ContentType: String {
         "txt": ContentType.PlainText
     ]
 
-    public static func forFile(_ filePath: String) -> ContentType {
+    public static func forFile(withPath filePath: String) -> ContentType {
         let parts = filePath.split(".")
         if let fileExtension = parts.last {
             if let contentType = fileContentTypes[fileExtension.lowercased()] {

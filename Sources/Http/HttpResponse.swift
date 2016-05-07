@@ -103,24 +103,24 @@ public class HttpResponse: CustomStringConvertible {
         self.statusMessage = statusMessage
     }
 
-    public static func redirect(_ location: String) -> HttpResponse {
+    public static func redirect(to location: String) -> HttpResponse {
         let response = HttpResponse(statusCode: 302, statusMessage: "Found")
         response.headers["Location"] = location
         return response
     }
 
-    public static func html(_ statusCode: Int, statusMessage: String, content: String) -> HttpResponse {
+    public static func html(statusCode: Int, statusMessage: String, content: String) -> HttpResponse {
         let response = HttpResponse(statusCode: statusCode, statusMessage: statusMessage)
         response.textContent = content
         response.contentType = "text/html; charset=utf-8"
         return response
     }
 
-    public static func html(_ content: String) -> HttpResponse {
-        return html(200, statusMessage: "OK", content: content)
+    public static func html(content: String) -> HttpResponse {
+        return html(statusCode: 200, statusMessage: "OK", content: content)
     }
 
-    public static func htmlMessage(_ statusCode: Int, statusMessage: String, message: String) -> HttpResponse {
+    public static func htmlMessage(statusCode: Int, statusMessage: String, message: String) -> HttpResponse {
         var content = "<!DOCTYPE html>\r\n"
         content += "<html lang=\"en\">\r\n"
         content += "<head>\r\n"
@@ -138,32 +138,32 @@ public class HttpResponse: CustomStringConvertible {
         content += "</body>\r\n"
         content += "</html>\r\n"
 
-        return html(statusCode, statusMessage: statusMessage, content: content)
+        return html(statusCode: statusCode, statusMessage: statusMessage, content: content)
     }
 
-    public static func text(_ statusCode: Int, statusMessage: String, content: String) -> HttpResponse {
+    public static func text(statusCode: Int, statusMessage: String, content: String) -> HttpResponse {
         let response = HttpResponse(statusCode: statusCode, statusMessage: statusMessage)
         response.textContent = content
         response.contentType = ContentType.PlainText.rawValue
         return response
     }
 
-    public static func text(_ content: String) -> HttpResponse {
-        return text(200, statusMessage: "OK", content: content)
+    public static func text(content: String) -> HttpResponse {
+        return text(statusCode: 200, statusMessage: "OK", content: content)
     }
 
-    public static func error(_ message: String) -> HttpResponse {
-        return htmlMessage(500, statusMessage: "Internal Server Error", message: message)
+    public static func error(message: String) -> HttpResponse {
+        return htmlMessage(statusCode: 500, statusMessage: "Internal Server Error", message: message)
     }
 
-    public static func fileNotFound(_ path: String) -> HttpResponse {
-        return htmlMessage(404, statusMessage: "File Not Found", message: "The file with the given path could not be found.")
+    public static func fileNotFound(path: String) -> HttpResponse {
+        return htmlMessage(statusCode: 404, statusMessage: "File Not Found", message: "The file with the given path could not be found.")
     }
 
-    public static func file(_ filePath: String, withContentType contentType: ContentType? = nil) -> HttpResponse? {
+    public static func file(withPath filePath: String, withContentType contentType: ContentType? = nil) -> HttpResponse? {
         if let data = NSData(contentsOfFile: filePath) {
             let response = HttpResponse(statusCode: 200, statusMessage: "OK")
-            response.contentType = (contentType ?? ContentType.forFile(filePath)).rawValue
+            response.contentType = (contentType ?? ContentType.forFile(withPath: filePath)).rawValue
             response.contentLength = data.length
             response.content = [CChar](repeating: 0, count: data.length)
             data.getBytes(&response.content!, length: data.length)
