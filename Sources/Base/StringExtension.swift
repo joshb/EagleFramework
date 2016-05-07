@@ -80,7 +80,7 @@ public extension String {
 
         // Remove any trailing slashes.
         while p2.hasSuffix("/") {
-            p2 = p2.substring(with: Range(uncheckedBounds: (p2.startIndex, p2.index(before: p2.endIndex)))).trimmed
+            p2 = p2.substring(to: p2.index(before: p2.endIndex)).trimmed
         }
 
         if p2.isEmpty && !p1.hasPrefix("/") {
@@ -92,7 +92,7 @@ public extension String {
         }
 
         if !p2.isEmpty && p1.hasPrefix(p2 + "/") {
-            return p1.substring(p2.length + 1)
+            return p1.substring(from: p2.length + 1)
         }
 
         return nil
@@ -107,10 +107,10 @@ public extension String {
     /// of a substring with a replacement string.
     ///
     /// - parameter target: The substring to replace.
-    /// - parameter withString: The replacement string.
+    /// - parameter with: The replacement string.
     /// - returns: A new string with all occurrences
     ///   of the given substring replaced.
-    public func replace(_ target: String, withString replacement: String) -> String {
+    public func replace(_ target: String, with replacement: String) -> String {
         var s1 = ""
         var s2 = self
 
@@ -148,10 +148,10 @@ public extension String {
 
     /// Gets a substring of the string.
     ///
-    /// - parameter startIndex: The starting index to create the substring from.
+    /// - parameter from: The starting index to create the substring from.
     /// - parameter length: The length of the substring.
     /// - returns: A substring from the starting index and with the given length.
-    public func substring(_ startIndex: Int, length: Int) -> String {
+    public func substring(from startIndex: Int, length: Int) -> String {
         let start = self.index(self.startIndex, offsetBy: startIndex)
         let end = self.index(start, offsetBy: length)
         return self.substring(with: Range(uncheckedBounds: (start, end)))
@@ -159,9 +159,9 @@ public extension String {
 
     /// Gets a substring of the string.
     ///
-    /// - parameter startIndex: The starting index to create the substring from.
+    /// - parameter from: The starting index to create the substring from.
     /// - returns: A substring from the starting index up to the end of the string.
-    public func substring(_ startIndex: Int) -> String {
+    public func substring(from startIndex: Int) -> String {
         let start = self.index(self.startIndex, offsetBy: startIndex)
         let end = self.endIndex
         return self.substring(with: Range(uncheckedBounds: (start, end)))
@@ -198,9 +198,9 @@ public extension String {
             "\"": "&quot;"
         ]
 
-        var s = self.replace("&", withString: "&amp;")
+        var s = self.replace("&", with: "&amp;")
         for (key, value) in replacements {
-            s = s.replace(key, withString: value)
+            s = s.replace(key, with: value)
         }
 
         return s
@@ -209,7 +209,7 @@ public extension String {
     /// A URL-decoded copy of the string.
     public var urlDecoded: String {
         var s1 = ""
-        var s2 = self.replace("+", withString: " ")
+        var s2 = self.replace("+", with: " ")
 
         while let range = s2.range(of: "%") {
             let hexStart = range.upperBound

@@ -46,7 +46,7 @@ public class HttpRequest: CustomStringConvertible {
             return nil
         }
 
-        return path.substring(1)
+        return path.substring(from: 1)
     }
 
     // The length (in bytes) of the HTTP request's content.

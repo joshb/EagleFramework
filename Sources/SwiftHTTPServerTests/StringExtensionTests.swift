@@ -57,8 +57,8 @@ class StringExtensionTests: TestCase {
             },
 
             "testReplace": {
-                try assertEqual("hi there".replace("hi", withString: "hello"), "hello there")
-                try assertEqual("hello there".replace("there", withString: "world"), "hello world")
+                try assertEqual("hi there".replace("hi", with: "hello"), "hello there")
+                try assertEqual("hello there".replace("there", with: "world"), "hello world")
             },
 
             "testSplit": {
@@ -67,8 +67,8 @@ class StringExtensionTests: TestCase {
             },
 
             "testSubstring": {
-                try assertEqual("Hello, world!".substring(7, length: 5), "world")
-                try assertEqual("0123".substring(1), "123")
+                try assertEqual("Hello, world!".substring(from: 7, length: 5), "world")
+                try assertEqual("0123".substring(from: 1), "123")
             },
 
             "testIsWhitespace": {
