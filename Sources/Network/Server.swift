@@ -162,6 +162,10 @@ public class Server<ServerConnectionType: ServerConnection> {
 
     public func handleEvents() throws {
         let numEvents = Int(epoll_wait(epollDescriptor, &events, Int32(events.count), -1))
+        guard numEvents >= 0 else {
+            return
+        }
+
         for i in 0..<numEvents {
             let event = self.events[i]
             try handleEvent(event)
@@ -202,6 +206,10 @@ public class Server<ServerConnectionType: ServerConnection> {
 
     public func handleEvents() throws {
         let numEvents = Int(kevent(kqueueDescriptor, nil, 0, &events, Int32(events.count), nil))
+        guard numEvents >= 0 else {
+            return
+        }
+
         for i in 0..<numEvents {
             let event = self.events[i]
             try handleEvent(event)
