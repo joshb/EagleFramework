@@ -37,14 +37,14 @@ let blogDatabasePath = Settings.getAbsoluteResourcePath("blog.db")
 ResponderRegistry.register(try BlogResponder(webPath: "blog",
                                              databasePath: blogDatabasePath))
 
-if let address4 = Address.fromHostname("127.0.0.1") {
+if let address4 = Address(forHostname: "127.0.0.1") {
     let port: Port = 5000
 
     let endpoint4 = Endpoint(address: address4, port: port)
     let server = try HttpServer(endpoint: endpoint4)
 
     // Try adding the local IPv6 address as an endpoint as well.
-    if let address6 = Address.fromHostname("::1") {
+    if let address6 = Address(forHostname: "::1") {
         let endpoint6 = Endpoint(address: address6, port: port)
         try server.addLocalEndpoint(endpoint6)
     }

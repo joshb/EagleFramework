@@ -40,11 +40,17 @@ public struct Address: CustomStringConvertible {
     public var address: [UInt8]
     public var hostname: String?
 
-    /// Resolves an address from the given hostname.
+    public init(type: AddressType, address: [UInt8], hostname: String? = nil) {
+        self.type = type
+        self.address = address
+        self.hostname = hostname
+    }
+
+    /// Initialize an address with the given hostname.
     ///
-    /// - parameter hostname: Hostname to resolve.
+    /// - parameter forHostname: Hostname to resolve.
     /// - returns: Address, or nil if the hostname could not be resolved.
-    public static func fromHostname(_ hostname: String) -> Address? {
+    public init?(forHostname hostname: String) {
         let hostnameCStr = hostname.utf8CString
 
         // Resolve the hostname. We try resolving an IPv6 address
@@ -74,7 +80,9 @@ public struct Address: CustomStringConvertible {
             }
         }
 
-        return Address(type: type, address: address, hostname: hostname)
+        self.type = type
+        self.address = address
+        self.hostname = hostname
     }
 
     /// String representation of the IPv4/IPv6 address.
