@@ -40,10 +40,10 @@ public class HttpConnection: ServerConnection {
 
     /// Sends the given response to the client.
     public func sendResponse(_ response: HttpResponse) {
-        sendString(response.descriptionWithHeaders + "\r\n\r\n")
+        send(string: response.descriptionWithHeaders + "\r\n\r\n")
 
         if let binaryContent = response.binaryContent {
-            sendData(binaryContent)
+            send(data: binaryContent)
         }
     }
 

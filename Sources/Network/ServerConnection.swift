@@ -69,17 +69,25 @@ public class ServerConnection: CustomStringConvertible {
         return String(cString: data) ?? ""
     }
 
-    public func sendData(_ data: [CChar]) -> Int {
-        return send(descriptor, data, data.count, 0)
+    public func send(data: [CChar]) -> Int {
+#if os(Linux)
+        return Glibc.send(descriptor, data, data.count, 0)
+#else
+        return Darwin.send(descriptor, data, data.count, 0)
+#endif
     }
 
-    public func sendString(_ str: String) -> Int {
-        let data = str.utf8CString
-        return send(descriptor, data, data.count - 1, 0)
+    public func send(string: String) -> Int {
+        let data = string.utf8CString
+#if os(Linux)
+        return Glibc.send(descriptor, data, data.count - 1, 0)
+#else
+        return Darwin.send(descriptor, data, data.count - 1, 0)
+#endif
     }
 
-    public func sendLine(_ line: String) -> Int {
-        return sendString(line + "\n")
+    public func send(line: String) -> Int {
+        return send(string: line + "\n")
     }
 
     public var description: String {
