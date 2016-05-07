@@ -50,10 +50,10 @@ class TestCase {
             do {
                 try testFunc()
                 TestCase.testsSucceeded += 1
-                print("\u{1b}[1;32msuccess\u{1b}[0;0m")
+                print("success ✅")
             } catch {
                 TestCase.testsFailed += 1
-                print("\u{1b}[1;31mfailure\u{1b}[0;0m")
+                print("failure ❌")
             }
 
             tearDown()
@@ -63,17 +63,7 @@ class TestCase {
     }
 
     static func printStats() {
-        var succeeded = "\(testsSucceeded)"
-        if testsSucceeded > 0 {
-            succeeded = "\u{1b}[1;32m\(succeeded)\u{1b}[0;0m"
-        }
-
-        var failed = "\(testsFailed)"
-        if testsFailed > 0 {
-            failed = "\u{1b}[1;31m\(failed)\u{1b}[0;0m"
-        }
-
-        print("\(succeeded) succeeded, \(failed) failed")
+        print("\(testsSucceeded) succeeded, \(testsFailed) failed")
     }
 
     static func runTestCases(_ testCases: [TestCase]) {
