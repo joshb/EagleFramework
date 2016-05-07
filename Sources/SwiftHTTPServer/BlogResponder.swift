@@ -70,7 +70,7 @@ class BlogResponder: Responder {
         return HttpResponse.redirect("/" + webPath)
     }
 
-    func respond(_ request: HttpRequest) -> HttpResponse? {
+    func response(to request: HttpRequest) -> HttpResponse? {
         if let safeFilePath = request.safeFilePath {
             if let path = safeFilePath.relativeToPath(self.webPath) {
                 let pathComponents = path.split("/")

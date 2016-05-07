@@ -50,7 +50,7 @@ public class HttpConnection: ServerConnection {
     private func processRequest(_ request: HttpRequest) {
         print("\(self) request: \(request)")
 
-        let response = ResponderRegistry.respond(request)
+        let response = ResponderRegistry.response(to: request)
         print("\(self) response: \(response)")
         sendResponse(response)
 

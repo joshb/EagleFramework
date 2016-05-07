@@ -34,7 +34,7 @@ public class FileResponder: Responder {
         self.fileSystemPath = fileSystemPath
     }
 
-    public func respond(_ request: HttpRequest) -> HttpResponse? {
+    public func response(to request: HttpRequest) -> HttpResponse? {
         if let path = request.safeFilePath {
             if let relativePath = path.relativeToPath(webPath) {
                 var fullPath = fileSystemPath + "/" + relativePath

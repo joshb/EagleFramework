@@ -26,13 +26,13 @@
 public class ResponderRegistry {
     private static var responders: [Responder] = []
 
-    public static func register(_ responder: Responder) {
+    public static func register(responder: Responder) {
         responders = [responder] + responders
     }
 
-    public static func respond(_ request: HttpRequest) -> HttpResponse {
+    public static func response(to request: HttpRequest) -> HttpResponse {
         for responder in responders {
-            if let response = responder.respond(request) {
+            if let response = responder.response(to: request) {
                 return response
             }
         }

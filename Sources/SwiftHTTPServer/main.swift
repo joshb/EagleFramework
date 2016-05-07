@@ -30,12 +30,10 @@ import Network
 print("WWW Path: \(Settings.wwwPath)")
 print("Resources path: \(Settings.resourcesPath)")
 
-ResponderRegistry.register(FileResponder(webPath: "",
-                                         fileSystemPath: Settings.wwwPath))
+ResponderRegistry.register(responder: FileResponder(webPath: "", fileSystemPath: Settings.wwwPath))
 
 let blogDatabasePath = Settings.getAbsoluteResourcePath("blog.db")
-ResponderRegistry.register(try BlogResponder(webPath: "blog",
-                                             databasePath: blogDatabasePath))
+ResponderRegistry.register(responder: try BlogResponder(webPath: "blog", databasePath: blogDatabasePath))
 
 if let address4 = Address(forHostname: "127.0.0.1") {
     let port: Port = 5000
