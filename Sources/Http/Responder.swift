@@ -24,5 +24,5 @@
  */
 
 public protocol Responder {
-    func response(to request: HttpRequest) -> HttpResponse?
+    func response(to request: HttpRequest) throws -> HttpResponse?
 }

@@ -133,7 +133,7 @@ public class HttpResponse: CustomStringConvertible {
         content += "</style>\r\n"
         content += "</head>\r\n"
         content += "<body>\r\n\r\n"
-        content += "<h1>\(statusCode) \(statusMessage)</h1>\r\n"
+        content += "<h1>\(statusCode) \(statusMessage.htmlSafe)</h1>\r\n"
         content += "<p>\(message)</p>\r\n\r\n"
         content += "</body>\r\n"
         content += "</html>\r\n"
@@ -153,7 +153,7 @@ public class HttpResponse: CustomStringConvertible {
     }
 
     public static func error(message: String) -> HttpResponse {
-        return htmlMessage(statusCode: 500, statusMessage: "Internal Server Error", message: message)
+        return htmlMessage(statusCode: 500, statusMessage: "Internal Server Error", message: message.htmlSafe)
     }
 
     public static func fileNotFound(path: String) -> HttpResponse {

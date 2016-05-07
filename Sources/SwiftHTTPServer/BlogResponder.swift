@@ -27,9 +27,20 @@ import Database
 import Http
 import Template
 
+enum BlogError: ErrorProtocol {
+    case NoTitleGiven, NoMessageBodyGiven
+}
+
 class BlogPost: Model {
     let title = Model.StringProperty(defaultValue: "Title")
     let body = Model.StringProperty(defaultValue: "Body")
+
+    required init() {}
+
+    init(title: String, body: String) {
+        self.title.value = title
+        self.body.value = body
+    }
 }
 
 class BlogResponder: Responder {
@@ -45,10 +56,10 @@ class BlogResponder: Responder {
         self.indexTemplate = try Template.fromFile("blog_index.html.template")
     }
 
-    func index(_ request: HttpRequest) -> HttpResponse? {
+    func index() throws -> HttpResponse? {
         var html = ""
 
-        for post in (try? database.query(model: BlogPost()).reversed()) ?? [] {
+        for post in try database.query(model: BlogPost()).reversed() {
             html += "<h2>\(post.title)</h2>"
             html += "<p>\(post.body)</p>"
         }
@@ -57,27 +68,33 @@ class BlogResponder: Responder {
         return HttpResponse.html(content: content)
     }
 
-    func addPost(_ request: HttpRequest) -> HttpResponse? {
+    func addPost(from request: HttpRequest) throws -> HttpResponse? {
         let formData = request.formData
-        let post = BlogPost()
-        post.title.value = formData["title"] ?? ""
-        post.body.value = formData["body"] ?? ""
+        let title: String! = formData["title"]
+        let body: String! = formData["body"]
 
-        do {
-            try database.save(model: post)
-        } catch {}
+        guard title != nil else {
+            throw BlogError.NoTitleGiven
+        }
+
+        guard body != nil else {
+            throw BlogError.NoMessageBodyGiven
+        }
+
+        let post = BlogPost(title: title, body: body)
+        try database.save(model: post)
 
         return HttpResponse.redirect(to: "/" + webPath)
     }
 
-    func response(to request: HttpRequest) -> HttpResponse? {
+    func response(to request: HttpRequest) throws -> HttpResponse? {
         if let safeFilePath = request.safeFilePath {
             if let path = safeFilePath.relativeToPath(self.webPath) {
                 let pathComponents = path.split("/")
                 if pathComponents.count == 0 {
-                    return index(request)
+                    return try index()
                 } else if pathComponents[0] == "addPost" {
-                    return addPost(request)
+                    return try addPost(from: request)
                 }
             }
         }

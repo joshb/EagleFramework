@@ -32,8 +32,12 @@ public class ResponderRegistry {
 
     public static func response(to request: HttpRequest) -> HttpResponse {
         for responder in responders {
-            if let response = responder.response(to: request) {
-                return response
+            do {
+                if let response = try responder.response(to: request) {
+                    return response
+                }
+            } catch {
+                return HttpResponse.error(message: "The following error occurred when attempting to respond to your request: \(error)")
             }
         }
 
