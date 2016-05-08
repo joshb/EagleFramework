@@ -26,14 +26,22 @@
 public enum ContentType: String {
     case Default = "binary/octet-stream"
     case CSS = "text/css"
+    case GIF = "image/gif"
     case HTML = "text/html; charset=utf-8"
     case JavaScript = "application/javascript"
+    case JPEG = "image/jpeg"
     case PlainText = "text/plain"
+    case PNG = "image/png"
 
     private static var fileContentTypes: [String: ContentType] = [
-        "css": ContentType.CSS,
-        "html": ContentType.HTML,
-        "txt": ContentType.PlainText
+        "css": .CSS,
+        "gif": .GIF,
+        "html": .HTML,
+        "js": .JavaScript,
+        "jpeg": .JPEG,
+        "jpg": .JPEG,
+        "png": .PNG,
+        "txt": .PlainText
     ]
 
     public static func forFile(withPath filePath: String) -> ContentType {
