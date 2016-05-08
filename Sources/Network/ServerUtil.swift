@@ -51,7 +51,7 @@ internal class ServerUtil {
         var event = kevent()
         event.ident = UInt(socketDescriptor)
         event.filter = Int16(EVFILT_READ)
-        event.flags = UInt16(EV_ADD | EV_RECEIPT | EV_CLEAR)
+        event.flags = UInt16(EV_ADD | EV_RECEIPT)
         event.fflags = 0
         event.data = 0
         event.udata = nil
