@@ -134,7 +134,7 @@ public class HttpResponse: CustomStringConvertible {
         content += "</head>\r\n"
         content += "<body>\r\n\r\n"
         content += "<h1>\(statusCode) \(statusMessage.htmlSafe)</h1>\r\n"
-        content += "<p>\(message)</p>\r\n\r\n"
+        content += "<p>\(message.htmlSafe)</p>\r\n\r\n"
         content += "</body>\r\n"
         content += "</html>\r\n"
 
