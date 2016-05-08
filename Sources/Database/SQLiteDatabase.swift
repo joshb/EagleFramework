@@ -279,6 +279,10 @@ public class SQLiteDatabase: Database {
         return results
     }
 
+    public func createStorage(forModel model: Model) throws {
+        try execute(command: SQLiteDatabase.createTableCommandForModel(model))
+    }
+
     public func save(model: Model) throws {
         // If the model's ID is 0, it's a new model that must be
         // inserted into the appropriate table. If the ID is set, it's
@@ -295,7 +299,7 @@ public class SQLiteDatabase: Database {
             try execute(command: command)
         } catch DatabaseError.TableDoesNotExist {
             // Create the table and try executing the command again.
-            try execute(command: SQLiteDatabase.createTableCommandForModel(model))
+            try createStorage(forModel: model)
             try execute(command: command)
         }
 

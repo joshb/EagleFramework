@@ -24,6 +24,7 @@
  */
 
 import Database
+import Foundation
 import Http
 import Template
 
@@ -34,12 +35,16 @@ enum BlogError: ErrorProtocol {
 class BlogPost: Model {
     let title = Model.StringProperty(defaultValue: "Title")
     let body = Model.StringProperty(defaultValue: "Body")
+    let timestamp = Model.DoubleProperty(defaultValue: 0.0)
 
-    required init() {}
+    required init() {
+        self.timestamp.value = NSDate().timeIntervalSince1970
+    }
 
     init(title: String, body: String) {
         self.title.value = title
         self.body.value = body
+        self.timestamp.value = NSDate().timeIntervalSince1970
     }
 }
 
@@ -52,6 +57,9 @@ class BlogResponder: Responder {
     init(webPath: String, databasePath: String) throws {
         self.webPath = webPath
         self.database = try SQLiteDatabase(filePath: databasePath)
+        do {
+            try self.database.createStorage(forModel: BlogPost())
+        } catch {}
 
         self.indexTemplate = try Template.fromFile("blog_index.html.template")
     }
@@ -60,7 +68,12 @@ class BlogResponder: Responder {
         var html = ""
 
         for post in try database.query(model: BlogPost()).reversed() {
-            html += "<h2>\(post.title)</h2>"
+            let formatter = NSDateFormatter()
+            formatter.dateStyle = .mediumStyle
+            formatter.timeStyle = .mediumStyle
+            let datetime = formatter.string(from: NSDate(timeIntervalSince1970: post.timestamp.value))
+
+            html += "<h2>\(post.title) <span class=\"timestamp\">\(datetime.htmlSafe)</span></h2>"
             html += "<p>\(post.body)</p>"
         }
 

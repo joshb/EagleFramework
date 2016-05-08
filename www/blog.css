@@ -21,3 +21,9 @@ h1 {
 h2 {
     margin: 0;
 }
+
+.timestamp {
+    border-left: 3px #bbb solid;
+    padding-left: 0.25em;
+    color: #bbb;
+}

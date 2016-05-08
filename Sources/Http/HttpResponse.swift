@@ -153,7 +153,7 @@ public class HttpResponse: CustomStringConvertible {
     }
 
     public static func error(message: String) -> HttpResponse {
-        return htmlMessage(statusCode: 500, statusMessage: "Internal Server Error", message: message.htmlSafe)
+        return htmlMessage(statusCode: 500, statusMessage: "Internal Server Error", message: message)
     }
 
     public static func fileNotFound(path: String) -> HttpResponse {

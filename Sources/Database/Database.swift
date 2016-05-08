@@ -33,6 +33,9 @@ public enum DatabaseError: ErrorProtocol {
 }
 
 public protocol Database {
+    /// Create storage in the database for the given model.
+    func createStorage(forModel model: Model) throws
+
     /// Saves a data model to the database.
     ///
     /// - parameter model: The data model to save.
