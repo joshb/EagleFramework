@@ -221,7 +221,12 @@ public extension String {
             var hexInt: UInt32 = 0
             let hex = s2.substring(with: Range(uncheckedBounds: (hexStart, hexEnd)))
             let scanner = NSScanner(string: hex)
-            if !scanner.scanHexInt32(&hexInt) {
+#if os(Linux)
+            let result = scanner.scanHexInt(&hexInt)
+#else
+            let result = scanner.scanHexInt32(&hexInt)
+#endif
+            if !result {
                 break
             }
 

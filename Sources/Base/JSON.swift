@@ -34,7 +34,11 @@ private func objectToJSON(_ object: AnyObject?, compact: Bool) -> String? {
         return nil
     }
 
+#if os(Linux)
+    let options = compact ? NSJSONWritingOptions() : NSJSONWritingOptions.PrettyPrinted
+#else
     let options = compact ? NSJSONWritingOptions() : NSJSONWritingOptions.prettyPrinted
+#endif
     if let data = try? NSJSONSerialization.data(withJSONObject: object!, options: options) {
         var bytes = [CChar](repeating: 0, count: data.length + 1)
         data.getBytes(&bytes, length: data.length)

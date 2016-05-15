@@ -69,8 +69,13 @@ class BlogResponder: Responder {
 
         for post in try database.query(model: BlogPost()).reversed() {
             let formatter = NSDateFormatter()
+#if os(Linux)
+            formatter.dateStyle = .MediumStyle
+            formatter.timeStyle = .MediumStyle
+#else
             formatter.dateStyle = .mediumStyle
             formatter.timeStyle = .mediumStyle
+#endif
             let datetime = formatter.string(from: NSDate(timeIntervalSince1970: post.timestamp.value))
 
             html += "<h2>\(post.title) <span class=\"timestamp\">\(datetime.htmlSafe)</span></h2>"
