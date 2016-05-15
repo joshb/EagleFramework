@@ -28,6 +28,7 @@ typealias TestDictionary = [String: TestFunc]
 
 enum TestCaseError: ErrorProtocol {
     case AssertionFailed
+    case EqualityAssertionFailed(a: String, b: String)
 }
 
 class TestCase {
@@ -51,6 +52,9 @@ class TestCase {
                 try testFunc()
                 TestCase.testsSucceeded += 1
                 print("success ✅")
+            } catch TestCaseError.EqualityAssertionFailed(let a, let b) {
+                TestCase.testsFailed += 1
+                print("failure ❌: '\(a)' != '\(b)'")
             } catch {
                 TestCase.testsFailed += 1
                 print("failure ❌")
@@ -77,7 +81,7 @@ class TestCase {
 
 func assertEqual<T: Equatable>(_ a: T, _ b: T) throws {
     if a != b {
-        throw TestCaseError.AssertionFailed
+        throw TestCaseError.EqualityAssertionFailed(a: "\(a)", b: "\(b)")
     }
 }
 
