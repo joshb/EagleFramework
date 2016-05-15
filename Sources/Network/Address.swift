@@ -71,12 +71,12 @@ public struct Address: CustomStringConvertible {
         if type == .IPv4 {
             address = [UInt8](repeating: 0, count: 4)
             for i in 0..<4 {
-                address![i] = UInt8(bitPattern: host.pointee.h_addr_list[0]![i])
+                address![i] = UInt8(bitPattern: host!.pointee.h_addr_list[0]![i])
             }
         } else {
             address = [UInt8](repeating: 0, count: 16)
             for i in 0..<16 {
-                address![i] = UInt8(bitPattern: host.pointee.h_addr_list[0]![i])
+                address![i] = UInt8(bitPattern: host!.pointee.h_addr_list[0]![i])
             }
         }
 
