@@ -29,6 +29,8 @@ public class FileResponder: Responder {
     public private(set) var webPath: String
     public private(set) var fileSystemPath: String
 
+    private static var cachedResponses: [String: HttpResponse] = [:]
+
     public init(webPath: String, fileSystemPath: String) {
         self.webPath = webPath
         self.fileSystemPath = fileSystemPath
@@ -36,6 +38,11 @@ public class FileResponder: Responder {
 
     public func response(to request: HttpRequest) -> HttpResponse? {
         if let path = request.safeFilePath {
+            // If a response for the given file path has been cached, return it.
+            if let response = FileResponder.cachedResponses[path] {
+                return response
+            }
+
             if let relativePath = path.relativeToPath(webPath) {
                 var fullPath = fileSystemPath + "/" + relativePath
                 if fullPath.isDirectory {
@@ -46,7 +53,10 @@ public class FileResponder: Responder {
                     fullPath += "/index.html"
                 }
 
-                return HttpResponse.file(withPath: fullPath)
+                if let response = HttpResponse.file(withPath: fullPath) {
+                    FileResponder.cachedResponses[path] = response
+                    return response
+                }
             }
         }
 
