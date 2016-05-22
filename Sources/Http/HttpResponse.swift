@@ -30,7 +30,7 @@ public class HttpResponse: CustomStringConvertible {
     public var version = "HTTP/1.1"
     public var statusCode = 200
     public var statusMessage = "OK"
-    public var headers: [String: String] = ["Server": "SwiftHTTPServer"]
+    public var headers: [String: String] = ["Server": "Eagle Framework"]
 
     private var content: [CChar]?
 

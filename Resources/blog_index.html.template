@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Blog</title>
+<title>Eagle Framework Blog Example</title>
 <link href="/blog.css" rel="stylesheet" />
+<link href="/EagleFramework.png" rel="icon" />
 <body>
 
-<h1>SwiftHTTPServer Blog Example</h1>
+<h1>Eagle Framework Blog Example</h1>
 
 <div id="blog_posts">
     <form action="/blog/addPost" method="post">

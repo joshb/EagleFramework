@@ -109,7 +109,7 @@ class BlogResponder: Responder {
         if let safeFilePath = request.safeFilePath {
             if let path = safeFilePath.relativeToPath(self.webPath) {
                 let pathComponents = path.components(separatedBy: "/")
-                if pathComponents.count == 0 {
+                if pathComponents.count == 0 || pathComponents[0] == "" {
                     return try index()
                 } else if pathComponents[0] == "addPost" {
                     return try addPost(from: request)

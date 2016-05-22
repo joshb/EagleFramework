@@ -17,7 +17,7 @@
                BlueprintIdentifier = "______Target_Base"
                BuildableName = "Base.dylib"
                BlueprintName = "Base"
-               ReferencedContainer = "container:SwiftHTTPServer.xcodeproj">
+               ReferencedContainer = "container:EagleFramework.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "______Target_Database"
                BuildableName = "Database.dylib"
                BlueprintName = "Database"
-               ReferencedContainer = "container:SwiftHTTPServer.xcodeproj">
+               ReferencedContainer = "container:EagleFramework.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -45,7 +45,7 @@
                BlueprintIdentifier = "______Target_Http"
                BuildableName = "Http.dylib"
                BlueprintName = "Http"
-               ReferencedContainer = "container:SwiftHTTPServer.xcodeproj">
+               ReferencedContainer = "container:EagleFramework.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -59,7 +59,7 @@
                BlueprintIdentifier = "______Target_Network"
                BuildableName = "Network.dylib"
                BlueprintName = "Network"
-               ReferencedContainer = "container:SwiftHTTPServer.xcodeproj">
+               ReferencedContainer = "container:EagleFramework.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -70,10 +70,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "______Target_SwiftHTTPServer"
-               BuildableName = "SwiftHTTPServer"
-               BlueprintName = "SwiftHTTPServer"
-               ReferencedContainer = "container:SwiftHTTPServer.xcodeproj">
+               BlueprintIdentifier = "______Target_EagleServer"
+               BuildableName = "EagleServer"
+               BlueprintName = "EagleServer"
+               ReferencedContainer = "container:EagleFramework.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -84,10 +84,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "______Target_SwiftHTTPServerTests"
-               BuildableName = "SwiftHTTPServerTests"
-               BlueprintName = "SwiftHTTPServerTests"
-               ReferencedContainer = "container:SwiftHTTPServer.xcodeproj">
+               BlueprintIdentifier = "______Target_EagleTests"
+               BuildableName = "EagleTests"
+               BlueprintName = "EagleTests"
+               ReferencedContainer = "container:EagleFramework.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -101,7 +101,7 @@
                BlueprintIdentifier = "______Target_Template"
                BuildableName = "Template.dylib"
                BlueprintName = "Template"
-               ReferencedContainer = "container:SwiftHTTPServer.xcodeproj">
+               ReferencedContainer = "container:EagleFramework.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -132,7 +132,7 @@
             BlueprintIdentifier = "______Target_Base"
             BuildableName = "Base.dylib"
             BlueprintName = "Base"
-            ReferencedContainer = "container:SwiftHTTPServer.xcodeproj">
+            ReferencedContainer = "container:EagleFramework.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>

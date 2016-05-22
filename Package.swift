@@ -2,7 +2,7 @@ import PackageDescription
 
 #if os(Linux)
 let package = Package(
-    name: "SwiftHTTPServer",
+    name: "EagleFramework",
 
     dependencies: [
         .Package(url: "https://github.com/joshb/CEpoll.git", majorVersion: 1),
@@ -22,13 +22,13 @@ let package = Package(
         Target(name: "Template",
                dependencies: [.Target(name: "Base")]),
 
-        Target(name: "SwiftHTTPServer",
+        Target(name: "EagleServer",
                dependencies: [.Target(name: "Base"),
                               .Target(name: "Database"),
                               .Target(name: "Http"),
                               .Target(name: "Network")]),
 
-        Target(name: "SwiftHTTPServerTests",
+        Target(name: "EagleTests",
                dependencies: [.Target(name: "Base"),
                               .Target(name: "Database"),
                               .Target(name: "Template")])
@@ -36,7 +36,7 @@ let package = Package(
 )
 #else
 let package = Package(
-    name: "SwiftHTTPServer",
+    name: "EagleFramework",
 
     dependencies: [
         .Package(url: "https://github.com/joshb/CSQLite3OSX.git", majorVersion: 1)
@@ -55,13 +55,13 @@ let package = Package(
         Target(name: "Template",
                dependencies: [.Target(name: "Base")]),
 
-        Target(name: "SwiftHTTPServer",
+        Target(name: "EagleServer",
                dependencies: [.Target(name: "Base"),
                               .Target(name: "Database"),
                               .Target(name: "Http"),
                               .Target(name: "Network")]),
 
-        Target(name: "SwiftHTTPServerTests",
+        Target(name: "EagleTests",
                dependencies: [.Target(name: "Base"),
                               .Target(name: "Database"),
                               .Target(name: "Template")])

@@ -7,11 +7,7 @@ body {
 h1 {
     margin: 0;
     padding: 16px;
-    background-color: #bbb;
-    color: white;
     font-size: 150%;
-    font-weight: normal;
-    text-shadow: 1px 1px 2px black;
     text-align: center;
 }
 

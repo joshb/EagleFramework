@@ -1,7 +1,7 @@
-Swift HTTP Server
-=================
+Eagle Framework
+===============
 
-This is a small and simple HTTP server that's written in Swift. Rather than being a full-featured, general purpose web server, it is intended to be easily extensible and usable as part of web applications written in Swift; as such, it implements only a subset of standard HTTP server features that are necessary to that end.
+The Eagle Framework is a small and simple framework for creating network servers and web applications. Rather than being a full-featured, general purpose web server, it is intended to be easily extensible and usable as part of web applications written in Swift; as such, it implements only a subset of standard HTTP server features that are necessary to that end.
 
 It's still in very early stages of development. Currently implemented features include:
 
@@ -17,12 +17,12 @@ This software has been developed and tested on Mac OS X El Capitan and Ubuntu 15
 
 Usage
 -----
-Make sure that you have a recent Swift Development snapshot installed, and run the following commands from the SwiftHTTPServer root directory to build and run it:
+Make sure that you have a recent Swift Development snapshot installed, and run the following commands from the EagleFramework root directory to build and run the example web server application:
 
     swift build
-    .build/debug/SwiftHTTPServer www Resources
+    .build/debug/EagleServer www Resources
 
-By default, the server binds to localhost (both IPv4 and IPv6) on port 5000, and serves the files stored in the directory given after the executable path (in the above example, this is the [www](https://github.com/joshb/SwiftHTTPServer/tree/master/www) directory). The Resources directory given last can contain files used by the server that are not served by default like the files in the www directory. If you have the server running, go to http://localhost:5000/ to see the welcome page. When you're done, just hit Ctrl-C to stop the server.
+By default, the server binds to localhost (both IPv4 and IPv6) on port 5000, and serves the files stored in the directory given after the executable path (in the above example, this is the [www](https://github.com/joshb/EagleServer/tree/master/www) directory). The Resources directory given last can contain files used by the server that are not served by default like the files in the www directory. If you have the server running, go to http://localhost:5000/ to see the welcome page. When you're done, just hit Ctrl-C to stop the server.
 
 License
 -------
