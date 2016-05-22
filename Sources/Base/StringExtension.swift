@@ -123,29 +123,6 @@ public extension String {
         return s1 + s2
     }
 
-    /// Splits a string using a given delimiter.
-    ///
-    /// - parameter delimiter: The delimiter to use to split the string.
-    /// - returns: An array containing the components of the string
-    ///   separated by the given delimiter.
-    public func split(_ delimiter: String) -> [String] {
-        var s = self
-        var components: [String] = []
-
-        while let range = s.range(of: delimiter) {
-            components.append(s.substring(with: Range(uncheckedBounds: (s.startIndex, range.lowerBound))))
-            s = s.substring(with: Range(uncheckedBounds: (range.upperBound, s.endIndex)))
-        }
-
-        // If there are any characters left, we'll
-        // include them as the last component.
-        if s.length > 0 {
-            components.append(s)
-        }
-
-        return components
-    }
-
     /// Gets a substring of the string.
     ///
     /// - parameter from: The starting index to create the substring from.
@@ -232,8 +209,8 @@ public extension String {
     public var formData: [String: String] {
         var result: [String: String] = [:]
 
-        for pairString in self.split("&") {
-            let pair = pairString.split("=")
+        for pairString in self.components(separatedBy: "&") {
+            let pair = pairString.components(separatedBy: "=")
             if pair.count != 2 {
                 continue
             }

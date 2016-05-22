@@ -45,7 +45,7 @@ public enum ContentType: String {
     ]
 
     public static func forFile(withPath filePath: String) -> ContentType {
-        let parts = filePath.split(".")
+        let parts = filePath.components(separatedBy: ".")
         if let fileExtension = parts.last {
             if let contentType = fileContentTypes[fileExtension.lowercased()] {
                 return contentType

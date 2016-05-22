@@ -80,7 +80,7 @@ public class HttpRequest: CustomStringConvertible {
     }
 
     public static func parse(lines: [String]) -> HttpRequest? {
-        let parts = lines[0].split(" ")
+        let parts = lines[0].components(separatedBy: " ")
         if parts.count != 3 {
             return nil
         }
@@ -91,7 +91,7 @@ public class HttpRequest: CustomStringConvertible {
 
         // The rest of the lines should be headers.
         for line in lines[1..<lines.count] {
-            let headerParts = line.split(": ")
+            let headerParts = line.components(separatedBy: ": ")
             if headerParts.count == 2 {
                 request.headers[headerParts[0].trimmed] = headerParts[1].trimmed
             }
@@ -101,7 +101,7 @@ public class HttpRequest: CustomStringConvertible {
     }
 
     public static func parse(string: String) -> HttpRequest? {
-        return parse(lines: string.split("\n"))
+        return parse(lines: string.components(separatedBy: "\n"))
     }
 
     public var description: String {

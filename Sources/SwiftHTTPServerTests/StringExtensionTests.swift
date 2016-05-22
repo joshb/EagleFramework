@@ -61,11 +61,6 @@ class StringExtensionTests: TestCase {
                 try assertEqual("hello there".replace("there", with: "world"), "hello world")
             },
 
-            "testSplit": {
-                try assertEqual("abc".split(","), ["abc"])
-                try assertEqual("a,b,c".split(","), ["a", "b", "c"])
-            },
-
             "testSubstring": {
                 try assertEqual("Hello, world!".substring(from: 7, length: 5), "world")
                 try assertEqual("0123".substring(from: 1), "123")
