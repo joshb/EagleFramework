@@ -177,17 +177,7 @@ public extension String {
 
     /// A copy of the string with all beginning and trailing whitespace characters removed.
     public var trimmed: String {
-        var s = self
-
-        while !s.isEmpty && String.isWhitespace(s.characters[s.startIndex]) {
-            s = s.substring(with: Range(uncheckedBounds: (s.index(after: s.startIndex), s.endIndex)))
-        }
-
-        while !s.isEmpty && String.isWhitespace(s.characters[s.index(before: s.endIndex)]) {
-            s = s.substring(with: Range(uncheckedBounds: (s.startIndex, s.index(before: s.endIndex))))
-        }
-
-        return s
+        return self.trimmingCharacters(in: .whitespacesAndNewlines())
     }
 
     /// A copy of the string safe for inclusion in HTML content.
