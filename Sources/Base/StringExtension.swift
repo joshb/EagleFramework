@@ -103,26 +103,6 @@ public extension String {
         return self.characters.count
     }
 
-    /// Creates a string by replacing all occurrences
-    /// of a substring with a replacement string.
-    ///
-    /// - parameter target: The substring to replace.
-    /// - parameter with: The replacement string.
-    /// - returns: A new string with all occurrences
-    ///   of the given substring replaced.
-    public func replace(_ target: String, with replacement: String) -> String {
-        var s1 = ""
-        var s2 = self
-
-        while let range = s2.range(of: target) {
-            s1 += s2.substring(with: Range(uncheckedBounds: (s2.startIndex, range.lowerBound)))
-            s1 += replacement
-            s2 = s2.substring(with: Range(uncheckedBounds: (range.upperBound, s2.endIndex)))
-        }
-
-        return s1 + s2
-    }
-
     /// Gets a substring of the string.
     ///
     /// - parameter from: The starting index to create the substring from.
@@ -165,9 +145,9 @@ public extension String {
             "\"": "&quot;"
         ]
 
-        var s = self.replace("&", with: "&amp;")
+        var s = self.replacingOccurrences(of: "&", with: "&amp;")
         for (key, value) in replacements {
-            s = s.replace(key, with: value)
+            s = s.replacingOccurrences(of: key, with: value)
         }
 
         return s
@@ -176,7 +156,7 @@ public extension String {
     /// A URL-decoded copy of the string.
     public var urlDecoded: String {
         var s1 = ""
-        var s2 = self.replace("+", with: " ")
+        var s2 = self.replacingOccurrences(of: "+", with: " ")
 
         while let range = s2.range(of: "%") {
             let hexStart = range.upperBound

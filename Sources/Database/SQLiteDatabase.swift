@@ -24,6 +24,7 @@
  */
 
 import Base
+import Foundation
 
 #if os(Linux)
 import CSQLite3Linux
@@ -100,7 +101,7 @@ public class SQLiteDatabase: Database {
     /// - parameter s: The string to escape.
     /// - returns: The escaped string.
     static func escapeString(_ s: String) -> String {
-        return "'" + s.replace("'", with: "''") + "'"
+        return "'" + s.replacingOccurrences(of: "'", with: "''") + "'"
     }
 
     /// Generates an array of tuples containing the field names and SQL-formatted values for the given model's properties.
