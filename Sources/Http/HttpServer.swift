@@ -32,6 +32,14 @@ public class HttpServer: Server<HttpConnection> {
         try super.init(endpoint: endpoint)
     }
 
+    public convenience init(hostname: String, port: Port) throws {
+        if let address = Address(forHostname: hostname) {
+            try self.init(endpoint: Endpoint(address: address, port: port))
+        } else {
+            throw ServerError.UnableToResolveHostname
+        }
+    }
+
     override public func createServerConnection(_ descriptor: Descriptor, localEndpoint: Endpoint, remoteEndpoint: Endpoint) -> HttpConnection {
         return HttpConnection(descriptor: descriptor, localEndpoint: localEndpoint, remoteEndpoint: remoteEndpoint)
     }

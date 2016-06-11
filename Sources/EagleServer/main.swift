@@ -35,20 +35,9 @@ ResponderRegistry.register(responder: FileResponder(webPath: "", fileSystemPath:
 let blogDatabasePath = Settings.getAbsoluteResourcePath("blog.db")
 ResponderRegistry.register(responder: try BlogResponder(webPath: "blog", databasePath: blogDatabasePath))
 
-if let address4 = Address(forHostname: "127.0.0.1") {
-    let port: Port = 5000
+let port: Port = 5000
+let server = try HttpServer(hostname: "127.0.0.1", port: port)
+try server.addLocalEndpoint(hostname: "::1", port: port)
 
-    let endpoint4 = Endpoint(address: address4, port: port)
-    let server = try HttpServer(endpoint: endpoint4)
-
-    // Try adding the local IPv6 address as an endpoint as well.
-    if let address6 = Address(forHostname: "::1") {
-        let endpoint6 = Endpoint(address: address6, port: port)
-        try server.addLocalEndpoint(endpoint6)
-    }
-
-    print("Server started")
-    try server.run()
-} else {
-    print("Unable to resolve localhost")
-}
+print("Server started")
+try server.run()

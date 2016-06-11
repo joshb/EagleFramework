@@ -32,6 +32,7 @@ import Darwin
 
 public enum ServerError: ErrorProtocol {
     case UnableToCreateEpoll, UnableToCreateKQueue, UnableToCreateSocket, UnableToAcceptConnection
+    case UnableToResolveHostname
 }
 
 public class Server<ServerConnectionType: ServerConnection> {
@@ -105,6 +106,15 @@ public class Server<ServerConnectionType: ServerConnection> {
         }
 
         print("Listening for connections to \(endpoint)")
+    }
+
+    public func addLocalEndpoint(hostname: String, port: Port) throws {
+        if let address = Address(forHostname: hostname) {
+            let endpoint = Endpoint(address: address, port: port)
+            try addLocalEndpoint(endpoint)
+        } else {
+            throw ServerError.UnableToResolveHostname
+        }
     }
 
     public func createServerConnection(_ descriptor: Descriptor, localEndpoint: Endpoint, remoteEndpoint: Endpoint) -> ServerConnectionType {
