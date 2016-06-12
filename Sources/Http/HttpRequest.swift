@@ -79,6 +79,14 @@ public class HttpRequest: CustomStringConvertible {
         self.version = version
     }
 
+    public func path(relativeTo path: String) -> String? {
+        if let safePath = safeFilePath {
+            return safePath.relativeToPath(path)
+        }
+
+        return nil
+    }
+
     public static func parse(lines: [String]) -> HttpRequest? {
         let parts = lines[0].components(separatedBy: " ")
         if parts.count != 3 {
