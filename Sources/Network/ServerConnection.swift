@@ -78,7 +78,12 @@ open class ServerConnection: CustomStringConvertible {
     }
 
     public func send(string: String) -> Int {
-        return self.send(data: string.cString(using: .utf8)!)
+        let data = string.cString(using: .utf8)!
+#if os(Linux)
+        return Glibc.send(descriptor, data, data.count - 1, 0)
+#else
+        return Darwin.send(descriptor, data, data.count - 1, 0)
+#endif
     }
 
     public func send(line: String) -> Int {
