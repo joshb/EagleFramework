@@ -44,15 +44,7 @@ public class FileResponder: Responder {
             }
 
             if let relativePath = path.relativeToPath(webPath) {
-                var fullPath = fileSystemPath + "/" + relativePath
-                if fullPath.isDirectory {
-                    if !path.isEmpty && !path.hasSuffix("/") {
-                        return HttpResponse.redirect(to: path + "/")
-                    }
-
-                    fullPath += "/index.html"
-                }
-
+                let fullPath = fileSystemPath + "/" + relativePath
                 if let response = HttpResponse.file(withPath: fullPath) {
                     FileResponder.cachedResponses[path] = response
                     return response

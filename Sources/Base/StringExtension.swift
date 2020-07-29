@@ -31,50 +31,9 @@ import Darwin
 #endif
 
 public extension String {
-    private static func ucharToChar(_ c: CUnsignedChar) -> CChar {
-        if c < 128 {
-            return CChar(c)
-        } else {
-            return CChar(-128) | CChar(c & 0b01111111)
-        }
-    }
-
-    /// A UTF-8 C-string representation of the string.
-    public var utf8CString: [CChar] {
-        return self.nulTerminatedUTF8.map({ String.ucharToChar($0) })
-    }
-
-    private var fstatMode: mode_t {
-        var fd = open(self.utf8CString, O_RDONLY)
-        guard fd != -1 else {
-            return 0
-        }
-
-        defer {
-            close(fd)
-        }
-
-        var status = stat()
-        guard fstat(fd, &status) != -1 else {
-            return 0
-        }
-
-        return status.st_mode
-    }
-
-    /// Indicates whether or not the string contains the path of a directory.
-    public var isDirectory: Bool {
-        return (fstatMode & S_IFDIR) != 0
-    }
-
-    /// Indicates whether or not the string contains the path of a regular file.
-    public var isFile: Bool {
-        return (fstatMode & S_IFREG) != 0
-    }
-
     /// If the string contains a path that begins with the given
     /// path, returns a path relative to the given path.
-    public func relativeToPath(_ path: String) -> String? {
+    func relativeToPath(_ path: String) -> String? {
         let p1 = self.trimmed
         var p2 = path.trimmed
 
@@ -99,8 +58,8 @@ public extension String {
     }
 
     /// The string's character count.
-    public var length: Int {
-        return self.characters.count
+    var length: Int {
+        return self.count
     }
 
     /// Gets a substring of the string.
@@ -108,7 +67,7 @@ public extension String {
     /// - parameter from: The starting index to create the substring from.
     /// - parameter length: The length of the substring.
     /// - returns: A substring from the starting index and with the given length.
-    public func substring(from startIndex: Int, length: Int) -> String {
+    func substring(from startIndex: Int, length: Int) -> String {
         let start = self.index(self.startIndex, offsetBy: startIndex)
         let end = self.index(start, offsetBy: length)
         return self.substring(with: Range(uncheckedBounds: (start, end)))
@@ -118,7 +77,7 @@ public extension String {
     ///
     /// - parameter from: The starting index to create the substring from.
     /// - returns: A substring from the starting index up to the end of the string.
-    public func substring(from startIndex: Int) -> String {
+    func substring(from startIndex: Int) -> String {
         let start = self.index(self.startIndex, offsetBy: startIndex)
         let end = self.endIndex
         return self.substring(with: Range(uncheckedBounds: (start, end)))
@@ -128,17 +87,17 @@ public extension String {
     ///
     /// - parameter c: The character to check.
     /// - returns: true if the character is a whitespace character, false otherwise.
-    public static func isWhitespace(_ c: Character) -> Bool {
+    static func isWhitespace(_ c: Character) -> Bool {
         return c == " " || c == "\r" || c == "\n" || c == "\r\n" || c == "\t"
     }
 
     /// A copy of the string with all beginning and trailing whitespace characters removed.
-    public var trimmed: String {
-        return self.trimmingCharacters(in: .whitespacesAndNewlines())
+    var trimmed: String {
+        return self.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     /// A copy of the string safe for inclusion in HTML content.
-    public var htmlSafe: String {
+    var htmlSafe: String {
         let replacements = [
             "<": "&lt;",
             ">": "&gt;",
@@ -154,7 +113,7 @@ public extension String {
     }
 
     /// A URL-decoded copy of the string.
-    public var urlDecoded: String {
+    var urlDecoded: String {
         var s1 = ""
         var s2 = self.replacingOccurrences(of: "+", with: " ")
 
@@ -167,7 +126,7 @@ public extension String {
 
             var hexInt: UInt32 = 0
             let hex = s2.substring(with: Range(uncheckedBounds: (hexStart, hexEnd)))
-            let scanner = NSScanner(string: hex)
+            let scanner = Scanner(string: hex)
 #if os(Linux)
             let result = scanner.scanHexInt(&hexInt)
 #else
@@ -178,7 +137,7 @@ public extension String {
             }
 
             s1 += s2.substring(with: Range(uncheckedBounds: (s2.startIndex, range.lowerBound)))
-            s1 += String(UnicodeScalar(hexInt))
+            s1 += String(UnicodeScalar(hexInt)!)
             s2 = s2.substring(with: Range(uncheckedBounds: (hexEnd, s2.endIndex)))
         }
 
@@ -186,7 +145,7 @@ public extension String {
     }
 
     /// A dictionary containing form data in the string.
-    public var formData: [String: String] {
+    var formData: [String: String] {
         var result: [String: String] = [:]
 
         for pairString in self.components(separatedBy: "&") {

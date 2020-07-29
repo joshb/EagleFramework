@@ -31,21 +31,21 @@ import Darwin
 
 public class Settings {
     public static var wwwPath: String {
-        guard Process.arguments.count > 1 else {
+        guard CommandLine.arguments.count > 1 else {
             print("Error: wwwPath not set")
             exit(1)
         }
 
-        return Process.arguments[1]
+        return CommandLine.arguments[1]
     }
 
     public static var resourcesPath: String {
-        guard Process.arguments.count > 2 else {
+        guard CommandLine.arguments.count > 2 else {
             print("Error: resourcesPath not set")
             exit(1)
         }
 
-        return Process.arguments[2]
+        return CommandLine.arguments[2]
     }
 
     public static func getAbsoluteResourcePath(_ relativePath: String) -> String {

@@ -30,12 +30,12 @@ import Glibc
 import Darwin
 #endif
 
-public enum ServerError: ErrorProtocol {
+public enum ServerError: Error {
     case UnableToCreateEpoll, UnableToCreateKQueue, UnableToCreateSocket, UnableToAcceptConnection
     case UnableToResolveHostname
 }
 
-public class Server<ServerConnectionType: ServerConnection> {
+open class Server<ServerConnectionType: ServerConnection> {
 #if os(Linux)
     private var epollDescriptor: Descriptor
     private var events: [epoll_event] = []
@@ -91,7 +91,7 @@ public class Server<ServerConnectionType: ServerConnection> {
         print("\(connection) closed")
     }
 
-    public func dataReceived(_ connection: ServerConnectionType) {}
+    open func dataReceived(_ connection: ServerConnectionType) {}
 
     public func addLocalEndpoint(_ endpoint: Endpoint) throws {
         if let socketDescriptor = ServerUtil.createSocket(endpoint) {
@@ -117,7 +117,7 @@ public class Server<ServerConnectionType: ServerConnection> {
         }
     }
 
-    public func createServerConnection(_ descriptor: Descriptor, localEndpoint: Endpoint, remoteEndpoint: Endpoint) -> ServerConnectionType {
+    open func createServerConnection(_ descriptor: Descriptor, localEndpoint: Endpoint, remoteEndpoint: Endpoint) -> ServerConnectionType {
         return ServerConnection(descriptor: descriptor, localEndpoint: localEndpoint, remoteEndpoint: remoteEndpoint) as! ServerConnectionType
     }
 

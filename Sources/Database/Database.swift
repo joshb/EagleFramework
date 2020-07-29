@@ -23,7 +23,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-public enum DatabaseError: ErrorProtocol {
+public enum DatabaseError: Error {
     case ConnectionFailed(message: String?)
     case CommandFailed(message: String?)
     case ModelNotSupported

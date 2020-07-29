@@ -51,7 +51,7 @@ public struct Address: CustomStringConvertible {
     /// - parameter forHostname: Hostname to resolve.
     /// - returns: Address, or nil if the hostname could not be resolved.
     public init?(forHostname hostname: String) {
-        let hostnameCStr = hostname.utf8CString
+        let hostnameCStr = hostname.cString(using: .utf8)
 
         // Resolve the hostname. We try resolving an IPv6 address
         // first, and fall back to IPv4 if that fails.
@@ -91,7 +91,7 @@ public struct Address: CustomStringConvertible {
 
         if type == .IPv4 {
             for i in 0..<4 {
-                if s.characters.count > 0 {
+                if s.count > 0 {
                     s += "."
                 }
 
@@ -128,7 +128,7 @@ public struct Address: CustomStringConvertible {
                     continue
                 }
 
-                if s.characters.count > 0 {
+                if s.count > 0 {
                     s += ":"
                 }
 

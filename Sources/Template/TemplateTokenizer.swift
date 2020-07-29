@@ -156,7 +156,7 @@ public class TemplateTokenizer {
     ///
     /// - parameter s: The string to tokenize.
     public func processString(_ s: String) throws {
-        for c in s.characters {
+        for c in s {
             try processCharacter(c)
         }
 

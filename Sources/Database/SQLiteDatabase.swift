@@ -29,7 +29,7 @@ import Foundation
 #if os(Linux)
 import CSQLite3Linux
 #else
-import CSQLite3OSX
+import SQLite3
 #endif
 
 /// Represents an SQLite database.
@@ -41,7 +41,7 @@ public class SQLiteDatabase: Database {
     private var db: OpaquePointer? = nil
 
     public init(filePath: String) throws {
-        if sqlite3_open(filePath.utf8CString, &db) != SQLITE_OK {
+        if sqlite3_open(filePath.cString(using: .utf8), &db) != SQLITE_OK {
             throw DatabaseError.ConnectionFailed(message: "Could not open the file: " + filePath)
         }
     }
@@ -217,7 +217,7 @@ public class SQLiteDatabase: Database {
     func execute(command: String) throws {
         var errorPointer: UnsafeMutablePointer<CChar>? = nil
 
-        if sqlite3_exec(db, command.utf8CString, nil, nil, &errorPointer) != SQLITE_OK {
+        if sqlite3_exec(db, command.cString(using: .utf8), nil, nil, &errorPointer) != SQLITE_OK {
             let error = String(cString: errorPointer!)
             if error.hasPrefix("no such table:") {
                 throw DatabaseError.TableDoesNotExist
@@ -235,8 +235,8 @@ public class SQLiteDatabase: Database {
         var statement: OpaquePointer? = nil
 
         // Prepare the query.
-        let queryCString = query.utf8CString
-        if sqlite3_prepare_v2(db, queryCString, Int32(queryCString.count), &statement, nil) != SQLITE_OK {
+        let queryCString = query.cString(using: .utf8)
+        if sqlite3_prepare_v2(db, queryCString, Int32(queryCString!.count), &statement, nil) != SQLITE_OK {
             throw DatabaseError.CommandFailed(message: nil)
         }
 
@@ -264,7 +264,8 @@ public class SQLiteDatabase: Database {
                         row.append(sqlite3_column_double(statement, i))
 
                     case SQLITE_TEXT:
-                        row.append(String(cString: UnsafePointer<Int8>(sqlite3_column_text(statement, i))) ?? "")
+                        let text = sqlite3_column_text(statement, i)
+                        row.append(String(cString: text!))
 
                     case SQLITE_NULL:
                         row.append(SQLiteValue.Null)

@@ -26,7 +26,7 @@
 typealias TestFunc = () throws -> Void
 typealias TestDictionary = [String: TestFunc]
 
-enum TestCaseError: ErrorProtocol {
+enum TestCaseError: Error {
     case AssertionFailed
     case EqualityAssertionFailed(a: String, b: String)
 }
@@ -43,7 +43,7 @@ class TestCase {
     func tearDown() {}
 
     func run() {
-        print("Running test case \(self.dynamicType)...")
+        print("Running test case \(type(of: self))...")
         for (testName, testFunc) in tests {
             print("\t\(testName)... ", terminator: "")
             setUp()

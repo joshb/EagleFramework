@@ -28,19 +28,6 @@ import Base
 class StringExtensionTests: TestCase {
     override var tests: TestDictionary {
         return [
-            "testIsDirectory": {
-                try assertFalse("/bin/ls".isDirectory)
-                try assertFalse("/bin/ls".isDirectory)
-                try assertFalse("/this/path/does/not/exist".isDirectory)
-                try assertTrue("/tmp".isDirectory)
-            },
-
-            "testIsFile": {
-                try assertFalse("/tmp".isFile)
-                try assertFalse("/this/path/does/not/exist".isFile)
-                try assertTrue("/bin/ls".isFile)
-            },
-
             "testRelativeToPath": {
                 try assertNil("/tmp/test.txt".relativeToPath("/usr"))
                 try assertNil("/tmp/test.txt".relativeToPath(""))

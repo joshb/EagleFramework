@@ -28,7 +28,7 @@ import Foundation
 import Http
 import Template
 
-enum BlogError: ErrorProtocol {
+enum BlogError: Error {
     case NoTitleGiven, NoMessageBodyGiven
 }
 
@@ -38,13 +38,13 @@ class BlogPost: Model {
     let timestamp = Model.DoubleProperty(defaultValue: 0.0)
 
     required init() {
-        self.timestamp.value = NSDate().timeIntervalSince1970
+        self.timestamp.value = Date().timeIntervalSince1970
     }
 
     init(title: String, body: String) {
         self.title.value = title
         self.body.value = body
-        self.timestamp.value = NSDate().timeIntervalSince1970
+        self.timestamp.value = Date().timeIntervalSince1970
     }
 }
 
@@ -68,15 +68,10 @@ class BlogResponder: Responder {
         var html = ""
 
         for post in try database.query(model: BlogPost()).reversed() {
-            let formatter = NSDateFormatter()
-#if os(Linux)
-            formatter.dateStyle = .MediumStyle
-            formatter.timeStyle = .MediumStyle
-#else
-            formatter.dateStyle = .mediumStyle
-            formatter.timeStyle = .mediumStyle
-#endif
-            let datetime = formatter.string(from: NSDate(timeIntervalSince1970: post.timestamp.value))
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .medium
+            let datetime = formatter.string(from: Date(timeIntervalSince1970: post.timestamp.value))
 
             html += "<h2>\(post.title) <span class=\"timestamp\">\(datetime.htmlSafe)</span></h2>"
             html += "<p>\(post.body)</p>"

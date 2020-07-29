@@ -81,7 +81,7 @@ public class OptionalModelProperty<T>: ModelProperty {
 }
 
 /// Represents a data model.
-public class Model: CustomStringConvertible {
+open class Model: CustomStringConvertible {
     public typealias BoolProperty = RequiredModelProperty<Bool>
     public typealias OptionalBoolProperty = OptionalModelProperty<Bool>
     public typealias DoubleProperty = RequiredModelProperty<Double>
@@ -104,7 +104,7 @@ public class Model: CustomStringConvertible {
     /// A name for the model's storage. This is used as a table name in a database.
     public var storageName: String {
         if _storageName == nil {
-            _storageName = String(self.dynamicType)
+            _storageName = "\(type(of: self))"
         }
 
         return _storageName!
@@ -181,10 +181,10 @@ public class Model: CustomStringConvertible {
             if let stringValue = value as? String {
                 propertyList += name + ": \"" + stringValue + "\""
             } else {
-                propertyList += name + ": " + String(value)
+                propertyList += name + ": \(value)"
             }
         }
 
-        return String(self.dynamicType) + "(" + propertyList + ")"
+        return "\(type(of: self))(" + propertyList + ")"
     }
 }

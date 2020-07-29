@@ -29,7 +29,7 @@ protocol TemplateParserDelegate {
     func addTemplateNode(_ node: TemplateNode)
 }
 
-public enum TemplateParserError: ErrorProtocol {
+public enum TemplateParserError: Error {
     case UnexpectedText, UnexpectedCodeStart, UnexpectedCodeStop
     case UnexpectedToken(token: String)
 }

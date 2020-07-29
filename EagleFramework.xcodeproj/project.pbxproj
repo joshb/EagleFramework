@@ -27,6 +27,16 @@
 		__src_cc_ref_Sources/Database/Database.swift /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/Database/Database.swift /* Database.swift */; };
 		__src_cc_ref_Sources/Database/Model.swift /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/Database/Model.swift /* Model.swift */; };
 		__src_cc_ref_Sources/Database/SQLiteDatabase.swift /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/Database/SQLiteDatabase.swift /* SQLiteDatabase.swift */; };
+		__src_cc_ref_Sources/EagleServer/BlogResponder.swift /* BlogResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/EagleServer/BlogResponder.swift /* BlogResponder.swift */; };
+		__src_cc_ref_Sources/EagleServer/main.swift /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/EagleServer/main.swift /* main.swift */; };
+		__src_cc_ref_Sources/EagleTests/JSONTests.swift /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/EagleTests/JSONTests.swift /* JSONTests.swift */; };
+		__src_cc_ref_Sources/EagleTests/ModelTests.swift /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/EagleTests/ModelTests.swift /* ModelTests.swift */; };
+		__src_cc_ref_Sources/EagleTests/SQLiteDatabaseTests.swift /* SQLiteDatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/EagleTests/SQLiteDatabaseTests.swift /* SQLiteDatabaseTests.swift */; };
+		__src_cc_ref_Sources/EagleTests/StringExtensionTests.swift /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/EagleTests/StringExtensionTests.swift /* StringExtensionTests.swift */; };
+		__src_cc_ref_Sources/EagleTests/TemplateTests.swift /* TemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/EagleTests/TemplateTests.swift /* TemplateTests.swift */; };
+		__src_cc_ref_Sources/EagleTests/TemplateTokenizerTests.swift /* TemplateTokenizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/EagleTests/TemplateTokenizerTests.swift /* TemplateTokenizerTests.swift */; };
+		__src_cc_ref_Sources/EagleTests/TestCase.swift /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/EagleTests/TestCase.swift /* TestCase.swift */; };
+		__src_cc_ref_Sources/EagleTests/main.swift /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/EagleTests/main.swift /* main.swift */; };
 		__src_cc_ref_Sources/Http/ContentType.swift /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/Http/ContentType.swift /* ContentType.swift */; };
 		__src_cc_ref_Sources/Http/FileResponder.swift /* FileResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/Http/FileResponder.swift /* FileResponder.swift */; };
 		__src_cc_ref_Sources/Http/HttpConnection.swift /* HttpConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/Http/HttpConnection.swift /* HttpConnection.swift */; };
@@ -40,16 +50,6 @@
 		__src_cc_ref_Sources/Network/Server.swift /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/Network/Server.swift /* Server.swift */; };
 		__src_cc_ref_Sources/Network/ServerConnection.swift /* ServerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/Network/ServerConnection.swift /* ServerConnection.swift */; };
 		__src_cc_ref_Sources/Network/ServerUtil.swift /* ServerUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/Network/ServerUtil.swift /* ServerUtil.swift */; };
-		__src_cc_ref_Sources/EagleServer/BlogResponder.swift /* BlogResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/EagleServer/BlogResponder.swift /* BlogResponder.swift */; };
-		__src_cc_ref_Sources/EagleServer/main.swift /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/EagleServer/main.swift /* main.swift */; };
-		__src_cc_ref_Sources/EagleTests/JSONTests.swift /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/EagleTests/JSONTests.swift /* JSONTests.swift */; };
-		__src_cc_ref_Sources/EagleTests/ModelTests.swift /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/EagleTests/ModelTests.swift /* ModelTests.swift */; };
-		__src_cc_ref_Sources/EagleTests/SQLiteDatabaseTests.swift /* SQLiteDatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/EagleTests/SQLiteDatabaseTests.swift /* SQLiteDatabaseTests.swift */; };
-		__src_cc_ref_Sources/EagleTests/StringExtensionTests.swift /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/EagleTests/StringExtensionTests.swift /* StringExtensionTests.swift */; };
-		__src_cc_ref_Sources/EagleTests/TemplateTests.swift /* TemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/EagleTests/TemplateTests.swift /* TemplateTests.swift */; };
-		__src_cc_ref_Sources/EagleTests/TemplateTokenizerTests.swift /* TemplateTokenizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/EagleTests/TemplateTokenizerTests.swift /* TemplateTokenizerTests.swift */; };
-		__src_cc_ref_Sources/EagleTests/TestCase.swift /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/EagleTests/TestCase.swift /* TestCase.swift */; };
-		__src_cc_ref_Sources/EagleTests/main.swift /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/EagleTests/main.swift /* main.swift */; };
 		__src_cc_ref_Sources/Template/Template.swift /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/Template/Template.swift /* Template.swift */; };
 		__src_cc_ref_Sources/Template/TemplateExpressionNode.swift /* TemplateExpressionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/Template/TemplateExpressionNode.swift /* TemplateExpressionNode.swift */; };
 		__src_cc_ref_Sources/Template/TemplateNode.swift /* TemplateNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/Template/TemplateNode.swift /* TemplateNode.swift */; };
@@ -97,6 +97,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		__PBXFileRef_EagleFramework.xcodeproj/Configs/Project.xcconfig /* Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Project.xcconfig; path = EagleFramework.xcodeproj/Configs/Project.xcconfig; sourceTree = "<group>"; };
 		__PBXFileRef_Package.swift /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/Base/JSON.swift /* JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/Base/Settings.swift /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -104,6 +105,16 @@
 		__PBXFileRef_Sources/Database/Database.swift /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/Database/Model.swift /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/Database/SQLiteDatabase.swift /* SQLiteDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDatabase.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Sources/EagleServer/BlogResponder.swift /* BlogResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogResponder.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Sources/EagleServer/main.swift /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Sources/EagleTests/JSONTests.swift /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Sources/EagleTests/ModelTests.swift /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Sources/EagleTests/SQLiteDatabaseTests.swift /* SQLiteDatabaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDatabaseTests.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Sources/EagleTests/StringExtensionTests.swift /* StringExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Sources/EagleTests/TemplateTests.swift /* TemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateTests.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Sources/EagleTests/TemplateTokenizerTests.swift /* TemplateTokenizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateTokenizerTests.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Sources/EagleTests/TestCase.swift /* TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Sources/EagleTests/main.swift /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/Http/ContentType.swift /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/Http/FileResponder.swift /* FileResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileResponder.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/Http/HttpConnection.swift /* HttpConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpConnection.swift; sourceTree = "<group>"; };
@@ -117,29 +128,18 @@
 		__PBXFileRef_Sources/Network/Server.swift /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/Network/ServerConnection.swift /* ServerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnection.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/Network/ServerUtil.swift /* ServerUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerUtil.swift; sourceTree = "<group>"; };
-		__PBXFileRef_Sources/EagleServer/BlogResponder.swift /* BlogResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogResponder.swift; sourceTree = "<group>"; };
-		__PBXFileRef_Sources/EagleServer/main.swift /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		__PBXFileRef_Sources/EagleTests/JSONTests.swift /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
-		__PBXFileRef_Sources/EagleTests/ModelTests.swift /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
-		__PBXFileRef_Sources/EagleTests/SQLiteDatabaseTests.swift /* SQLiteDatabaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDatabaseTests.swift; sourceTree = "<group>"; };
-		__PBXFileRef_Sources/EagleTests/StringExtensionTests.swift /* StringExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
-		__PBXFileRef_Sources/EagleTests/TemplateTests.swift /* TemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateTests.swift; sourceTree = "<group>"; };
-		__PBXFileRef_Sources/EagleTests/TemplateTokenizerTests.swift /* TemplateTokenizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateTokenizerTests.swift; sourceTree = "<group>"; };
-		__PBXFileRef_Sources/EagleTests/TestCase.swift /* TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
-		__PBXFileRef_Sources/EagleTests/main.swift /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/Template/Template.swift /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/Template/TemplateExpressionNode.swift /* TemplateExpressionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateExpressionNode.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/Template/TemplateNode.swift /* TemplateNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateNode.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/Template/TemplateParser.swift /* TemplateParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateParser.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/Template/TemplateTextNode.swift /* TemplateTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateTextNode.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/Template/TemplateTokenizer.swift /* TemplateTokenizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateTokenizer.swift; sourceTree = "<group>"; };
-		__PBXFileRef_EagleFramework.xcodeproj/Configs/Project.xcconfig /* Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Project.xcconfig; path = EagleFramework.xcodeproj/Configs/Project.xcconfig; sourceTree = "<group>"; };
 		"_____Product_Base" /* Base.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = Base.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		"_____Product_Database" /* Database.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = Database.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		"_____Product_Http" /* Http.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = Http.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		"_____Product_Network" /* Network.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = Network.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		"_____Product_EagleServer" /* EagleServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = EagleServer; sourceTree = BUILT_PRODUCTS_DIR; };
 		"_____Product_EagleTests" /* EagleTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = EagleTests; sourceTree = BUILT_PRODUCTS_DIR; };
+		"_____Product_Http" /* Http.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = Http.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		"_____Product_Network" /* Network.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = Network.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		"_____Product_Template" /* Template.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = Template.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -156,24 +156,6 @@
 			buildActionMask = 0;
 			files = (
 				_LinkFileRef_Base /* Base.dylib in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		"___LinkPhase_Http" /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 0;
-			files = (
-				0DF301421CDE91EC004B5B15 /* Base.dylib in Frameworks */,
-				_LinkFileRef_Network /* Network.dylib in Frameworks */,
-				_LinkFileRef_Template /* Template.dylib in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		"___LinkPhase_Network" /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 0;
-			files = (
-				0DF301431CDE91EC004B5B15 /* Base.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +178,24 @@
 				0DF301481CDE91EC004B5B15 /* Base.dylib in Frameworks */,
 				0DF301491CDE91EC004B5B15 /* Database.dylib in Frameworks */,
 				0DF3014A1CDE91EC004B5B15 /* Template.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		"___LinkPhase_Http" /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+				0DF301421CDE91EC004B5B15 /* Base.dylib in Frameworks */,
+				_LinkFileRef_Network /* Network.dylib in Frameworks */,
+				_LinkFileRef_Template /* Template.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		"___LinkPhase_Network" /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+				0DF301431CDE91EC004B5B15 /* Base.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +278,32 @@
 			path = Sources/Database;
 			sourceTree = "<group>";
 		};
+		"_______Group_EagleServer" /* EagleServer */ = {
+			isa = PBXGroup;
+			children = (
+				__PBXFileRef_Sources/EagleServer/BlogResponder.swift /* BlogResponder.swift */,
+				__PBXFileRef_Sources/EagleServer/main.swift /* main.swift */,
+			);
+			name = EagleServer;
+			path = Sources/EagleServer;
+			sourceTree = "<group>";
+		};
+		"_______Group_EagleTests" /* EagleTests */ = {
+			isa = PBXGroup;
+			children = (
+				__PBXFileRef_Sources/EagleTests/JSONTests.swift /* JSONTests.swift */,
+				__PBXFileRef_Sources/EagleTests/main.swift /* main.swift */,
+				__PBXFileRef_Sources/EagleTests/ModelTests.swift /* ModelTests.swift */,
+				__PBXFileRef_Sources/EagleTests/SQLiteDatabaseTests.swift /* SQLiteDatabaseTests.swift */,
+				__PBXFileRef_Sources/EagleTests/StringExtensionTests.swift /* StringExtensionTests.swift */,
+				__PBXFileRef_Sources/EagleTests/TemplateTests.swift /* TemplateTests.swift */,
+				__PBXFileRef_Sources/EagleTests/TemplateTokenizerTests.swift /* TemplateTokenizerTests.swift */,
+				__PBXFileRef_Sources/EagleTests/TestCase.swift /* TestCase.swift */,
+			);
+			name = EagleTests;
+			path = Sources/EagleTests;
+			sourceTree = "<group>";
+		};
 		"_______Group_Http" /* Http */ = {
 			isa = PBXGroup;
 			children = (
@@ -305,32 +331,6 @@
 			);
 			name = Network;
 			path = Sources/Network;
-			sourceTree = "<group>";
-		};
-		"_______Group_EagleServer" /* EagleServer */ = {
-			isa = PBXGroup;
-			children = (
-				__PBXFileRef_Sources/EagleServer/BlogResponder.swift /* BlogResponder.swift */,
-				__PBXFileRef_Sources/EagleServer/main.swift /* main.swift */,
-			);
-			name = EagleServer;
-			path = Sources/EagleServer;
-			sourceTree = "<group>";
-		};
-		"_______Group_EagleTests" /* EagleTests */ = {
-			isa = PBXGroup;
-			children = (
-				__PBXFileRef_Sources/EagleTests/JSONTests.swift /* JSONTests.swift */,
-				__PBXFileRef_Sources/EagleTests/main.swift /* main.swift */,
-				__PBXFileRef_Sources/EagleTests/ModelTests.swift /* ModelTests.swift */,
-				__PBXFileRef_Sources/EagleTests/SQLiteDatabaseTests.swift /* SQLiteDatabaseTests.swift */,
-				__PBXFileRef_Sources/EagleTests/StringExtensionTests.swift /* StringExtensionTests.swift */,
-				__PBXFileRef_Sources/EagleTests/TemplateTests.swift /* TemplateTests.swift */,
-				__PBXFileRef_Sources/EagleTests/TemplateTokenizerTests.swift /* TemplateTokenizerTests.swift */,
-				__PBXFileRef_Sources/EagleTests/TestCase.swift /* TestCase.swift */,
-			);
-			name = EagleTests;
-			path = Sources/EagleTests;
 			sourceTree = "<group>";
 		};
 		"_______Group_Template" /* Template */ = {
@@ -383,42 +383,6 @@
 			productReference = "_____Product_Database" /* Database.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
-		"______Target_Http" /* Http */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = "_______Confs_Http" /* Build configuration list for PBXNativeTarget "Http" */;
-			buildPhases = (
-				CompilePhase_Http /* Sources */,
-				"___LinkPhase_Http" /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				__Dependency_Base /* PBXTargetDependency */,
-				__Dependency_Network /* PBXTargetDependency */,
-				__Dependency_Template /* PBXTargetDependency */,
-			);
-			name = Http;
-			productName = Http;
-			productReference = "_____Product_Http" /* Http.dylib */;
-			productType = "com.apple.product-type.library.dynamic";
-		};
-		"______Target_Network" /* Network */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = "_______Confs_Network" /* Build configuration list for PBXNativeTarget "Network" */;
-			buildPhases = (
-				CompilePhase_Network /* Sources */,
-				"___LinkPhase_Network" /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				__Dependency_Base /* PBXTargetDependency */,
-			);
-			name = Network;
-			productName = Network;
-			productReference = "_____Product_Network" /* Network.dylib */;
-			productType = "com.apple.product-type.library.dynamic";
-		};
 		"______Target_EagleServer" /* EagleServer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = "_______Confs_EagleServer" /* Build configuration list for PBXNativeTarget "EagleServer" */;
@@ -458,6 +422,42 @@
 			productReference = "_____Product_EagleTests" /* EagleTests */;
 			productType = "com.apple.product-type.tool";
 		};
+		"______Target_Http" /* Http */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = "_______Confs_Http" /* Build configuration list for PBXNativeTarget "Http" */;
+			buildPhases = (
+				CompilePhase_Http /* Sources */,
+				"___LinkPhase_Http" /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				__Dependency_Base /* PBXTargetDependency */,
+				__Dependency_Network /* PBXTargetDependency */,
+				__Dependency_Template /* PBXTargetDependency */,
+			);
+			name = Http;
+			productName = Http;
+			productReference = "_____Product_Http" /* Http.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+		"______Target_Network" /* Network */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = "_______Confs_Network" /* Build configuration list for PBXNativeTarget "Network" */;
+			buildPhases = (
+				CompilePhase_Network /* Sources */,
+				"___LinkPhase_Network" /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				__Dependency_Base /* PBXTargetDependency */,
+			);
+			name = Network;
+			productName = Network;
+			productReference = "_____Product_Network" /* Network.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
 		"______Target_Template" /* Template */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = "_______Confs_Template" /* Build configuration list for PBXNativeTarget "Template" */;
@@ -488,6 +488,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = "___RootGroup_";
@@ -527,6 +528,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CompilePhase_EagleServer /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				__src_cc_ref_Sources/EagleServer/BlogResponder.swift /* BlogResponder.swift in Sources */,
+				__src_cc_ref_Sources/EagleServer/main.swift /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CompilePhase_EagleTests /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				__src_cc_ref_Sources/EagleTests/JSONTests.swift /* JSONTests.swift in Sources */,
+				__src_cc_ref_Sources/EagleTests/main.swift /* main.swift in Sources */,
+				__src_cc_ref_Sources/EagleTests/ModelTests.swift /* ModelTests.swift in Sources */,
+				__src_cc_ref_Sources/EagleTests/SQLiteDatabaseTests.swift /* SQLiteDatabaseTests.swift in Sources */,
+				__src_cc_ref_Sources/EagleTests/StringExtensionTests.swift /* StringExtensionTests.swift in Sources */,
+				__src_cc_ref_Sources/EagleTests/TemplateTests.swift /* TemplateTests.swift in Sources */,
+				__src_cc_ref_Sources/EagleTests/TemplateTokenizerTests.swift /* TemplateTokenizerTests.swift in Sources */,
+				__src_cc_ref_Sources/EagleTests/TestCase.swift /* TestCase.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CompilePhase_Http /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
@@ -551,30 +576,6 @@
 				__src_cc_ref_Sources/Network/Server.swift /* Server.swift in Sources */,
 				__src_cc_ref_Sources/Network/ServerConnection.swift /* ServerConnection.swift in Sources */,
 				__src_cc_ref_Sources/Network/ServerUtil.swift /* ServerUtil.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CompilePhase_EagleServer /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				__src_cc_ref_Sources/EagleServer/BlogResponder.swift /* BlogResponder.swift in Sources */,
-				__src_cc_ref_Sources/EagleServer/main.swift /* main.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CompilePhase_EagleTests /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				__src_cc_ref_Sources/EagleTests/JSONTests.swift /* JSONTests.swift in Sources */,
-				__src_cc_ref_Sources/EagleTests/main.swift /* main.swift in Sources */,
-				__src_cc_ref_Sources/EagleTests/ModelTests.swift /* ModelTests.swift in Sources */,
-				__src_cc_ref_Sources/EagleTests/SQLiteDatabaseTests.swift /* SQLiteDatabaseTests.swift in Sources */,
-				__src_cc_ref_Sources/EagleTests/StringExtensionTests.swift /* StringExtensionTests.swift in Sources */,
-				__src_cc_ref_Sources/EagleTests/TemplateTests.swift /* TemplateTests.swift in Sources */,
-				__src_cc_ref_Sources/EagleTests/TemplateTokenizerTests.swift /* TemplateTokenizerTests.swift in Sources */,
-				__src_cc_ref_Sources/EagleTests/TestCase.swift /* TestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,24 +641,6 @@
 			};
 			name = Release;
 		};
-		_ReleaseConf_Http /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Packages/CSQLite3OSX-1.0.0";
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-			};
-			name = Release;
-		};
-		_ReleaseConf_Network /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Packages/CSQLite3OSX-1.0.0";
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-			};
-			name = Release;
-		};
 		_ReleaseConf_EagleServer /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -675,6 +658,24 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
+			};
+			name = Release;
+		};
+		_ReleaseConf_Http /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Packages/CSQLite3OSX-1.0.0";
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+			};
+			name = Release;
+		};
+		_ReleaseConf_Network /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Packages/CSQLite3OSX-1.0.0";
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 			};
 			name = Release;
 		};
@@ -707,26 +708,6 @@
 			};
 			name = Debug;
 		};
-		"___DebugConf_Http" /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Packages/CSQLite3OSX-1.0.0";
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = Debug;
-		};
-		"___DebugConf_Network" /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Packages/CSQLite3OSX-1.0.0";
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = Debug;
-		};
 		"___DebugConf_EagleServer" /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -749,6 +730,26 @@
 			};
 			name = Debug;
 		};
+		"___DebugConf_Http" /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Packages/CSQLite3OSX-1.0.0";
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		"___DebugConf_Network" /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Packages/CSQLite3OSX-1.0.0";
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
 		"___DebugConf_Template" /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -764,6 +765,7 @@
 			baseConfigurationReference = __PBXFileRef_EagleFramework.xcodeproj/Configs/Project.xcconfig /* Project.xcconfig */;
 			buildSettings = {
 				RESOURCES_PATH = "$(PROJECT_DIR)/Resources";
+				SWIFT_VERSION = 5.0;
 				WWW_PATH = "$(PROJECT_DIR)/www";
 			};
 			name = Release;
@@ -773,6 +775,7 @@
 			baseConfigurationReference = __PBXFileRef_EagleFramework.xcodeproj/Configs/Project.xcconfig /* Project.xcconfig */;
 			buildSettings = {
 				RESOURCES_PATH = "$(PROJECT_DIR)/Resources";
+				SWIFT_VERSION = 5.0;
 				WWW_PATH = "$(PROJECT_DIR)/www";
 			};
 			name = Debug;
@@ -807,24 +810,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		"_______Confs_Http" /* Build configuration list for PBXNativeTarget "Http" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				"___DebugConf_Http" /* Debug */,
-				_ReleaseConf_Http /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		"_______Confs_Network" /* Build configuration list for PBXNativeTarget "Network" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				"___DebugConf_Network" /* Debug */,
-				_ReleaseConf_Network /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
 		"_______Confs_EagleServer" /* Build configuration list for PBXNativeTarget "EagleServer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -839,6 +824,24 @@
 			buildConfigurations = (
 				"___DebugConf_EagleTests" /* Debug */,
 				_ReleaseConf_EagleTests /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		"_______Confs_Http" /* Build configuration list for PBXNativeTarget "Http" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				"___DebugConf_Http" /* Debug */,
+				_ReleaseConf_Http /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		"_______Confs_Network" /* Build configuration list for PBXNativeTarget "Network" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				"___DebugConf_Network" /* Debug */,
+				_ReleaseConf_Network /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

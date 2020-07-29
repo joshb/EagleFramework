@@ -1,70 +1,18 @@
+// swift-tools-version:5.2
+
 import PackageDescription
 
-#if os(Linux)
 let package = Package(
     name: "EagleFramework",
 
-    dependencies: [
-        .Package(url: "https://github.com/joshb/CEpoll.git", majorVersion: 1),
-        .Package(url: "https://github.com/joshb/CSQLite3Linux.git", majorVersion: 1)
-    ],
-
     targets: [
-        Target(name: "Base"),
-        Target(name: "Database",
-               dependencies: [.Target(name: "Base")]),
-        Target(name: "Http",
-               dependencies: [.Target(name: "Base"),
-                              .Target(name: "Network"),
-                              .Target(name: "Template")]),
-        Target(name: "Network",
-               dependencies: [.Target(name: "Base")]),
-        Target(name: "Template",
-               dependencies: [.Target(name: "Base")]),
+        .target(name: "Base"),
+        .target(name: "Database", dependencies: ["Base"]),
+        .target(name: "Http", dependencies: ["Base", "Network", "Template"]),
+        .target(name: "Network", dependencies: ["Base"]),
+        .target(name: "Template", dependencies: ["Base"]),
 
-        Target(name: "EagleServer",
-               dependencies: [.Target(name: "Base"),
-                              .Target(name: "Database"),
-                              .Target(name: "Http"),
-                              .Target(name: "Network")]),
-
-        Target(name: "EagleTests",
-               dependencies: [.Target(name: "Base"),
-                              .Target(name: "Database"),
-                              .Target(name: "Template")])
+        .target(name: "EagleServer", dependencies: ["Base", "Database", "Http", "Network"]),
+        .target(name: "EagleTests", dependencies: ["Base", "Database", "Template"])
     ]
 )
-#else
-let package = Package(
-    name: "EagleFramework",
-
-    dependencies: [
-        .Package(url: "https://github.com/joshb/CSQLite3OSX.git", majorVersion: 1)
-    ],
-
-    targets: [
-        Target(name: "Base"),
-        Target(name: "Database",
-               dependencies: [.Target(name: "Base")]),
-        Target(name: "Http",
-               dependencies: [.Target(name: "Base"),
-                              .Target(name: "Network"),
-                              .Target(name: "Template")]),
-        Target(name: "Network",
-               dependencies: [.Target(name: "Base")]),
-        Target(name: "Template",
-               dependencies: [.Target(name: "Base")]),
-
-        Target(name: "EagleServer",
-               dependencies: [.Target(name: "Base"),
-                              .Target(name: "Database"),
-                              .Target(name: "Http"),
-                              .Target(name: "Network")]),
-
-        Target(name: "EagleTests",
-               dependencies: [.Target(name: "Base"),
-                              .Target(name: "Database"),
-                              .Target(name: "Template")])
-    ]
-)
-#endif

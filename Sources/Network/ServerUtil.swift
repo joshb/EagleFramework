@@ -59,29 +59,14 @@ internal class ServerUtil {
     }
 #endif
 
-    private class var hostIsLittleEndian: Bool {
-        let a: [UInt8] = [0, 1]
-        let b = UnsafePointer<UInt16>(a)
-        let c = b[0]
-        return c == 256
+    class func doBind(_ descriptor: Descriptor, address: UnsafeRawPointer, len: socklen_t) -> Int32 {
+        let a = address.assumingMemoryBound(to: sockaddr.self)
+        return bind(descriptor, a, len)
     }
 
-    private class func hostToNetwork(_ port: Port) -> Port {
-        if hostIsLittleEndian {
-            let a = port & 0xff
-            let b = (port >> 8) & 0xff
-            return (a << 8) | b
-        }
-
-        return port
-    }
-
-    class func doBind(_ descriptor: Descriptor, address: UnsafePointer<Void>, len: socklen_t) -> Int32 {
-        return bind(descriptor, UnsafePointer<sockaddr>(address), len)
-    }
-
-    class func doAccept(_ descriptor: Descriptor, address: UnsafePointer<Void>, len: inout socklen_t) -> Int32 {
-        return accept(descriptor, UnsafeMutablePointer<sockaddr>(address), &len)
+    class func doAccept(_ descriptor: Descriptor, address: UnsafeMutableRawPointer, len: inout socklen_t) -> Int32 {
+        let a = address.assumingMemoryBound(to: sockaddr.self)
+        return accept(descriptor, a, &len)
     }
 
     class func createSocket(_ endpoint: Endpoint) -> Descriptor? {
@@ -95,15 +80,11 @@ internal class ServerUtil {
 
         if endpoint.address.type == .IPv4 {
             var sin = sockaddr_in()
-            bzero(&sin, sizeofValue(sin))
-#if os(Linux)
-            sin.sin_family = UInt16(AF_INET)
-#else
-            sin.sin_family = UInt8(AF_INET)
-#endif
-            sin.sin_port = hostToNetwork(endpoint.port)
+            bzero(&sin, MemoryLayout.size(ofValue: sin))
+            sin.sin_family = sa_family_t(AF_INET)
+            sin.sin_port = endpoint.port.bigEndian
             memcpy(&sin.sin_addr, endpoint.address.address, 4)
-            let len = UInt32(sizeofValue(sin))
+            let len = UInt32(MemoryLayout.size(ofValue: sin))
 
             if doBind(descriptor, address: &sin, len: len) == -1 {
                 close(descriptor)
@@ -111,15 +92,11 @@ internal class ServerUtil {
             }
         } else {
             var sin6 = sockaddr_in6()
-            bzero(&sin6, sizeofValue(sin6))
-#if os(Linux)
-            sin6.sin6_family = UInt16(AF_INET6)
-#else
-            sin6.sin6_family = UInt8(AF_INET6)
-#endif
-            sin6.sin6_port = hostToNetwork(endpoint.port)
+            bzero(&sin6, MemoryLayout.size(ofValue: sin6))
+            sin6.sin6_family = sa_family_t(AF_INET6)
+            sin6.sin6_port = endpoint.port.bigEndian
             memcpy(&sin6.sin6_addr, endpoint.address.address, 16)
-            let len = UInt32(sizeofValue(sin6))
+            let len = UInt32(MemoryLayout.size(ofValue: sin6))
 
             if doBind(descriptor, address: &sin6, len: len) == -1 {
                 close(descriptor)
@@ -142,8 +119,8 @@ internal class ServerUtil {
 
         if localEndpoint.address.type == .IPv4 {
             var sin = sockaddr_in()
-            bzero(&sin, sizeofValue(sin))
-            var len = socklen_t(sizeofValue(sin))
+            bzero(&sin, MemoryLayout.size(ofValue: sin))
+            var len = socklen_t(MemoryLayout.size(ofValue: sin))
 
             newDescriptor = doAccept(descriptor, address: &sin, len: &len)
             guard newDescriptor != -1 else {
@@ -151,11 +128,11 @@ internal class ServerUtil {
             }
 
             memcpy(&rawAddress, &sin.sin_addr, 4)
-            newPort = hostToNetwork(sin.sin_port)
+            newPort = sin.sin_port.bigEndian
         } else {
             var sin6 = sockaddr_in6()
-            bzero(&sin6, sizeofValue(sin6))
-            var len = socklen_t(sizeofValue(sin6))
+            bzero(&sin6, MemoryLayout.size(ofValue: sin6))
+            var len = socklen_t(MemoryLayout.size(ofValue: sin6))
 
             newDescriptor = doAccept(descriptor, address: &sin6, len: &len)
             guard newDescriptor != -1 else {
@@ -163,7 +140,7 @@ internal class ServerUtil {
             }
 
             memcpy(&rawAddress, &sin6.sin6_addr, 16)
-            newPort = hostToNetwork(sin6.sin6_port)
+            newPort = sin6.sin6_port.bigEndian
         }
 
         let newAddress = Address.init(type: localEndpoint.address.type, address: rawAddress, hostname: nil)

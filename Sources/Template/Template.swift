@@ -25,7 +25,7 @@
 
 import Base
 
-public enum TemplateError: ErrorProtocol {
+public enum TemplateError: Error {
     case UnableToOpenFile
 }
 
@@ -72,7 +72,7 @@ public class Template: CustomStringConvertible, TemplateParserDelegate {
 
     public static func fromFile(_ path: String) throws -> Template {
         let fullPath = Settings.getAbsoluteResourcePath(path)
-        if let source = try? String(contentsOfFile: fullPath, encoding: 4) {
+        if let source = try? String(contentsOfFile: fullPath, encoding: .utf8) {
             return try Template(source: source)
         }
 

@@ -30,7 +30,7 @@ import Darwin
 #endif
 
 /// Represents a connection to the server.
-public class ServerConnection: CustomStringConvertible {
+open class ServerConnection: CustomStringConvertible {
     public var shouldClose = false
 
     private(set) var descriptor: Descriptor
@@ -66,7 +66,7 @@ public class ServerConnection: CustomStringConvertible {
         }
 
         data.append(CChar(0))
-        return String(cString: data) ?? ""
+        return String(cString: data)
     }
 
     public func send(data: [CChar]) -> Int {
@@ -78,12 +78,7 @@ public class ServerConnection: CustomStringConvertible {
     }
 
     public func send(string: String) -> Int {
-        let data = string.utf8CString
-#if os(Linux)
-        return Glibc.send(descriptor, data, data.count - 1, 0)
-#else
-        return Darwin.send(descriptor, data, data.count - 1, 0)
-#endif
+        return self.send(data: string.cString(using: .utf8)!)
     }
 
     public func send(line: String) -> Int {

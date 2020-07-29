@@ -30,18 +30,14 @@ private func objectToJSON(_ object: AnyObject?, compact: Bool) -> String? {
         return nil
     }
 
-    guard NSJSONSerialization.isValidJSONObject(object!) else {
+    guard JSONSerialization.isValidJSONObject(object!) else {
         return nil
     }
 
-#if os(Linux)
-    let options = compact ? NSJSONWritingOptions() : NSJSONWritingOptions.PrettyPrinted
-#else
-    let options = compact ? NSJSONWritingOptions() : NSJSONWritingOptions.prettyPrinted
-#endif
-    if let data = try? NSJSONSerialization.data(withJSONObject: object!, options: options) {
-        var bytes = [CChar](repeating: 0, count: data.length + 1)
-        data.getBytes(&bytes, length: data.length)
+    let options = compact ? JSONSerialization.WritingOptions() : JSONSerialization.WritingOptions.prettyPrinted
+    if let data = try? JSONSerialization.data(withJSONObject: object!, options: options) {
+        var bytes = [UInt8](repeating: 0, count: data.count + 1)
+        data.copyBytes(to: &bytes, count: data.count)
         return String(cString: bytes)
     }
 
@@ -49,13 +45,13 @@ private func objectToJSON(_ object: AnyObject?, compact: Bool) -> String? {
 }
 
 public extension Array {
-    public func toJSON(compact: Bool = true) -> String? {
-        return objectToJSON(self as? AnyObject, compact: compact)
+    func toJSON(compact: Bool = true) -> String? {
+        return objectToJSON(self as AnyObject, compact: compact)
     }
 }
 
 public extension Dictionary {
-    public func toJSON(compact: Bool = true) -> String? {
-        return objectToJSON(self as? AnyObject, compact: compact)
+    func toJSON(compact: Bool = true) -> String? {
+        return objectToJSON(self as AnyObject, compact: compact)
     }
 }
