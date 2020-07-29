@@ -40,10 +40,10 @@ public class HttpConnection: ServerConnection {
 
     /// Sends the given response to the client.
     public func send(response: HttpResponse) {
-        send(string: response.descriptionWithHeaders + "\r\n\r\n")
+        _ = send(string: response.descriptionWithHeaders + "\r\n\r\n")
 
         if let binaryContent = response.binaryContent {
-            send(data: binaryContent)
+            _ = send(data: binaryContent)
         }
     }
 
@@ -63,7 +63,7 @@ public class HttpConnection: ServerConnection {
             process(request: request)
             requestAwaitingPostData = nil
             lines = []
-        } else if line.length == 0 {
+        } else if line.count == 0 {
             if let request = HttpRequest.parse(lines: lines) {
                 if request.method == "POST" {
                     requestAwaitingPostData = request

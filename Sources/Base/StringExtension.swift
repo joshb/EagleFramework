@@ -39,7 +39,7 @@ public extension String {
 
         // Remove any trailing slashes.
         while p2.hasSuffix("/") {
-            p2 = p2.substring(to: p2.index(before: p2.endIndex)).trimmed
+            p2.removeLast()
         }
 
         if p2.isEmpty && !p1.hasPrefix("/") {
@@ -51,36 +51,10 @@ public extension String {
         }
 
         if !p2.isEmpty && p1.hasPrefix(p2 + "/") {
-            return p1.substring(from: p2.length + 1)
+            return String(p1[p1.index(p1.startIndex, offsetBy: p2.count+1)..<p1.endIndex])
         }
 
         return nil
-    }
-
-    /// The string's character count.
-    var length: Int {
-        return self.count
-    }
-
-    /// Gets a substring of the string.
-    ///
-    /// - parameter from: The starting index to create the substring from.
-    /// - parameter length: The length of the substring.
-    /// - returns: A substring from the starting index and with the given length.
-    func substring(from startIndex: Int, length: Int) -> String {
-        let start = self.index(self.startIndex, offsetBy: startIndex)
-        let end = self.index(start, offsetBy: length)
-        return self.substring(with: Range(uncheckedBounds: (start, end)))
-    }
-
-    /// Gets a substring of the string.
-    ///
-    /// - parameter from: The starting index to create the substring from.
-    /// - returns: A substring from the starting index up to the end of the string.
-    func substring(from startIndex: Int) -> String {
-        let start = self.index(self.startIndex, offsetBy: startIndex)
-        let end = self.endIndex
-        return self.substring(with: Range(uncheckedBounds: (start, end)))
     }
 
     /// Checks whether or not the given character is a whitespace character.
@@ -124,21 +98,16 @@ public extension String {
                 break
             }
 
-            var hexInt: UInt32 = 0
-            let hex = s2.substring(with: Range(uncheckedBounds: (hexStart, hexEnd)))
-            let scanner = Scanner(string: hex)
-#if os(Linux)
-            let result = scanner.scanHexInt(&hexInt)
-#else
-            let result = scanner.scanHexInt32(&hexInt)
-#endif
+            let scanner = Scanner(string: String(s2[hexStart..<hexEnd]))
+            var hexInt: UInt64 = 0
+            let result = scanner.scanHexInt64(&hexInt)
             if !result {
                 break
             }
 
-            s1 += s2.substring(with: Range(uncheckedBounds: (s2.startIndex, range.lowerBound)))
-            s1 += String(UnicodeScalar(hexInt)!)
-            s2 = s2.substring(with: Range(uncheckedBounds: (hexEnd, s2.endIndex)))
+            s1 += String(s2[s2.startIndex..<range.lowerBound])
+            s1 += String(UnicodeScalar(UInt32(hexInt))!)
+            s2 = String(s2[hexEnd..<s2.endIndex])
         }
 
         return s1 + s2

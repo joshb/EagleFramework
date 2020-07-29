@@ -38,16 +38,6 @@ class StringExtensionTests: TestCase {
                 try assertEqual("index.html".relativeToPath(""), "index.html")
             },
 
-            "testLength": {
-                try assertEqual("".length, 0)
-                try assertEqual("Hello, world!".length, 13)
-            },
-
-            "testSubstring": {
-                try assertEqual("Hello, world!".substring(from: 7, length: 5), "world")
-                try assertEqual("0123".substring(from: 1), "123")
-            },
-
             "testIsWhitespace": {
                 try assertEqual(String.isWhitespace("\t"), true)
                 try assertEqual(String.isWhitespace("\r"), true)
