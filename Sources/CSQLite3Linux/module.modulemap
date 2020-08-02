@@ -1,0 +1,5 @@
+module CSQLite3Linux [system] {
+    header "/usr/include/sqlite3.h"
+    link "sqlite3"
+    export *
+}
