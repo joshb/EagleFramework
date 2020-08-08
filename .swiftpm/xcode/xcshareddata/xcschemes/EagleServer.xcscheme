@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "______Target_EagleServer"
+               BlueprintIdentifier = "EagleServer"
                BuildableName = "EagleServer"
                BlueprintName = "EagleServer"
-               ReferencedContainer = "container:EagleFramework.xcodeproj">
+               ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -44,15 +44,15 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "______Target_EagleServer"
+            BlueprintIdentifier = "EagleServer"
             BuildableName = "EagleServer"
             BlueprintName = "EagleServer"
-            ReferencedContainer = "container:EagleFramework.xcodeproj">
+            ReferencedContainer = "container:">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "$(WWW_PATH) $(RESOURCES_PATH)"
+            argument = "$(SRCROOT)/www $(SRCROOT)/Resources"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
@@ -67,10 +67,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "______Target_EagleServer"
+            BlueprintIdentifier = "EagleServer"
             BuildableName = "EagleServer"
             BlueprintName = "EagleServer"
-            ReferencedContainer = "container:EagleFramework.xcodeproj">
+            ReferencedContainer = "container:">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
