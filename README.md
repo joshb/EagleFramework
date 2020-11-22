@@ -20,7 +20,7 @@ Usage
 Run the following commands from the EagleFramework root directory to build and run the example web server application:
 
     swift build
-    .build/debug/EagleServer www Resources
+    ./.build/debug/EagleServer www Resources
 
 By default, the server binds to localhost (both IPv4 and IPv6) on port 5000, and serves the files stored in the directory given after the executable path (in the above example, this is the [www](https://github.com/joshb/EagleServer/tree/master/www) directory). The Resources directory given last can contain files used by the server that are not served by default like the files in the www directory. If you have the server running, go to http://localhost:5000/index.html to see the welcome page. When you're done, just hit Ctrl-C to stop the server.
 
