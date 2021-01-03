@@ -5,9 +5,10 @@ Eagle Framework is a small and simple framework for creating network servers and
 
 Currently implemented features include:
 
- - Handling multiple connections simultaneously
+ - Handling multiple connections efficiently using kernel queues on macOS and epoll on Linux
  - Serving static content (such as HTML and CSS files)
  - A simple template engine that can be used to embed values from a dictionary in rendered output
+ - An Object-Relational Mapping (ORM) system that can be used to access SQLite databases
 
 This software was developed by [Josh Beam](https://joshbeam.com/) and is distributed under a [BSD-style license](LICENSE).
 
