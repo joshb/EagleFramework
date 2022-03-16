@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.6
 
 import PackageDescription
 
@@ -26,13 +26,14 @@ let package = Package(
 
     targets: [
         .target(name: "Base"),
+        .testTarget(name: "BaseTests", dependencies: ["Base"]),
+
         .target(name: "Database", dependencies: ["Base"]),
         .target(name: "Http", dependencies: ["Base", "Network", "Template"]),
         .target(name: "Network", dependencies: ["Base"]),
         .target(name: "Template", dependencies: ["Base"]),
 
-        .target(name: "EagleServer", dependencies: ["Base", "Database", "Http", "Network"]),
-        .target(name: "EagleTests", dependencies: ["Base", "Database", "Template"])
+        .executableTarget(name: "EagleServer", dependencies: ["Base", "Database", "Http", "Network"])
     ]
 )
 #endif

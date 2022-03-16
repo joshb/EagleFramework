@@ -23,15 +23,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Base
+import XCTest
 
-class JSONTests: TestCase {
-    override var tests: TestDictionary {
-        return [
-            "testToJSON": {
-                try assertEqual([1, 2, 3].toJSON(), "[1,2,3]")
-                try assertEqual(["abc": 123].toJSON(), "{\"abc\":123}")
-            }
-        ]
+@testable import Base
+
+final class JSONTests: XCTestCase {
+    func testToJSON() throws {
+        XCTAssertEqual([1, 2, 3].toJSON(), "[1,2,3]")
+        XCTAssertEqual(["abc": 123].toJSON(), "{\"abc\":123}")
     }
 }
