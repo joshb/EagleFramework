@@ -14,7 +14,7 @@ This software was developed by [Josh Beam](https://joshbeam.com/) and is distrib
 
 Supported Platforms
 -------------------
-This software has been developed and tested on macOS Big Sur and Ubuntu 20.04. It can be built using [Swift 5.3](https://swift.org/download/) with the Swift package manager.
+This software has been developed and tested on macOS Monterey and Ubuntu 20.04. It can be built using [Swift 5.6](https://swift.org/download/) with the Swift package manager.
 
 Usage
 -----
