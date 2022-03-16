@@ -23,9 +23,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Template
+import XCTest
 
-class TemplateTokenizerTests: TestCase {
+@testable import Template
+
+final class TemplateTokenizerTests: XCTestCase {
     class TestTemplateTokenizerDelegate: TemplateTokenizerDelegate {
         var events: [String] = []
 
@@ -68,37 +70,33 @@ class TemplateTokenizerTests: TestCase {
         super.tearDown()
     }
 
-    override var tests: TestDictionary {
-        return [
-            "test1": {
-                try self.tokenizer.processString("hello")
-                try assertEqual(self.delegate.events, ["text: hello"])
-            },
+    func test1() throws {
+        try self.tokenizer.processString("hello")
+        XCTAssertEqual(self.delegate.events, ["text: hello"])
+    }
 
-            "test2": {
-                try self.tokenizer.processString("<%%>")
-                try assertEqual(self.delegate.events, ["codeStart", "codeStop"])
-            },
+    func test2() throws {
+        try self.tokenizer.processString("<%%>")
+        XCTAssertEqual(self.delegate.events, ["codeStart", "codeStop"])
+    }
 
-            "test3": {
-                try self.tokenizer.processString("hello <%=name%>!")
-                try assertEqual(self.delegate.events, ["text: hello ", "codeStart", "unquotedToken: =",
-                                                       "unquotedToken: name", "codeStop", "text: !"])
-            },
+    func test3() throws {
+        try self.tokenizer.processString("hello <%=name%>!")
+        XCTAssertEqual(self.delegate.events, ["text: hello ", "codeStart", "unquotedToken: =",
+                                              "unquotedToken: name", "codeStop", "text: !"])
+    }
 
-            "test4": {
-                try self.tokenizer.processString("<%= \"Hello, \" + name %>")
-                try assertEqual(self.delegate.events, ["codeStart", "unquotedToken: =", "quotedToken: Hello, ",
-                                                       "unquotedToken: +", "unquotedToken: name", "codeStop"])
-            },
+    func test4() throws {
+        try self.tokenizer.processString("<%= \"Hello, \" + name %>")
+        XCTAssertEqual(self.delegate.events, ["codeStart", "unquotedToken: =", "quotedToken: Hello, ",
+                                              "unquotedToken: +", "unquotedToken: name", "codeStop"])
+    }
 
-            "test5": {
-                try self.tokenizer.processString("text.<%code!%>now text!<% and code.%>")
-                try assertEqual(self.delegate.events, ["text: text.", "codeStart", "unquotedToken: code",
-                                                       "unquotedToken: !", "codeStop", "text: now text!",
-                                                       "codeStart", "unquotedToken: and", "unquotedToken: code",
-                                                       "unquotedToken: .", "codeStop"])
-            }
-        ]
+    func test5() throws {
+        try self.tokenizer.processString("text.<%code!%>now text!<% and code.%>")
+        XCTAssertEqual(self.delegate.events, ["text: text.", "codeStart", "unquotedToken: code",
+                                              "unquotedToken: !", "codeStop", "text: now text!",
+                                              "codeStart", "unquotedToken: and", "unquotedToken: code",
+                                              "unquotedToken: .", "codeStop"])
     }
 }

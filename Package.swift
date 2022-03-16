@@ -33,7 +33,9 @@ let package = Package(
 
         .target(name: "Http", dependencies: ["Base", "Network", "Template"]),
         .target(name: "Network", dependencies: ["Base"]),
+
         .target(name: "Template", dependencies: ["Base"]),
+        .testTarget(name: "TemplateTests", dependencies: ["Template"]),
 
         .executableTarget(name: "EagleServer", dependencies: ["Base", "Database", "Http", "Network"])
     ]

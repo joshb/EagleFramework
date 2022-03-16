@@ -23,22 +23,20 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Template
+import XCTest
 
-class TemplateTests: TestCase {
-    override var tests: TestDictionary {
-        return [
-            "test1": {
-                let template = try Template(source: "Hello, world!")
-                try assertEqual(template.render([:]), "Hello, world!")
-            },
+@testable import Template
 
-            "test2": {
-                let template = try Template(source: "Hello, <%=name%>!")
-                let data: [String: Any] = ["name": "Josh"]
+final class TemplateTests: XCTestCase {
+    func test1() throws {
+        let template = try Template(source: "Hello, world!")
+        XCTAssertEqual(template.render([:]), "Hello, world!")
+    }
 
-                try assertEqual(template.render(data), "Hello, Josh!")
-            }
-        ]
+    func test2() throws {
+        let template = try Template(source: "Hello, <%=name%>!")
+        let data: [String: Any] = ["name": "Josh"]
+
+        XCTAssertEqual(template.render(data), "Hello, Josh!")
     }
 }
