@@ -29,6 +29,8 @@ let package = Package(
         .testTarget(name: "BaseTests", dependencies: ["Base"]),
 
         .target(name: "Database", dependencies: ["Base"]),
+        .testTarget(name: "DatabaseTests", dependencies: ["Database"]),
+
         .target(name: "Http", dependencies: ["Base", "Network", "Template"]),
         .target(name: "Network", dependencies: ["Base"]),
         .target(name: "Template", dependencies: ["Base"]),

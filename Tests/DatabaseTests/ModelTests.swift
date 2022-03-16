@@ -23,33 +23,31 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Database
+import XCTest
 
-class ModelTests: TestCase {
-    override var tests: TestDictionary {
-        return [
-            "testPropertyValues": {
-                class TestModel: Model {
-                    let boolProperty = Model.BoolProperty(defaultValue: false)
-                    let doubleProperty = Model.DoubleProperty(defaultValue: 1.23)
-                    let intProperty = Model.IntProperty(defaultValue: 42)
-                    let stringProperty = Model.StringProperty(defaultValue: "Hello")
+@testable import Database
 
-                    required init() {}
-                }
+final class ModelTests: XCTestCase {
+    func testPropertyValues() throws {
+        class TestModel: Model {
+            let boolProperty = Model.BoolProperty(defaultValue: false)
+            let doubleProperty = Model.DoubleProperty(defaultValue: 1.23)
+            let intProperty = Model.IntProperty(defaultValue: 42)
+            let stringProperty = Model.StringProperty(defaultValue: "Hello")
 
-                let model = TestModel()
-                let propertyValues = model.propertyValues
-                try assertEqual(propertyValues.count, 4)
-                try assertEqual(propertyValues[0].name, "boolProperty")
-                try assertEqual(propertyValues[0].value as? Bool, false)
-                try assertEqual(propertyValues[1].value as? Double, 1.23)
-                try assertEqual(propertyValues[1].name, "doubleProperty")
-                try assertEqual(propertyValues[2].value as? Int64, 42)
-                try assertEqual(propertyValues[2].name, "intProperty")
-                try assertEqual(propertyValues[3].value as? String, "Hello")
-                try assertEqual(propertyValues[3].name, "stringProperty")
-            }
-        ]
+            required init() {}
+        }
+
+        let model = TestModel()
+        let propertyValues = model.propertyValues
+        XCTAssertEqual(propertyValues.count, 4)
+        XCTAssertEqual(propertyValues[0].name, "boolProperty")
+        XCTAssertEqual(propertyValues[0].value as? Bool, false)
+        XCTAssertEqual(propertyValues[1].value as? Double, 1.23)
+        XCTAssertEqual(propertyValues[1].name, "doubleProperty")
+        XCTAssertEqual(propertyValues[2].value as? Int64, 42)
+        XCTAssertEqual(propertyValues[2].name, "intProperty")
+        XCTAssertEqual(propertyValues[3].value as? String, "Hello")
+        XCTAssertEqual(propertyValues[3].name, "stringProperty")
     }
 }
