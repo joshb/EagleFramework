@@ -16,8 +16,7 @@ let package = Package(
         .target(name: "Network", dependencies: ["Base", "CEpoll"]),
         .target(name: "Template", dependencies: ["Base"]),
 
-        .target(name: "EagleServer", dependencies: ["Base", "Database", "Http", "Network"]),
-        .target(name: "EagleTests", dependencies: ["Base", "Database", "Template"])
+        .executableTarget(name: "EagleServer", dependencies: ["Base", "Database", "Http", "Network"])
     ]
 )
 #else
