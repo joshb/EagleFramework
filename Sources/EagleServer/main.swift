@@ -37,7 +37,12 @@ ResponderRegistry.register(responder: try BlogResponder(webPath: "blog", databas
 
 let port: Port = 5000
 let server = try HttpServer(hostname: "127.0.0.1", port: port)
-try server.addLocalEndpoint(hostname: "::1", port: port)
+
+do {
+    try server.addLocalEndpoint(hostname: "::1", port: port)
+} catch {
+    print("Unable to listen for IPv6 connections; using IPv4 only")
+}
 
 print("Server started")
 try server.run()
